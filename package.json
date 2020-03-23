@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@shopify/polaris": "^4.16.1",
+    "@material-ui/core": "^4.9.7",
     "@shopify/polaris-icons": "^3.10.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -15,6 +15,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
+    "typeface-roboto": "0.0.75",
     "typescript": "^3.8.3"
   },
   "scripts": {

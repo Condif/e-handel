@@ -7,6 +7,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Product } from "../mockProducts/iProduct";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -34,13 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-interface Product {
-	productName: string;
-	imgSrc: string;
-	price: number;
-	description: string;
-}
-
 interface Props {
 	product: Product;
 }
@@ -66,12 +60,12 @@ export default function CardMaker(props: Props) {
 						<ShoppingCartIcon />
 					</IconButton>
 				}
-				title={props.product.productName}
+				title={props.product.name}
 				subheader={props.product.price}
 			/>
 			<CardMedia
 				className={classes.media}
-				image={props.product.imgSrc}
+				image={props.product.img}
 			/>
 
 			<CardActions disableSpacing>
@@ -96,7 +90,7 @@ export default function CardMaker(props: Props) {
 				<CardContent>
 					<Typography paragraph>Description:</Typography>
 					<Typography paragraph>
-						{props.product.description}
+						{props.product.desc}
 					</Typography>
 				</CardContent>
 			</Collapse>

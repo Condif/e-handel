@@ -3,7 +3,7 @@ import "./App.css";
 import Footer from "../footer/footer";
 import CardMaker from "../cardMaker/cardMaker";
 
-import { Container, Typography, Button, Box } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline";
 
 function App() {

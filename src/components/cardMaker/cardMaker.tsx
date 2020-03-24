@@ -15,6 +15,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Product } from "../mockProducts/iProduct";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -42,12 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-interface Product {
-	productName: string;
-	imgSrc: string;
-	price: number;
-	description: string;
-}
+
 
 interface Props {
 	product: Product;

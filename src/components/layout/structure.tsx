@@ -2,6 +2,7 @@ import React from 'react'
 import "./structure.css"
 import {Topbar} from '../topbar/topbar'
 import { Container, Box, Typography, Button } from '@material-ui/core'
+import Cart from '../cart/cart'
 
 export default function Structure() {
     return (
@@ -16,6 +17,7 @@ export default function Structure() {
             <Button variant="contained" color="primary">
                 Hello World
             </Button>
+            <Cart/>
         </Container>
     )
 }

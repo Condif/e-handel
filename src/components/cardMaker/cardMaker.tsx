@@ -43,8 +43,6 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-
-
 interface Props {
 	product: Product;
 }
@@ -70,12 +68,12 @@ export default function CardMaker(props: Props) {
 						<ShoppingCartIcon />
 					</IconButton>
 				}
-				title={props.product.productName}
+				title={props.product.name}
 				subheader={props.product.price}
 			/>
 			<CardMedia
 				className={classes.media}
-				image={props.product.imgSrc}
+				image={props.product.img}
 			/>
 
 			<CardActions disableSpacing>
@@ -100,7 +98,7 @@ export default function CardMaker(props: Props) {
 				<CardContent>
 					<Typography paragraph>Description:</Typography>
 					<Typography paragraph>
-						{props.product.description}
+						{props.product.desc}
 					</Typography>
 				</CardContent>
 			</Collapse>

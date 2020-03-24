@@ -3,7 +3,6 @@ import "./structure.css"
 import {Topbar} from '../topbar/topbar'
 import { Container, Box, Typography, Button } from '@material-ui/core'
 
-
 export default function Structure() {
     return (
         

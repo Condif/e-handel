@@ -3,7 +3,6 @@ import './App.css';
 import Structure from '../layout/structure';
 import {} from '@material-ui/core';
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
-require('typeface-roboto')
 
 
 function App() {

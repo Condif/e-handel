@@ -32,7 +32,7 @@ export default function CustomerInformation() {
                     Your information
                 </Typography>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12} md={6}>
+                    <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth>
                             <TextField 
                             required 
@@ -41,7 +41,7 @@ export default function CustomerInformation() {
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
+                    <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth>
                             <TextField
                               required
@@ -74,7 +74,7 @@ export default function CustomerInformation() {
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
+                    <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth>
                             <TextField
                               required
@@ -88,7 +88,7 @@ export default function CustomerInformation() {
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
+                    <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth>
                             <TextField
                               required

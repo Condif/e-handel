@@ -1,8 +1,9 @@
 import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
-import { Drawer, Button, Divider, List, makeStyles, Container } from "@material-ui/core";
+import { Drawer, Button, Divider, List, makeStyles, Container, BottomNavigationAction } from "@material-ui/core";
 import { ProductList } from "../mockProducts/products";
 import CardFactory from "../cardFactory/cardFactory";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 const anchor = 'right'
 const useStyles = makeStyles({
@@ -41,7 +42,7 @@ export default function Cart() {
     return (
         <div>
             <React.Fragment>
-                <Button onClick={toggleDrawer(anchor, true)}>{'Icon'}</Button>
+                <ShoppingCartIcon onClick={toggleDrawer(anchor, true)} />
                 <Drawer
                     anchor={anchor} open={state[anchor]}>
                     <Button onClick={toggleDrawer(anchor, false)}>{'Icon'}</Button>

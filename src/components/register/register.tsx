@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ItemOverview from './itemOverview/itemOverview';
 import CustomerInformation from './customerInformation/customerInformation';
 import DeliveryOptions from './deliveryOptions/deliveryOptions';
+import CardInformation from './cardInformation.tsx/cardinformation';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -11,7 +12,8 @@ const useStyles = makeStyles(theme => ({
     },
     wrapper: {
         minHeight: '100vh',
-        height: '100%'
+        height: '100%',
+        marginBottom: '1rem'
     },
     paper: {
         height: '100%',
@@ -50,9 +52,7 @@ export default function Register() {
                   </Grid>
                   <Grid item xs={12}>
                       <Paper className={classes.paper}>
-                          <Typography>
-                              Hej
-                          </Typography>
+                          <CardInformation />
                       </Paper>
                   </Grid>
                 </Grid>

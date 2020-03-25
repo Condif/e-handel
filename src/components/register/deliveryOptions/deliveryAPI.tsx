@@ -7,21 +7,21 @@ export interface Delivery {
 
 export const DeliveryTypes: Delivery[] = [
     {
-        name: 'Postpaket',
-        desc: 'Leverans till ett postombud',
-        deliveryTime: '2-3 arbetsdagar',
+        name: 'Parcel',
+        desc: 'Deliver to your postal office',
+        deliveryTime: '2-3 work days',
         price: 99,
     },
     {
-        name: 'Hempaket',
-        desc: 'Leverans till dörren',
-        deliveryTime: '2-3 arbetsdagar',
+        name: 'Home delivery',
+        desc: 'Deliver to your front door',
+        deliveryTime: '2-3 work days',
         price: 199,
     },
     {
         name: 'Express',
-        desc: 'Leverans till dörren',
-        deliveryTime: '1 arbetsdag',
+        desc: 'Deliver to your front door',
+        deliveryTime: '1 work day',
         price: 299,
     },
 ]

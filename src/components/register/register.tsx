@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
     paper: {
+        height: '100%',
         padding: theme.spacing(3),
         color: theme.palette.text.secondary,
     },
@@ -27,20 +28,27 @@ export default function Register() {
             </Typography>
             <div className={classes.root}>
                 <Grid container spacing={1}>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <ItemOverview />
                     </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={8}>
+                  </Grid> */}
+                  <Grid item xs={12} sm={12} md={7}>
                     <Paper className={classes.paper}>
                         <CustomerInformation />
                     </Paper>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={4}>
+                  <Grid item xs={12} sm={12} md={5}>
                     <Paper className={classes.paper}>
                         <DeliveryOptions />
                     </Paper>
+                  </Grid>
+                  <Grid item xs={12}>
+                      <Paper className={classes.paper}>
+                          <Typography>
+                              Hej
+                          </Typography>
+                      </Paper>
                   </Grid>
                 </Grid>
             </div>

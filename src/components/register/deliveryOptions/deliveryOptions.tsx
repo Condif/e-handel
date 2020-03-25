@@ -62,7 +62,7 @@ export default function DeliveryOptions() {
                         <Collapse in={(selectedIndex === index)} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
                               <ListItem selected className={classes.nested}>
-                                <ListItemText primary={`${element.desc} inom ${element.deliveryTime}.`} />
+                                <ListItemText primary={`${element.desc} within ${element.deliveryTime}.`} />
                               </ListItem>
                             </List>
                           </Collapse>

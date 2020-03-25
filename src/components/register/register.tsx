@@ -9,30 +9,35 @@ const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
     },
+    wrapper: {
+        minHeight: '100vh',
+        height: '100%'
+    },
     paper: {
         height: '100%',
         padding: theme.spacing(3),
         color: theme.palette.text.secondary,
     },
+    title: {
+        padding: theme.spacing(2)
+    }
   }));
 
 export default function Register() {
     const classes = useStyles();
 
     return (
-        <Container maxWidth="md" style ={{
-            height: "100vh"
-        }}>
-            <Typography variant="h3" component="h1">
+        <Container maxWidth="md" className={classes.wrapper}>
+            <Typography variant="h3" className={classes.title} component="h1">
                 Checkout
             </Typography>
             <div className={classes.root}>
                 <Grid container spacing={1}>
-                  {/* <Grid item xs={12}>
+                  <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <ItemOverview />
                     </Paper>
-                  </Grid> */}
+                  </Grid>
                   <Grid item xs={12} sm={12} md={7}>
                     <Paper className={classes.paper}>
                         <CustomerInformation />

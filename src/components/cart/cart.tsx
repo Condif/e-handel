@@ -28,14 +28,10 @@ export default function Cart() {
         <div
             className={classes.list}
             role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
                 <Container>
-                    {/* {ProductList.map((card: any) => ( */}
                         <CardMaker key={"1"} product={ProductList[0]}></CardMaker>
-                    {/* // ))} */}
                 </Container>
             </List>
             <Divider />
@@ -47,7 +43,8 @@ export default function Cart() {
             <React.Fragment>
                 <Button onClick={toggleDrawer(anchor, true)}>{'Icon'}</Button>
                 <Drawer
-                    anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+                    anchor={anchor} open={state[anchor]}>
+                    <Button onClick={toggleDrawer(anchor, false)}>{'Icon'}</Button>
                     {list(anchor)}
                 </Drawer>
             </React.Fragment>

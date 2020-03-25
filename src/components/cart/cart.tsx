@@ -1,13 +1,15 @@
 import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
-import { Drawer, Button, Divider, List, makeStyles } from "@material-ui/core";
+import { Drawer, Button, Divider, List, makeStyles, Container } from "@material-ui/core";
+import CardMaker from "../cardMaker/cardMaker";
+import { ProductList } from "../mockProducts/products";
 
 const anchor = 'right'
 const useStyles = makeStyles({
     list: {
-      width: 250,
+        width: "40vw",
     },
-  });
+});
 export default function Cart() {
     const classes = useStyles();
     const [state, setState] = React.useState({
@@ -29,7 +31,13 @@ export default function Cart() {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
-            <List></List>
+            <List>
+                <Container>
+                    {/* {ProductList.map((card: any) => ( */}
+                        <CardMaker key={"1"} product={ProductList[0]}></CardMaker>
+                    {/* // ))} */}
+                </Container>
+            </List>
             <Divider />
             <List></List>
         </div>
@@ -40,7 +48,7 @@ export default function Cart() {
                 <Button onClick={toggleDrawer(anchor, true)}>{'Icon'}</Button>
                 <Drawer
                     anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-                {list(anchor)}
+                    {list(anchor)}
                 </Drawer>
             </React.Fragment>
         </div>

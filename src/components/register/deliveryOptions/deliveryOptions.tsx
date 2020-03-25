@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, List, ListItem, ListItemText, ListItemIcon, Radio } from '@material-ui/core'
+import { Typography, List, ListItem, ListItemText, ListItemIcon, Radio, Collapse } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { DeliveryTypes, Delivery } from './deliveryAPI'
 
@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     title: {
         margin: theme.spacing(0, 0, 2),
+    },
+    nested: {
+        padding: theme.spacing(0, 4, 2, 4),
     },
 }));
 
@@ -36,6 +39,7 @@ export default function DeliveryOptions() {
             <div className={classes.demo}>
                 <List component="nav" aria-label="Delivery Methods">
                     {DeliveryTypes.map((element: Delivery, index) =>
+                    <>
                         <ListItem
                         button
                         selected={selectedIndex === index}
@@ -47,8 +51,22 @@ export default function DeliveryOptions() {
                                 color="default"
                                 name="OptionOne"
                             />
-                            <ListItemText primary={element.name}  secondary={(selectedIndex === index) ? element.desc : null}/>
+                            <ListItemText primary={element.name}  secondary={(selectedIndex !== index) ? element.deliveryTime : null} />
+                            <ListItemText
+                             style={{
+                                 textAlign: "right"
+                             }}
+                             primary={`${element.price}:-`}
+                             />
                         </ListItem>
+                        <Collapse in={(selectedIndex === index)} timeout="auto" unmountOnExit>
+                            <List component="div" disablePadding>
+                              <ListItem selected className={classes.nested}>
+                                <ListItemText primary={`${element.desc} inom ${element.deliveryTime}.`} />
+                              </ListItem>
+                            </List>
+                          </Collapse>
+                        </>
                     )}
                 </List>
             </div>

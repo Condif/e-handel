@@ -2,19 +2,8 @@ import React from 'react'
 import { Typography, makeStyles, Theme, Grid, FormControl, TextField } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        flexGrow: 1,
-        width: '100%',
-        maxWidth: 360,
-    },
-    demo: {
-        backgroundColor: theme.palette.background.paper,
-    },
     title: {
         margin: theme.spacing(0, 0, 2),
-    },
-    nested: {
-        padding: theme.spacing(0, 4, 2, 4),
     },
 }));
 
@@ -26,6 +15,18 @@ export default function CardInformation() {
             <Typography variant="h5" className={classes.title}>
                 Payment options
             </Typography>
+            <Grid container>
+                <Grid item md={4} sm={6} xs={12}>
+                    <Typography variant="h5" className={classes.title}>
+                        Options
+                    </Typography>
+                </Grid>
+                <Grid item md={8} sm={6} xs={12}>
+                    <Typography variant="h5" className={classes.title}>
+                        Information
+                    </Typography>
+                </Grid>
+            </Grid>
         </>
     )
 }

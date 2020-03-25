@@ -1,27 +1,27 @@
 export interface Delivery {
     name: string,
     desc: string,
+    deliveryTime: string,
     price: number,
-    // active: boolean
 }
 
 export const DeliveryTypes: Delivery[] = [
     {
         name: 'Postpaket',
         desc: 'Leverans till ett postombud',
+        deliveryTime: '2-3 arbetsdagar',
         price: 99,
-        // active: false
     },
     {
         name: 'Hempaket',
         desc: 'Leverans till dörren',
+        deliveryTime: '2-3 arbetsdagar',
         price: 199,
-        // active: false
     },
     {
-        name: 'Expressleverans',
-        desc: 'Leverans till dörren, inom 1 arbetsdag',
+        name: 'Express',
+        desc: 'Leverans till dörren',
+        deliveryTime: '1 arbetsdag',
         price: 299,
-        // active: false
-    }
+    },
 ]

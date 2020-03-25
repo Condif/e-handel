@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
             '& .MuiGrid-item': {
                 padding: 0,
             },
-            // '& .MuiOutlinedInput-input': {
-            //     padding: '.5rem 1rem'
-            // }
         },
         title: {
             margin: theme.spacing(0, 0, 1),

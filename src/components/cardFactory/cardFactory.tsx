@@ -1,20 +1,14 @@
 import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import {
 	Card,
-	CardHeader,
 	Typography,
 	CardMedia,
 	CardContent,
 	CardActions,
 	Collapse,
-	Avatar,
 	IconButton
 } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Product } from "../mockProducts/iProduct";

@@ -3,6 +3,7 @@ import React from "react";
 import MainView from "../mainView/mainView";
 import Footer from "../footer/footer";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import Cart from "../cart/cart";
 
 function Layout() {
 	return (
@@ -10,6 +11,7 @@ function Layout() {
 			{/* <Topbar /> */}
 			<MainView />
 			<Footer />
+			<Cart />
 		</div>
 	);
 }

@@ -1,8 +1,8 @@
 import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
 import { Drawer, Button, Divider, List, makeStyles, Container } from "@material-ui/core";
-import CardMaker from "../cardMaker/cardMaker";
 import { ProductList } from "../mockProducts/products";
+import CardFactory from "../cardFactory/cardFactory";
 
 const anchor = 'right'
 const useStyles = makeStyles({
@@ -31,7 +31,7 @@ export default function Cart() {
         >
             <List>
                 <Container>
-                        <CardMaker key={"1"} product={ProductList[0]}></CardMaker>
+                        <CardFactory product={ProductList[0]} />
                 </Container>
             </List>
             <Divider />

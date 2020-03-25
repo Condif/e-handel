@@ -5,7 +5,6 @@ import {
 	makeStyles,
 	Theme,
 	createStyles,
-	Paper,
 	CssBaseline,
 	Container,
 	Typography

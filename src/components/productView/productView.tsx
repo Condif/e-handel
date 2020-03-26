@@ -10,16 +10,28 @@ import {
 	Grid,
 	makeStyles,
 	Theme,
-	createStyles
+	createStyles,
+	Paper
 } from "@material-ui/core";
 
 interface Props extends RouteChildrenProps<{ serial: string }> {}
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		root: {
+			flexGrow: 1
+		},
 		wrapper: {
 			minHeight: "100vh",
 			height: "100%"
+		},
+		paper: {
+			height: "100%",
+			padding: theme.spacing(3),
+			color: theme.palette.text.secondary
+		},
+		title: {
+			padding: theme.spacing(2)
 		}
 	})
 );
@@ -32,8 +44,15 @@ const ProductView: React.FC<Props> = ({ match }: any) => {
 	const product = ProductList[serialNumber - 1] || undefined;
 
 	return (
-		<Container maxWidth="md" className={classes.wrapper}>
-			<CardFactory product={product} view="fullpage" />
+		<Container maxWidth="lg" className={classes.wrapper}>
+			<Typography variant="h3" className={classes.title}>
+				Product view
+			</Typography>
+			<div className={classes.root}>
+				<Paper className={classes.paper}>
+					<CardFactory product={product} view="fullpage" />
+				</Paper>
+			</div>
 		</Container>
 	);
 };

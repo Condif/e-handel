@@ -49,21 +49,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderTopLeftRadius: ".5rem"
 		},
 		margin: {
-			margin: theme.spacing(2)
-		},
-		image: {
-			width: "100%",
-			height: "100%"
+			margin: theme.spacing(1)
 		},
 		img: {
 			margin: "auto",
 			display: "block",
 			maxWidth: "100%",
 			maxHeight: "100%"
-		},
-		grid: {
-			padding: "1rem",
-			marginBottom: "5rem"
 		}
 	})
 );
@@ -122,37 +114,28 @@ export default function CardFactory(props: Props) {
 			return <div>listItem</div>;
 		case "fullpage":
 			return (
-				<Grid
-					container
-					direction="row"
-					justify="center"
-					alignItems="center"
-					className={classes.grid}>
+				<Grid container spacing={4}>
 					<Grid item xs={12} sm={6}>
-						<ButtonBase className={classes.image}>
-							<img
-								className={classes.img}
-								alt="complex"
-								src={props.product.img}
-							/>
-						</ButtonBase>
+						<img
+							className={classes.img}
+							alt="complex"
+							src={props.product.img}
+						/>
 					</Grid>
 
 					<Grid item xs={12} sm={6}>
 						<Grid xs={12} sm={6}>
-							<Box>
-								<Typography variant="h2">{props.product.name}</Typography>
-								<Typography variant="h5">{props.product.price}:-</Typography>
-								<Typography variant="subtitle2">
-									incl. VAT, plus shipping cost
-								</Typography>
-							</Box>
+							<Typography variant="h3">{props.product.name}</Typography>
+							<Typography variant="h5">{props.product.price}:-</Typography>
+							<Typography variant="subtitle2">
+								incl. VAT, plus shipping cost
+							</Typography>
 						</Grid>
 						<Grid xs={12} sm={8}>
 							<Typography variant="h6">choose size :</Typography>
 							<ButtonGroup
-								size="small"
-								aria-label="small outlined button group">
+								size="medium"
+								aria-label="medium outlined button group">
 								{props.product.info?.sizes.map(size => (
 									<Button key={size} variant="contained" color="secondary">
 										{size}

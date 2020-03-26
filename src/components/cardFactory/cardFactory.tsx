@@ -18,6 +18,7 @@ import {
 	Paper,
 	ButtonBase
 } from "@material-ui/core";
+import { spacing } from '@material-ui/system';
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import InfoIcon from "@material-ui/icons/Info";
@@ -51,11 +52,18 @@ const useStyles = makeStyles((theme: Theme) =>
 		margin: {
 			margin: theme.spacing(1)
 		},
+		imgCart: {
+			maxWidth:"100%",
+			maxHeight: "100%",
+			margin: "auto",
+			width: "8rem",
+			display: "block"
+		},
 		img: {
 			margin: "auto",
 			display: "block",
 			maxWidth: "100%",
-			maxHeight: "100%"
+			maxHeight: "100%",
 		}
 	})
 );
@@ -109,7 +117,97 @@ export default function CardFactory(props: Props) {
 				</Card>
 			);
 		case "cart":
-			return <div>cart</div>;
+			return (
+				<Box
+					display="flex"
+					flexDirection="column"
+					p={1}
+					m={0}
+					bgcolor="background.paper"
+				>
+					<Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
+						<CardContent>
+							<img
+								className={classes.imgCart}
+								alt="complex"
+								src={props.product.img}
+							/>
+						</CardContent>
+						<CardContent>
+							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
+							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
+						</CardContent>
+					</Card>
+					<Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
+						<CardContent>
+							<img
+								className={classes.imgCart}
+								alt="complex"
+								src={props.product.img}
+							/>
+						</CardContent>
+						<CardContent>
+							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
+							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
+						</CardContent>
+					</Card>
+					<Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
+						<CardContent>
+							<img
+								className={classes.imgCart}
+								alt="complex"
+								src={props.product.img}
+							/>
+						</CardContent>
+						<CardContent>
+							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
+							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
+						</CardContent>
+					</Card>
+					<Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
+						<CardContent>
+							<img
+								className={classes.imgCart}
+								alt="complex"
+								src={props.product.img}
+							/>
+						</CardContent>
+						<CardContent>
+							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
+							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
+						</CardContent>
+					</Card>
+				</Box>
+
+				// <Grid container direction={"column"}>
+				// 		<Grid container>
+				// 			<Grid item sm>
+				// 				<img
+				// 					className={classes.img}
+				// 					alt="complex"
+				// 					src={props.product.img}
+				// 				/>
+				// 			</Grid>
+				// 			<Grid item sm style={{height: '100%'}} >
+				// 					<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
+				// 					<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
+				// 			</Grid>	
+				// 		</Grid>
+				// 		<Grid container>
+				// 			<Grid item sm>
+				// 				<img
+				// 					className={classes.img}
+				// 					alt="complex"
+				// 					src={props.product.img}
+				// 				/>
+				// 			</Grid>
+				// 			<Grid item sm style={{height: '100%'}} >
+				// 					<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
+				// 					<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
+				// 			</Grid>	
+				// 		</Grid>
+				// </Grid>
+			);
 		case "listitem":
 			return <div>listItem</div>;
 		case "fullpage":

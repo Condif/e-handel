@@ -1,7 +1,7 @@
 import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
 import { Drawer, Divider, List, makeStyles, Container, Typography } from "@material-ui/core";
-import { ProductList } from "../mockProducts/products";
+import { ProductList } from "../mockProducts/productsAPI";
 import CardFactory from "../cardFactory/cardFactory";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import CloseIcon from '@material-ui/icons/Close';
@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 const anchor = 'right'
 const useStyles = makeStyles({
     list: {
-        width: "40vw",
+        width: "100%",
     },
 });
 export default function Cart() {
@@ -31,11 +31,17 @@ export default function Cart() {
         <div
             className={classes.list}
             role="presentation"
-        >
+        >   
+            <Divider />
             <List>
-                <Container>
+                <Typography variant="h4">
+					Cart
+				</Typography> 
+            </List>
+            <List>
+                <Container style={{width: "100%"}}>
                     {CartList.length > 0 &&
-                            <CardFactory product={ProductList[0]} />
+                            <CardFactory product={ProductList[0]} view="cart" />
                     }
                     {CartList.length === 0 &&
                         <Typography variant="h4">
@@ -45,10 +51,16 @@ export default function Cart() {
                        
                 </Container>
             </List>
-            <Divider />
+            <Divider style={{display: "flex"}} />
             <List>
                 <Typography variant="h4">
 					Total: 10000
+				</Typography> 
+            </List>
+            <Divider />
+            <List>
+                <Typography variant="h4">
+					Button
 				</Typography> 
             </List>
         </div>
@@ -59,7 +71,7 @@ export default function Cart() {
                 <ShoppingCartIcon onClick={toggleDrawer(anchor, true)} />
                 <Drawer
                     anchor={anchor} open={state[anchor]}>
-                     <CloseIcon onClick={toggleDrawer(anchor, false)} />
+                     <CloseIcon style={{ height: "2rem", fontSize: 'large'}} onClick={toggleDrawer(anchor, false)} />
                     {list(anchor)}
                 </Drawer>
             </React.Fragment>

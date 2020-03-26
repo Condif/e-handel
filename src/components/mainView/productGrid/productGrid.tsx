@@ -5,14 +5,12 @@ import {
 	makeStyles,
 	Theme,
 	createStyles,
-	Paper,
 	CssBaseline,
 	Container,
 	Typography
 } from "@material-ui/core";
-import CardFactory from "../cardFactory/cardFactory";
-import { ProductList } from "../mockProducts/productsAPI";
-import { withRouter } from "react-router-dom";
+import CardFactory from "../../productFactory/productFactory";
+import { ProductList } from "../../mockProducts/productsAPI";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -48,7 +46,7 @@ function ProductGrid() {
 					<Grid container justify="center" spacing={2}>
 						{ProductList.map(product => (
 							<Grid key={product.serial} item xs={12} sm={6} md={4}>
-								<CardFactory product={product} view="card" />
+								<CardFactory product={product} productShape="card" />
 							</Grid>
 						))}
 					</Grid>

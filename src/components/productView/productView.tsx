@@ -32,11 +32,9 @@ const ProductView: React.FC<Props> = ({ match }: any) => {
 	const product = ProductList[serialNumber - 1] || undefined;
 
 	return (
-		<React.Fragment>
-			<CssBaseline />
-			<Container maxWidth="md" className={classes.wrapper}></Container>
+		<Container maxWidth="md" className={classes.wrapper}>
 			<CardFactory product={product} view="fullpage" />
-		</React.Fragment>
+		</Container>
 	);
 };
 

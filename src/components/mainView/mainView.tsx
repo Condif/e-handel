@@ -1,6 +1,6 @@
 import React from "react";
-import ProductGrid from "../productGrid/productGrid";
-import ProductView from "../productView/productView";
+import ProductGrid from "./productGrid/productGrid";
+import ProductView from "./productView/productView";
 
 import { Switch, Route } from "react-router-dom";
 

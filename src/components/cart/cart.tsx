@@ -1,6 +1,6 @@
 import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
-import { Drawer, Divider, List, makeStyles, Container } from "@material-ui/core";
+import { Drawer, Divider, List, makeStyles, Container, Typography } from "@material-ui/core";
 import { ProductList } from "../mockProducts/products";
 import CardFactory from "../cardFactory/cardFactory";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -26,6 +26,7 @@ export default function Cart() {
         setState({ ...state, [anchor]: open });
     };
 
+    const CartList = [0];
     const list = (anchor: any) => (
         <div
             className={classes.list}
@@ -33,11 +34,23 @@ export default function Cart() {
         >
             <List>
                 <Container>
-                        <CardFactory product={ProductList[0]} />
+                    {CartList.length > 0 &&
+                            <CardFactory product={ProductList[0]} />
+                    }
+                    {CartList.length === 0 &&
+                        <Typography variant="h4">
+					        Your cart is empty
+				        </Typography> 
+                    }
+                       
                 </Container>
             </List>
             <Divider />
-            <List></List>
+            <List>
+                <Typography variant="h4">
+					Total: 10000
+				</Typography> 
+            </List>
         </div>
     );
     return (

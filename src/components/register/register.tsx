@@ -1,10 +1,11 @@
 import React from 'react'
 import { Container, Typography, Grid, Paper } from '@material-ui/core'
+import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import { makeStyles } from '@material-ui/core/styles';
 import ItemOverview from './itemOverview/itemOverview';
 import CustomerInformation from './customerInformation/customerInformation';
 import DeliveryOptions from './deliveryOptions/deliveryOptions';
-import CardInformation from './cardInformation.tsx/cardinformation';
+import PaymentOptions from './paymentOptions/paymentOptions';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     wrapper: {
         minHeight: '100vh',
         height: '100%',
-        marginBottom: '1rem'
+        paddingBottom: '10rem'
     },
     paper: {
         height: '100%',
@@ -31,7 +32,7 @@ export default function Register() {
     return (
         <Container maxWidth="md" className={classes.wrapper}>
             <Typography variant="h3" className={classes.title} component="h1">
-                Checkout
+                Checkout <ShoppingCartRoundedIcon fontSize="large" />
             </Typography>
             <div className={classes.root}>
                 <Grid container spacing={1}>
@@ -52,7 +53,7 @@ export default function Register() {
                   </Grid>
                   <Grid item xs={12}>
                       <Paper className={classes.paper}>
-                          <CardInformation />
+                          <PaymentOptions />
                       </Paper>
                   </Grid>
                 </Grid>

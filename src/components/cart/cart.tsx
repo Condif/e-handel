@@ -12,7 +12,13 @@ const useStyles = makeStyles({
         width: "100%",
     },
 });
-export default function Cart() {
+
+
+interface Props {
+    cartList: string[];
+}
+
+export default function Cart(props: Props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         right: false,

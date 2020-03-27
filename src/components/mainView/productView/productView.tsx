@@ -1,18 +1,15 @@
 import React from "react";
 
-import { RouteChildrenProps } from "react-router";
-import { ProductList } from "../../mockProducts/productsAPI";
+import { RouteChildrenProps, withRouter } from "react-router";
 import CardFactory from "../../productFactory/productFactory";
 import {
-	CssBaseline,
 	Container,
-	Typography,
-	Grid,
 	makeStyles,
 	Theme,
 	createStyles,
 	Paper
 } from "@material-ui/core";
+import { ProductContext } from "../../../contexts/productContext";
 
 interface Props extends RouteChildrenProps<{ serial: string }> {}
 
@@ -22,14 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			minHeight: "100vh",
 			height: "100%",
 
-			display:"flex",
-			alignItems:"center",
+			display: "flex",
+			alignItems: "center",
 			padding: theme.spacing(1)
 		},
 		root: {
 			flexGrow: 1,
-			paddingBottom:"4rem",
-			
+			paddingBottom: "4rem"
 		},
 		paper: {
 			height: "100%",
@@ -42,22 +38,26 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const ProductView: React.FC<Props> = ({ match }: any) => {
+const ProductView = ({ match }: any) => {
 	const classes = useStyles();
-
 	const serialNumber = parseInt(match.params.serial);
 
-	const product = ProductList[serialNumber - 1] || undefined;
-
 	return (
-		<Container maxWidth="lg" className={classes.wrapper} >
-			<div className={classes.root}>
-				<Paper className={classes.paper}>
-					<CardFactory product={product} productShape="fullpage" />
-				</Paper>
-			</div>
-		</Container>
+		<ProductContext.Consumer>
+			{value => (
+				<Container maxWidth="lg" className={classes.wrapper}>
+					<div className={classes.root}>
+						<Paper className={classes.paper}>
+							<CardFactory
+								product={value.products[parseInt(match.params.serial) - 1]}
+								productShape="fullpage"
+							/>
+						</Paper>
+					</div>
+				</Container>
+			)}
+		</ProductContext.Consumer>
 	);
 };
 
-export default ProductView;
+export default withRouter(ProductView);

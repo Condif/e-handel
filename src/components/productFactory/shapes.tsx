@@ -83,18 +83,18 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: "80%"
 		},
 		modalWrapper: {
-			width:"100vw",
-			height:"100vh",
+			width: "100vw",
+			height: "100vh",
 			display: "flex",
 			justifyContent: "center",
 			alignItems: "center"
 		},
 		modalContent: {
-			maxWidth:"80%",
-			maxHeight:"90%",
+			maxWidth: "80%",
+			maxHeight: "90%",
 
-			margin:"5rem",
-			padding:"2rem"
+			margin: "5rem",
+			padding: "2rem"
 		}
 	})
 );

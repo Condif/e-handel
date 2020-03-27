@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import CardFactory from "../cardFactory/cardFactory";
 import { ProductList } from "../mockProducts/productsAPI";
-import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

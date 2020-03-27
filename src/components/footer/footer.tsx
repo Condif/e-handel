@@ -5,8 +5,8 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
-import Cart from "../cart/cart";
-
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+const anchor = 'right'
 const useStyles = makeStyles({
 	root: {
 		position: "fixed",
@@ -18,18 +18,20 @@ const useStyles = makeStyles({
 	}
 });
 interface Props {
-	cartList: string[];
+    isOpen: boolean;
+    toggleDrawer: (anchor: string, open: boolean) => void
 }
 
 
-export default function Footer(/*props: Props*/) {
+
+export default function Footer(props: Props) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState("home");
 
 	const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
 		setValue(newValue);
 	};
-	console.log(value);
+	// console.log(value);
 
 	return (
 		<BottomNavigation
@@ -52,11 +54,12 @@ export default function Footer(/*props: Props*/) {
 					</Link>
 				}
 			/>
-			<BottomNavigationAction 
+			<BottomNavigationAction  
 			icon={
-				<Cart 
-					// {cartList}
-				/>
+				<ShoppingCartIcon onClick={(event) => 
+					{
+						props.toggleDrawer('right', true)}}
+					/>
 			}/>
 			
 		</BottomNavigation>

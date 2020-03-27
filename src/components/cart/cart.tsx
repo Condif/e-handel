@@ -1,12 +1,13 @@
 import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
-import { Drawer, Divider, List, makeStyles, Container, Typography } from "@material-ui/core";
+import { Drawer, Divider, List, makeStyles, Container, Typography} from "@material-ui/core";
 import { ProductList } from "../mockProducts/productsAPI";
 import CardFactory from "../cardFactory/cardFactory";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import CloseIcon from '@material-ui/icons/Close';
 
-const anchor = 'right'
+import CloseIcon from '@material-ui/icons/Close';
+import {cartProduct} from "../cardFactory/cardFactory";
+import { Product } from "../../interfaces&types/interfaces";
+
 const useStyles = makeStyles({
     list: {
         width: "100%",
@@ -15,25 +16,22 @@ const useStyles = makeStyles({
 
 
 interface Props {
-    cartList: string[];
+    isOpen: boolean;
+    toggleDrawer: (anchor: string, open: boolean) => void
 }
 
-export default function Cart(/*props: Props*/) {
+export default function Cart(props: Props) {
     const classes = useStyles();
-    const [state, setState] = React.useState({
-        right: false,
-    })
+    // const [state, setState] = React.useState({
+    //     right: false,
+    //     cartList: [],
+    // })
 
-    const toggleDrawer = (anchor: any, open: any) => (event: any) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
-    };
-
-    const CartList = [0];
-    const list = (anchor: any) => (
+    
+    // const cartList: Product[] = []
+    const newProduct: Product = cartProduct;
+    
+    const list = () => (
         <div
             className={classes.list}
             role="presentation"
@@ -45,17 +43,17 @@ export default function Cart(/*props: Props*/) {
             </List>
             <List>
                 <Container style={{width: "100%"}}>
-                    {CartList.length > 0 &&
-                         /*{cartList.map(product => (
+                    {/* {newProduct != undefined && */}
+                            {/* {cartList.map(product => (
                                 <CardFactory product={product} view="cart" />
-                            ))}*/
+                            ))} */}
                             <CardFactory product={ProductList[0]} view="cart" />
-                    }
-                    {CartList.length === 0 &&
+                    
+                    {/* {cartList.length === 0 &&
                         <Typography variant="h4">
 					        Your cart is empty
 				        </Typography> 
-                    }
+                    } */}
                        
                 </Container>
             </List>
@@ -76,11 +74,12 @@ export default function Cart(/*props: Props*/) {
     return (
         <div>
             <React.Fragment>
-                <ShoppingCartIcon onClick={toggleDrawer(anchor, true)} />
+                
                 <Drawer
-                    anchor={anchor} open={state[anchor]}>
-                     <CloseIcon style={{ height: "2rem", fontSize: 'large'}} onClick={toggleDrawer(anchor, false)} />
-                    {list(anchor)}
+                     anchor={'right'}
+                     open={props.isOpen}>
+                     <CloseIcon style={{ height: "2rem", fontSize: 'large'}} onClick={() => props.toggleDrawer('right', false)} />
+                    {list()}
                 </Drawer>
             </React.Fragment>
         </div>

@@ -9,20 +9,15 @@ import {
 	CardActions,
 	Collapse,
 	IconButton,
-	Container,
 	Grid,
 	Fab,
 	Button,
 	ButtonGroup,
 	Box,
-	Paper,
-	ButtonBase
 } from "@material-ui/core";
-import { spacing } from '@material-ui/system';
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import InfoIcon from "@material-ui/icons/Info";
-import AddIcon from "@material-ui/icons/Add";
 
 import { Product } from "../../interfaces&types/interfaces";
 import { View } from "../../interfaces&types/types";
@@ -72,14 +67,15 @@ interface Props {
 	product: Product;
 	view: View;
 }
+export let cartProduct: Product;
 
 export default function CardFactory(props: Props) {
 	const classes = useStyles();
 	const [expanded, setExpanded] = React.useState(false);
-	let cartList: Product;
+	
 
 	const addToCart = () => {
-		cartList = props.product
+	 cartProduct = props.product
 	}
 
 	const handleExpandClick = () => {
@@ -148,45 +144,6 @@ export default function CardFactory(props: Props) {
 							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
 						</CardContent>
 					</Card>
-					{/* <Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
-						<CardContent>
-							<img
-								className={classes.imgCart}
-								alt="complex"
-								src={props.product.img}
-							/>
-						</CardContent>
-						<CardContent>
-							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
-							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
-						</CardContent>
-					</Card>
-					<Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
-						<CardContent>
-							<img
-								className={classes.imgCart}
-								alt="complex"
-								src={props.product.img}
-							/>
-						</CardContent>
-						<CardContent>
-							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
-							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
-						</CardContent>
-					</Card>
-					<Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
-						<CardContent>
-							<img
-								className={classes.imgCart}
-								alt="complex"
-								src={props.product.img}
-							/>
-						</CardContent>
-						<CardContent>
-							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
-							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
-						</CardContent>
-					</Card> */}
 				</Box>
 			);
 		case "listitem":
@@ -231,6 +188,9 @@ export default function CardFactory(props: Props) {
 									className={classes.margin}
 									style={{ backgroundColor: color }}></Fab>
 							))}
+							<IconButton aria-label="addToCard">
+							<InfoIcon onClick={handleExpandClick}/>
+						</IconButton>
 						</Grid>
 					</Grid>
 				</Grid>

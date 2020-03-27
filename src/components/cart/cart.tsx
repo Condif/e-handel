@@ -32,7 +32,6 @@ export default function Cart() {
             className={classes.list}
             role="presentation"
         >   
-            <Divider />
             <List>
                 <Typography variant="h4">
 					Cart

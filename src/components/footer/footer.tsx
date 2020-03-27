@@ -17,8 +17,11 @@ const useStyles = makeStyles({
 		background: "#fefefe"
 	}
 });
+interface Props {
+	cartList: string[];
+}
 
-export default function Footer() {
+export default function Footer(props: Props) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState("home");
 
@@ -48,7 +51,12 @@ export default function Footer() {
 					</Link>
 				}
 			/>
-			<BottomNavigationAction icon={<Cart/>} />
+			<BottomNavigationAction 
+			icon={
+				<Cart 
+					{cartList}
+				/>
+			}/>
 			
 		</BottomNavigation>
 	);

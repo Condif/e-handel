@@ -21,7 +21,8 @@ interface Props {
 	cartList: string[];
 }
 
-export default function Footer(props: Props) {
+
+export default function Footer(/*props: Props*/) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState("home");
 
@@ -54,7 +55,7 @@ export default function Footer(props: Props) {
 			<BottomNavigationAction 
 			icon={
 				<Cart 
-					{cartList}
+					// {cartList}
 				/>
 			}/>
 			

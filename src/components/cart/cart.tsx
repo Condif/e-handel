@@ -18,7 +18,7 @@ interface Props {
     cartList: string[];
 }
 
-export default function Cart(props: Props) {
+export default function Cart(/*props: Props*/) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         right: false,
@@ -46,6 +46,9 @@ export default function Cart(props: Props) {
             <List>
                 <Container style={{width: "100%"}}>
                     {CartList.length > 0 &&
+                         /*{cartList.map(product => (
+                                <CardFactory product={product} view="cart" />
+                            ))}*/
                             <CardFactory product={ProductList[0]} view="cart" />
                     }
                     {CartList.length === 0 &&

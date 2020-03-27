@@ -76,10 +76,20 @@ interface Props {
 export default function CardFactory(props: Props) {
 	const classes = useStyles();
 	const [expanded, setExpanded] = React.useState(false);
+	let cartList: Product;
+
+	const addToCart = () => {
+		cartList = props.product
+	}
 
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
+
+	const handleonClick = () => {
+		handleExpandClick();
+		addToCart();
+	}
 
 	switch (props.view) {
 		case "card":
@@ -111,7 +121,7 @@ export default function CardFactory(props: Props) {
 						</IconButton>
 
 						<IconButton aria-label="addToCard">
-							<InfoIcon onClick={handleExpandClick} />
+							<InfoIcon onClick={handleonClick}/>
 						</IconButton>
 					</CardActions>
 				</Card>
@@ -138,7 +148,7 @@ export default function CardFactory(props: Props) {
 							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
 						</CardContent>
 					</Card>
-					<Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
+					{/* <Card style={{display: 'flex', margin: '1rem 0 1rem 0'}} >
 						<CardContent>
 							<img
 								className={classes.imgCart}
@@ -176,37 +186,8 @@ export default function CardFactory(props: Props) {
 							<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
 							<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
 						</CardContent>
-					</Card>
+					</Card> */}
 				</Box>
-
-				// <Grid container direction={"column"}>
-				// 		<Grid container>
-				// 			<Grid item sm>
-				// 				<img
-				// 					className={classes.img}
-				// 					alt="complex"
-				// 					src={props.product.img}
-				// 				/>
-				// 			</Grid>
-				// 			<Grid item sm style={{height: '100%'}} >
-				// 					<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
-				// 					<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
-				// 			</Grid>	
-				// 		</Grid>
-				// 		<Grid container>
-				// 			<Grid item sm>
-				// 				<img
-				// 					className={classes.img}
-				// 					alt="complex"
-				// 					src={props.product.img}
-				// 				/>
-				// 			</Grid>
-				// 			<Grid item sm style={{height: '100%'}} >
-				// 					<Typography variant="subtitle1">{"Name:  " + props.product.name}</Typography>
-				// 					<Typography variant="subtitle1">{"Price: " + props.product.price}:-</Typography>
-				// 			</Grid>	
-				// 		</Grid>
-				// </Grid>
 			);
 		case "listitem":
 			return <div>listItem</div>;

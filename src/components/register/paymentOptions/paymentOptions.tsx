@@ -1,8 +1,9 @@
 import React from 'react'
 import { Typography, makeStyles, Theme, Grid } from '@material-ui/core'
-import { PaymentTypes, PaymentOption } from './paymentAPI';
+import { PaymentTypes, PaymentOption, basePayment } from './paymentAPI';
 import RegisterListItem from '../registerListItem/registerListItem';
 import ChosenPayment from './chosenPayment/chosenPayment';
+import { DeliveryOption } from '../deliveryOptions/deliveryAPI';
 
 const useStyles = makeStyles((theme: Theme) => ({
     title: {
@@ -18,13 +19,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function CardInformation() {
     const classes = useStyles();
-    const [selectedIndex, setSelectedIndex] = React.useState('none');
+    const [selectedIndex, setSelectedIndex] = React.useState(basePayment);
     const handleListItemClick = (
-        // event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>,
-        identifier: string | number,
+        identifier: PaymentOption | DeliveryOption,
       ) => {
-          (typeof identifier === 'string') ? setSelectedIndex(identifier) : console.log(identifier);
-          ;
+          (identifier.type === 'pay') ? 
+          setSelectedIndex(identifier)
+          : console.log(null);
+          
     };
 
     return (
@@ -38,16 +40,16 @@ export default function CardInformation() {
                         <RegisterListItem 
                             key={element.name}
                             selectedIndex={selectedIndex}
-                            identifier={element.identifier}
+                            identifier={element}
                             handleListItemClick={handleListItemClick}
-                            name={element.name}
-                            desc={element.desc}
-                            price={element.fee}
+                            // name={element.name}
+                            // desc={element.desc}
+                            // price={element.fee}
                         />
                     )}
                 </Grid>
                 <Grid item md={8} sm={6} xs={12}>
-                        <ChosenPayment method={selectedIndex} />
+                    <ChosenPayment identifier={selectedIndex} />
                 </Grid>
             </Grid>
         </>

@@ -1,8 +1,9 @@
 import React from 'react'
 import { Typography, List } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { DeliveryTypes, Delivery } from './deliveryAPI'
+import { DeliveryTypes, DeliveryOption, baseDelivery } from './deliveryAPI'
 import RegisterListItem from '../registerListItem/registerListItem';
+import { PaymentOption } from '../paymentOptions/paymentAPI';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -23,13 +24,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function DeliveryOptions() {
     const classes = useStyles();
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [selectedIndex, setSelectedIndex] = React.useState(baseDelivery);
 
     const handleListItemClick = (
-    //   event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>,
-      index: number | string,
+        identifier: PaymentOption | DeliveryOption,
     ) => {
-        (typeof index === 'number') ? setSelectedIndex(index) : console.log(index);
+        (identifier.type === 'del') ? setSelectedIndex(identifier) : console.log(null);
         
     };
 
@@ -40,16 +40,16 @@ export default function DeliveryOptions() {
             </Typography>
             <div className={classes.demo}>
                 <List component="nav" aria-label="Delivery Methods">
-                    {DeliveryTypes.map((element: Delivery, index) =>
+                    {DeliveryTypes.map((element: DeliveryOption) =>
                         <RegisterListItem 
                             key={element.name}
                             selectedIndex={selectedIndex}
-                            identifier={index}
+                            identifier={element}
                             handleListItemClick={handleListItemClick}
-                            name={element.name}
-                            desc={element.desc}
+                            // name={element.name}
+                            // desc={element.desc}
                             delTime={element.deliveryTime}
-                            price={element.price}
+                            // price={element.price}
                         />
                     )}
                 </List>

@@ -40,7 +40,7 @@ export const PaymentTypes: PaymentOption[] = [
     },
     {
         type: 'pay',
-        name: 'Klarna Invoice',
+        name: 'Klarna',
         desc: 'Pay by invoice after purchase',
         price: 'fee',
         options: [{

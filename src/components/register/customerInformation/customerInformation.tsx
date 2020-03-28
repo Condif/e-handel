@@ -50,7 +50,6 @@ export default function CustomerInformation() {
                     <FormControl fullWidth>
                         <TextField
                             required
-                            id="outlined-number"
                             label="Mobile number"
                             type="number"
                         //   InputLabelProps={{

@@ -1,15 +1,13 @@
 import React from 'react'
 import { ListItem, Radio, ListItemText, Collapse, List, makeStyles, Theme } from '@material-ui/core'
+import { PaymentOption } from '../paymentOptions/paymentAPI';
+import { DeliveryOption } from '../deliveryOptions/deliveryAPI';
 
 interface Props {
-    selectedIndex: number | string
-    identifier: number | string
-    handleListItemClick: (indentifier: number | string) => void
-    name: string
-    desc: string
+    selectedIndex: PaymentOption | DeliveryOption
+    identifier: PaymentOption | DeliveryOption
+    handleListItemClick: (identifier: PaymentOption | DeliveryOption) => void
     delTime?: string
-    price: number | string
-
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -20,7 +18,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function RegisterListItem(props: Props) {
     const classes = useStyles();
-    const { selectedIndex, identifier, handleListItemClick, name, desc, delTime, price } = props
+    const { selectedIndex, identifier, handleListItemClick, delTime } = props
+    const name = identifier.name
+    const desc = identifier.desc
+    const price = identifier.price
 
     return (
         <>
@@ -40,7 +41,7 @@ export default function RegisterListItem(props: Props) {
                     style={{
                         textAlign: "right"
                     }}
-                    primary={`${price}${(typeof price === 'number') ? `:-` : ``}`}
+                    primary={`${(typeof price === 'number') ? `${price}:-` : ``}`}
                 />
             </ListItem>
             <Collapse in={(selectedIndex === identifier)} timeout="auto" unmountOnExit>

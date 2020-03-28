@@ -1,7 +1,9 @@
 import React from 'react'
 import { PaymentTypes, PaymentOption } from '../paymentAPI'
-import { Container, makeStyles, Theme, Typography, TextField, MenuItem, FormControl } from '@material-ui/core'
+import { Container, makeStyles, Theme, Typography, TextField, MenuItem, FormControl, Grid } from '@material-ui/core'
 import StoreRoundedIcon from '@material-ui/icons/StoreRounded';
+import Swishlogo from '../../../../assets/swish.png'
+import PayPallogo from '../../../../assets/paypal.png'
 
 interface Props {
     identifier: PaymentOption
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center'
     },
     wrapper: {
-        padding: theme.spacing(0, 1, 2),
+        padding: theme.spacing(0, 2, 2),
         height: '100%',
         border: '2px solid #EBEBEB',
         borderRadius: '1rem',
@@ -32,8 +34,23 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
     },
-    textField: {
-        margin: theme.spacing(1, 1)
+    cardWrapper: {
+        padding: theme.spacing(0, 1, 3)
+    },
+    logoWrapper: {
+        justifySelf: 'center',
+        maxWidth: '12rem',
+        width: '80%',
+        margin: theme.spacing(2, 1)
+    },
+    formWrapper: {
+        width: '100%'
+    },
+    centeredContent: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }))
 
@@ -48,6 +65,93 @@ const blankPage = (classes: Record<"blankTitle" | "noSelection", string>) => {
     )
 }
 
+const generateCardInputs = (classes: any) => {
+    return (
+        <Grid container spacing={4} className={classes.cardWrapper}>
+            <Grid item xs={12} sm={12} md={6}>
+                <FormControl fullWidth>
+                    <TextField
+                        size="small"
+                        required
+                        label="First name"
+                    />
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+                <FormControl fullWidth>
+                    <TextField
+                        size="small"
+                        required
+                        label="Last name"
+                    />
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+                <FormControl fullWidth>
+                    <TextField
+                        size="small"
+                        type="number"
+                        required
+                        label="Card number"
+                    />
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+                <FormControl fullWidth>
+                    <TextField
+                        size="small"
+                        type="number"
+                        required
+                        label="CVC/CVV"
+                        helperText="The last three digits on signature strip"
+                    />
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+                <FormControl fullWidth>
+                    <TextField
+                        size="small"
+                        type="number"
+                        required
+                        label="Expiry date"
+                    />
+                </FormControl>
+            </Grid>
+        </Grid>
+    )
+}
+
+const generateSwishInput = (classes: any) => {
+    return (
+        <div className={classes.formWrapper}>
+            <FormControl fullWidth className={classes.centeredContent}>
+                <img src={Swishlogo} className={classes.logoWrapper} alt="swish_logo" />
+                <TextField
+                    size="small"
+                    required
+                    label="Your mobile number"
+                    type="number"
+                />
+            </FormControl>
+        </div>
+    )
+}
+const generatePaypalInput = (classes: any) => {
+    return (
+        <div className={classes.formWrapper}>
+            <FormControl fullWidth className={classes.centeredContent}>
+                <img src={PayPallogo} className={classes.logoWrapper} alt="paypal_logo" />
+                {/* <TextField
+                    size="small"
+                    required
+                    label="Your mobile number"
+                    type="number"
+                /> */}
+            </FormControl>
+        </div>
+    )
+}
+
 const generatePurchaseOptions = (classes: any, props: Props, type: string, handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
     console.log(props.identifier);
 
@@ -56,32 +160,37 @@ const generatePurchaseOptions = (classes: any, props: Props, type: string, handl
             <Typography variant="h5" className={classes.blankTitle}>
                 {props.identifier.name}
             </Typography>
-            {generateOptionalDropDown(classes, props, type, handleChange)}
-            
+            {(props.identifier.name === 'Card')
+                ? generateCardInputs(classes)
+                : props.identifier.name === 'Swish'
+                    ? generateSwishInput(classes)
+                    : props.identifier.name === 'Paypal'
+                        ? generatePaypalInput(classes)
+                        : null
+            }
         </Container>
     )
 }
 
-const generateOptionalDropDown = (classes: any, props: Props, type: string, handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
+const generateOptionalDropDown = (props: Props, type: string, handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
     return (
-        (props.identifier.options) ? 
-        <FormControl fullWidth>
-            <TextField
-                className={classes.textField}
-                select
-                label={`${props.identifier.name} type:`}
-                value={type}
-                onChange={handleChange}
-                helperText={`Please select type`}
-            >
-                {props.identifier.options.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
-            </TextField>
-        </FormControl>
-        : null
+        (props.identifier.options) ?
+            <FormControl fullWidth>
+                <TextField
+                    select
+                    label={`${props.identifier.name} type:`}
+                    value={type}
+                    onChange={handleChange}
+                    helperText={`Please select type`}
+                >
+                    {props.identifier.options.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </FormControl>
+            : null
     )
 }
 

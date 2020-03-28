@@ -9,7 +9,7 @@ import HomeIcon from '@material-ui/icons/Home';
 const useStyles = makeStyles({
   root: {
     position:"fixed",
-    bottom:0,
+    top:0,
 
     width: "100%",
 

@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     wrapper: {
         minHeight: '100vh',
         height: '100%',
-        paddingBottom: '10rem'
+        padding: theme.spacing(6,0)
     },
     paper: {
         height: '100%',

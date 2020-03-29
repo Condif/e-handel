@@ -15,7 +15,7 @@ interface State {
 	products: Product[];
 	cart: [];
 	removeLastItem: () => void;
-	addNewItem: () => void;
+	addNewItem: (newProduct: Product) => void;
 }
 
 export class ProductProvider extends React.Component<Props, State> {
@@ -33,24 +33,9 @@ export class ProductProvider extends React.Component<Props, State> {
 		console.log(this.state);
 	}
 
-	addNewItem = () => {
+	addNewItem = (newProduct: Product) => {
 		this.setState({
-			products: [
-				...this.state.products,
-				{
-					name: "munk",
-					serial: 1,
-					img:
-						"https://images.unsplash.com/photo-1584727638096-042c45049ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=712&q=80",
-					price: 10000,
-					desc:
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure ea veritatis hic, vero fugit...",
-					info: {
-						sizes: ["xs", "sm", "md", "lg", "xl"],
-						colors: ["red", "green", "blue", "orange"]
-					}
-				}
-			]
+			products: [...this.state.products, newProduct]
 		});
 	};
 

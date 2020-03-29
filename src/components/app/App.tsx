@@ -1,14 +1,16 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-
+import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline";
 import Layout from "../layout/layout";
 
 function App() {
 	return (
-		<BrowserRouter >
-			<Layout />
-		</BrowserRouter>
+		<ScopedCssBaseline>
+			<BrowserRouter >
+				<Layout />
+			</BrowserRouter>
+		</ScopedCssBaseline>
 	);
 }
 

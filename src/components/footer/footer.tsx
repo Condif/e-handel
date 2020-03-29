@@ -2,10 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
+import Cart from "../cart/cart";
 
 const useStyles = makeStyles({
 	root: {
@@ -48,7 +48,8 @@ export default function Footer() {
 					</Link>
 				}
 			/>
-			<BottomNavigationAction value="cart" icon={<ShoppingCartIcon />} />
+			<BottomNavigationAction icon={<Cart/>} />
+			
 		</BottomNavigation>
 	);
 }

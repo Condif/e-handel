@@ -2,9 +2,8 @@ import React from "react";
 import MainView from "../mainView/mainView";
 import Footer from "../footer/footer";
 // npm
-import { CssBaseline, Button } from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import Cart from "../cart/cart";
-import { Product } from "../../interfaces&types/interfaces";
 
 function Layout() {
 

@@ -6,7 +6,6 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-const anchor = 'right'
 const useStyles = makeStyles({
 	root: {
 		position: "fixed",

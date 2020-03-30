@@ -44,6 +44,16 @@ function ContextButton(props: Props) {
 					)}
 				</ProductContext.Consumer>
 			);
+			case "removeFromCart":
+			return (
+				<ProductContext.Consumer>
+					{value => (
+						<button onClick={() => value.removeFromCart(props.product)}>
+							removeFromCart
+						</button>
+					)}
+				</ProductContext.Consumer>
+			);
 		default:
 			return null;
 	}

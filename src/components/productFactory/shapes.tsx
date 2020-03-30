@@ -12,33 +12,20 @@ import {
 	CardActions,
 	Collapse,
 	IconButton,
-	Container,
 	Grid,
 	Fab,
 	Button,
 	ButtonGroup,
 	Box,
 	Paper,
-	ButtonBase,
 	makeStyles,
 	Theme,
 	createStyles,
 	Modal
 } from "@material-ui/core";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import InfoIcon from "@material-ui/icons/Info";
-import { render } from "react-dom";
-import shape from "@material-ui/core/styles/shape";
 
-function getModalStyle() {
-	return {
-		top: "50%",
-		left: "50%",
-		transform: "translate(-50%, -50%)"
-	};
-}
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -120,7 +107,6 @@ export function ProductCard(props: Props) {
 	};
 
 	// MODAL
-	const [modalStyle] = React.useState(getModalStyle);
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => {

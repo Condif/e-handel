@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ProductCard, ProductPage } from "./shapes";
+import { ProductCard, ProductPage, ProductCart } from "./shapes";
 
 import { Product } from "../../interfaces&types/interfaces";
 import { Shape } from "../../interfaces&types/types";
@@ -8,6 +8,7 @@ import { Shape } from "../../interfaces&types/types";
 interface Props {
 	product: Product;
 	productShape: Shape;
+	amount?: number
 }
 
 export default function ProductFactory(props: Props) {
@@ -15,11 +16,10 @@ export default function ProductFactory(props: Props) {
 		case "card":
 			return <ProductCard product={props.product} />;
 		case "cart":
-			return <div>cart</div>;
+			return <ProductCart product={props.product} amount={props.amount} />;
 		case "listitem":
 			return <div>listItem</div>;
 		case "fullpage":
-			return <ProductPage product={props.product} />
-		
+			return <ProductPage product={props.product} />;
 	}
 }

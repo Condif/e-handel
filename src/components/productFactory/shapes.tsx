@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: "2rem"
 		},
 		cartCardWrapper: {
-			display: 'flex'
+			height: '7rem',
 		}
 	})
 );
@@ -221,7 +221,7 @@ export function ProductCart(props: Props) {
 	return (
 		<Box className={classes.root}
 			bgcolor="background.paper">
-			<Card>
+			<Card className={classes.cartCardWrapper}>
 				<Grid container spacing={1}>
 					<Grid item xs={3}>
 						<CardContent>

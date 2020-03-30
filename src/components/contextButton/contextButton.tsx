@@ -18,18 +18,28 @@ function ContextButton(props: Props) {
 					)}
 				</ProductContext.Consumer>
 			);
+		case "addToCounter":
+		return (
+			<ProductContext.Consumer>
+				{value => (
+					<button onClick={() => value.addToCounter(props.product)}>
+						+
+					</button>
+				)}
+			</ProductContext.Consumer>
+		);
 		case "clearCart":
 			return (
 				<ProductContext.Consumer>
 					{value => <button onClick={value.clearCart}>clearCart</button>}
 				</ProductContext.Consumer>
 			);
-		case "removeFromCart":
+		case "removeFromCounter":
 			return (
 				<ProductContext.Consumer>
 					{value => (
-						<button onClick={() => value.removeFromCart(props.product)}>
-							removeFromCart
+						<button onClick={() => value.removeFromCounter(props.product)}>
+							-
 						</button>
 					)}
 				</ProductContext.Consumer>

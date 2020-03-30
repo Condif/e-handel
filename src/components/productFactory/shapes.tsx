@@ -259,7 +259,10 @@ export function ProductCart(props: Props) {
 					</Typography>
 				</CardContent>
 				<CardContent>
-					<ContextButton product={props.product} shape="removeFromCart" />
+                    <ContextButton product={props.product} shape="addToCounter" />
+                </CardContent>
+				<CardContent>
+					<ContextButton product={props.product} shape="removeFromCounter" />
 				</CardContent>
 			</Card>
 		</Box>

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline";
+import { ProductProvider } from "../../contexts/productContext";
+
 import Layout from "../layout/layout";
 
 function App() {
+	
+	
 	return (
-		<ScopedCssBaseline>
-			<BrowserRouter >
+		<BrowserRouter>
+			<ProductProvider>
 				<Layout />
-			</BrowserRouter>
-		</ScopedCssBaseline>
+			</ProductProvider>
+		</BrowserRouter>
 	);
 }
 

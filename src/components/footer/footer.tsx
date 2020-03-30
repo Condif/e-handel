@@ -25,7 +25,6 @@ export default function Footer() {
 	const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
 		setValue(newValue);
 	};
-	console.log(value);
 
 	return (
 		<BottomNavigation
@@ -48,8 +47,7 @@ export default function Footer() {
 					</Link>
 				}
 			/>
-			<BottomNavigationAction icon={<Cart/>} />
-			
+			<BottomNavigationAction icon={<Cart />} />
 		</BottomNavigation>
 	);
 }

@@ -6,17 +6,23 @@ import {
 	List,
 	makeStyles,
 	Container,
-	Typography
+	Typography,
+	Grid
 } from "@material-ui/core";
 import { ProductList } from "../productsAPI/productsAPI";
 import ProductFactory from "../productFactory/productFactory";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import CloseIcon from "@material-ui/icons/Close";
+import { ProductContext } from "../../contexts/productContext";
+import ContextButton from "../contextButton/contextButton";
 
 const anchor = "right";
 const useStyles = makeStyles({
 	list: {
-		width: "100%"
+		width: "25vw",
+		minWidth: "20rem",
+
+		padding: "1rem"
 	}
 });
 export default function Cart() {
@@ -37,32 +43,38 @@ export default function Cart() {
 	};
 
 	const CartList = [0];
+
 	const list = (anchor: any) => (
-		<div className={classes.list} role="presentation">
-			<Divider />
-			<List>
-				<Typography variant="h4">Cart</Typography>
-			</List>
-			<List>
-				<Container style={{ width: "100%" }}>
-					{CartList.length > 0 && (
-						<ProductFactory product={ProductList[0]} productShape="cart" />
-					)}
-					{CartList.length === 0 && (
-						<Typography variant="h4">Your cart is empty</Typography>
-					)}
-				</Container>
-			</List>
-			<Divider style={{ display: "flex" }} />
-			<List>
-				<Typography variant="h4">Total: 10000</Typography>
-			</List>
-			<Divider />
-			<List>
-				<Typography variant="h4">Button</Typography>
-			</List>
-		</div>
-	);
+		<ProductContext.Consumer>
+			{value => (
+				<div className={classes.list} role="presentation">
+					<Grid container>
+
+						<Grid item xs={12}>
+							<Typography variant="h4">cart</Typography>
+						</Grid>
+
+						<Grid item xs={12}>
+							{value.cart.map(item => (
+								<ProductFactory
+									key={item.product.serial}
+                                    product={item.product}
+                                    amount={item.amount}
+									productShape="cart"
+								/>
+							))}
+						</Grid>
+
+                        <Grid item xs={12}>
+                            <ContextButton shape="clearCart" />
+                        </Grid>
+
+					</Grid>
+				</div>
+			)}
+		</ProductContext.Consumer>
+	)
+
 	return (
 		<div>
 			<ShoppingCartIcon onClick={toggleDrawer(anchor, true)} />

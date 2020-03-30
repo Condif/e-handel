@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ProductView = ({ match }: any) => {
 	const classes = useStyles();
-	const serialNumber = parseInt(match.params.serial);
 
 	return (
 		<ProductContext.Consumer>

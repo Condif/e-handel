@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import {
 	Grid,
@@ -10,17 +10,10 @@ import {
 	Modal,
 	Paper,
 	TextField,
-	FormControl,
-	InputLabel,
-	Input,
-	FormHelperText
 } from "@material-ui/core";
 import CardFactory from "../../productFactory/productFactory";
 import { ProductContext } from "../../../contexts/productContext";
-import { ProductList } from "../../productsAPI/productsAPI";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
-import { Product } from "../../../interfaces&types/interfaces";
-import { open } from "fs";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -49,11 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 );
-
-function useForceUpdate() {
-	const [value, setValue] = React.useState(0); // integer state
-	return () => setValue(value => ++value); // update the state to force render
-}
 
 interface Props {
 }

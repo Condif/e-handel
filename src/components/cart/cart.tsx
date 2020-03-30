@@ -2,14 +2,10 @@ import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
 import {
 	Drawer,
-	Divider,
-	List,
 	makeStyles,
-	Container,
 	Typography,
 	Grid
 } from "@material-ui/core";
-import { ProductList } from "../productsAPI/productsAPI";
 import ProductFactory from "../productFactory/productFactory";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import CloseIcon from "@material-ui/icons/Close";
@@ -41,8 +37,6 @@ export default function Cart() {
 
 		setState({ ...state, [anchor]: open });
 	};
-
-	const CartList = [0];
 
 	const list = (anchor: any) => (
 		<ProductContext.Consumer>

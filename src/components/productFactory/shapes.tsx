@@ -150,17 +150,17 @@ export function ProductCard(props: Props) {
 			</Link>
 
 			<CardActions disableSpacing>
-				<IconButton aria-label="addToCard">
-					<InfoIcon onClick={handleExpandClick} />
+				<IconButton aria-label="addToCard" onClick={handleExpandClick}>
+					<InfoIcon />
 				</IconButton>
 
 				<button type="button" onClick={handleOpen}>
 					quickview
 				</button>
 
-				<IconButton aria-label="addToCard" style={{ marginLeft: "auto" }}>
+				<div style={{ marginLeft: "auto" }}>
 					<ContextButton product={props.product} shape="addToCart" />
-				</IconButton>
+				</div>
 			</CardActions>
 			<Modal
 				aria-labelledby="simple-modal-title"
@@ -221,7 +221,9 @@ export function ProductPage(props: Props) {
 								size="small"
 								aria-label={color}
 								className={classes.margin}
-								style={{ backgroundColor: color }}></Fab>
+								style={{ backgroundColor: color }}>
+									<></>
+								</Fab>
 						))}
 					</Grid>
 				</Grid>

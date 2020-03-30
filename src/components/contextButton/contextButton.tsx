@@ -1,6 +1,8 @@
 import React from "react";
 import { ProductContext } from "../../contexts/productContext";
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
 
 interface Props {
@@ -11,20 +13,16 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) => 
 	createStyles({
 		removeFromCart: {
-			// padding: theme.spacing(.5),
 			position: 'absolute',
 			width: '1.5rem',
 			height: '1.5rem',
 			top: '1rem',
 			right: '.5rem',
-			// top: '-.2rem',
-			// right: '-.2rem',
-			// fontSize: "small", 
-			// background: '#DC004E',
-			// color: 'white',
 			color: '#d3d3d3',
-			// borderRadius: '1rem'
-		}
+		},
+		counterButtons: {
+			color: '#d3d3d3'
+		},
 	})
 )
 
@@ -45,19 +43,19 @@ function ContextButton(props: Props) {
 		return (
 			<ProductContext.Consumer>
 				{value => (
-					<button onClick={() => value.addToCounter(props.product)}>
-						+
-					</button>
-				)}
+					<AddCircleOutlineIcon 
+					className={classes.counterButtons}
+					onClick={() => value.addToCounter(props.product)} />
+					)}
 			</ProductContext.Consumer>
 		);
 		case "removeFromCounter":
-		return (
-			<ProductContext.Consumer>
+			return (
+				<ProductContext.Consumer>
 				{value => (
-					<button onClick={() => value.removeFromCounter(props.product)}>
-						-
-					</button>
+					<RemoveCircleOutlineIcon 
+					className={classes.counterButtons}
+					onClick={() => value.removeFromCounter(props.product)} />
 				)}
 			</ProductContext.Consumer>
 		);
@@ -75,9 +73,6 @@ function ContextButton(props: Props) {
 						className={classes.removeFromCart}
 						onClick={() => value.removeFromCart(props.product)}
 					/>
-						// <button onClick={() => value.removeFromCart(props.product)}>
-						// 	removeFromCart
-						// </button>
 					)}
 				</ProductContext.Consumer>
 			);

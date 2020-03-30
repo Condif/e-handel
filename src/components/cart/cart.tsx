@@ -12,7 +12,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import { ProductContext } from "../../contexts/productContext";
 import ContextButton from "../contextButton/contextButton";
 
-const anchor = "right";
 const useStyles = makeStyles({
 	list: {
 		width: "25vw",
@@ -21,24 +20,15 @@ const useStyles = makeStyles({
 		padding: "1rem"
 	}
 });
-export default function Cart() {
+
+interface Props {
+	isOpen: boolean;
+	toggleDrawer: (anchor: string, open: boolean) => void;
+}
+export default function Cart(props: Props) {
 	const classes = useStyles();
-	const [state, setState] = React.useState({
-		right: false
-	});
 
-	const toggleDrawer = (anchor: any, open: any) => (event: any) => {
-		if (
-			event.type === "keydown" &&
-			(event.key === "Tab" || event.key === "Shift")
-		) {
-			return;
-		}
-
-		setState({ ...state, [anchor]: open });
-	};
-
-	const list = (anchor: any) => (
+	const list = () => (
 		<ProductContext.Consumer>
 			{value => (
 				<div className={classes.list} role="presentation">
@@ -71,14 +61,13 @@ export default function Cart() {
 
 	return (
 		<div>
-			<ShoppingCartIcon onClick={toggleDrawer(anchor, true)} />
-			<Drawer anchor={anchor} open={state[anchor]}>
-				<CloseIcon
-					style={{ height: "2rem", fontSize: "large" }}
-					onClick={toggleDrawer(anchor, false)}
-				/>
-				{list(anchor)}
-			</Drawer>
+			<ShoppingCartIcon onClick={() => props.toggleDrawer('right', false)} />
+            <Drawer
+                anchor='right'
+                open={props.isOpen}>
+                <CloseIcon style={{ height: "2rem", fontSize: 'large'}} onClick={() => props.toggleDrawer('right', false)} />
+                {list()}
+            </Drawer>
 		</div>
 	);
 }

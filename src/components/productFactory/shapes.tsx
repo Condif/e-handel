@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: 'relative',
 			margin: '1rem 0',
 			'& .MuiGrid-container': {
-				padding: theme.spacing(1,1)
+				padding: theme.spacing(1, 1)
 			},
 			'& .MuiCardContent-root': {
-				padding: theme.spacing(1,1)
+				padding: theme.spacing(1, 1)
 			},
 		},
 		header: {
@@ -222,7 +222,7 @@ export function ProductCart(props: Props) {
 		<Box className={classes.root}
 			bgcolor="background.paper">
 			<Card>
-				<Grid container spacing= {1}>
+				<Grid container spacing={1}>
 					<Grid item xs={3}>
 						<CardContent>
 							<img
@@ -240,9 +240,15 @@ export function ProductCart(props: Props) {
 							<Typography variant="subtitle1">
 								{"Price: " + props.product.price}:-
 							</Typography>
-							<Typography variant="subtitle1">
-								{"amount :  " + props.amount}
-							</Typography>
+							<Box display="flex">
+								<ContextButton product={props.product} shape="addToCounter" />
+								<Box display="flex" margin="0 0.4rem 0 0.4rem">
+									<Typography variant="subtitle1">
+										{props.amount}
+									</Typography>
+								</Box>
+								<ContextButton product={props.product} shape="removeFromCounter" />
+							</Box>
 						</CardContent>
 					</Grid>
 					<CardContent>

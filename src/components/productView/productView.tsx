@@ -11,10 +11,11 @@ import {
 	makeStyles,
 	Theme,
 	createStyles,
-	Paper
+	Paper,
+	Button
 } from "@material-ui/core";
 
-interface Props extends RouteChildrenProps<{ serial: string }> {}
+interface Props extends RouteChildrenProps<{ serial: string }> {addToCart: () => void}
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const ProductView: React.FC<Props> = ({ match }: any) => {
+const ProductView: React.FC<Props> = ({ match }: any, props: Props) => {
 	const classes = useStyles();
 
 	const serialNumber = parseInt(match.params.serial);
@@ -45,6 +46,7 @@ const ProductView: React.FC<Props> = ({ match }: any) => {
 
 	return (
 		<Container maxWidth="lg" className={classes.wrapper}>
+			<Button onClick={(event) => props.addToCart}></Button>
 			<Typography variant="h3" className={classes.title}>
 				Product view
 			</Typography>

@@ -56,11 +56,9 @@ export default function Footer(props: Props) {
 			/>
 			<BottomNavigationAction  
 			icon={
-				<ShoppingCartIcon onClick={(event) => 
-					{
-						props.toggleDrawer('right', true)}}
-					/>
-			}/>
+				<ShoppingCartIcon onClick={(event) => props.toggleDrawer('right', true)}/>
+			}
+			/>
 			
 		</BottomNavigation>
 	);

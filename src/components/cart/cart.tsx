@@ -18,6 +18,7 @@ const useStyles = makeStyles({
 interface Props {
     isOpen: boolean;
     toggleDrawer: (anchor: string, open: boolean) => void
+    cartList: string;
 }
 
 export default function Cart(props: Props) {
@@ -28,9 +29,7 @@ export default function Cart(props: Props) {
     // })
 
     
-    // const cartList: Product[] = []
-    const newProduct: Product = cartProduct;
-    
+    const newCartList = props.cartList
     const list = () => (
         <div
             className={classes.list}
@@ -43,11 +42,13 @@ export default function Cart(props: Props) {
             </List>
             <List>
                 <Container style={{width: "100%"}}>
-                    {/* {newProduct != undefined && */}
-                            {/* {cartList.map(product => (
+                    {newCartList.map((product: Product) => (
+                        <CardFactory product={product} view="cart" />
+                    ))}
+                    {/* {newCartList != undefined &&
+                            {newCartList.map(product => (
                                 <CardFactory product={product} view="cart" />
-                            ))} */}
-                            <CardFactory product={ProductList[0]} view="cart" />
+                            ))}} */}
                     
                     {/* {cartList.length === 0 &&
                         <Typography variant="h4">
@@ -76,7 +77,7 @@ export default function Cart(props: Props) {
             <React.Fragment>
                 
                 <Drawer
-                     anchor={'right'}
+                     anchor='right'
                      open={props.isOpen}>
                      <CloseIcon style={{ height: "2rem", fontSize: 'large'}} onClick={() => props.toggleDrawer('right', false)} />
                     {list()}

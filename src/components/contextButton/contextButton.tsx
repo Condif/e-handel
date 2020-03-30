@@ -1,12 +1,35 @@
 import React from "react";
 import { ProductContext } from "../../contexts/productContext";
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
 
 interface Props {
 	product?: any;
 	shape: string;
 }
 
+const useStyles = makeStyles((theme: Theme) => 
+	createStyles({
+		removeFromCart: {
+			// padding: theme.spacing(.5),
+			position: 'absolute',
+			width: '1.5rem',
+			height: '1.5rem',
+			top: '1rem',
+			right: '.5rem',
+			// top: '-.2rem',
+			// right: '-.2rem',
+			// fontSize: "small", 
+			// background: '#DC004E',
+			// color: 'white',
+			color: '#d3d3d3',
+			// borderRadius: '1rem'
+		}
+	})
+)
+
 function ContextButton(props: Props) {
+	const classes = useStyles()
 	switch (props.shape) {
 		case "addToCart":
 			return (
@@ -28,9 +51,13 @@ function ContextButton(props: Props) {
 			return (
 				<ProductContext.Consumer>
 					{value => (
-						<button onClick={() => value.removeFromCart(props.product)}>
-							removeFromCart
-						</button>
+						<DeleteIcon
+						className={classes.removeFromCart}
+						onClick={() => value.removeFromCart(props.product)}
+					/>
+						// <button onClick={() => value.removeFromCart(props.product)}>
+						// 	removeFromCart
+						// </button>
 					)}
 				</ProductContext.Consumer>
 			);

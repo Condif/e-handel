@@ -10,7 +10,9 @@ export const ProductContext = React.createContext<State>({
 	addNewItem: () => {},
 	addToCart: () => {},
 	removeFromCart: () => {},
-	clearCart: () => {}
+	clearCart: () => {},
+	removeFromCounter: () => {},
+	addToCounter: () => {},
 });
 
 interface Props {}
@@ -22,6 +24,8 @@ interface State {
 	addNewItem: (newProduct: Product) => void;
 	addToCart: (product: Product) => void;
 	removeFromCart: (product: Product) => void;
+	removeFromCounter: (product: Product) => void;
+	addToCounter: (product: Product) => void;
 }
 
 export class ProductProvider extends React.Component<Props, State> {
@@ -36,7 +40,9 @@ export class ProductProvider extends React.Component<Props, State> {
 			addNewItem: this.addNewItem,
 			addToCart: this.addToCart,
 			removeFromCart: this.removeFromCart,
-			clearCart: this.clearCart
+			clearCart: this.clearCart,
+			removeFromCounter: this.removeFromCounter,
+			addToCounter: this.AddToCounter
 		};
 	}
 	// - - - - CART
@@ -115,6 +121,48 @@ export class ProductProvider extends React.Component<Props, State> {
 			() => console.log(this.state)
 		);
 	};
+
+	removeFromCounter = (product: Product) => {
+		this.state.cart.forEach(item => {
+			if (item.amount <= 1 && product === item.product) {
+				this.removeFromCart(product);
+			
+			} else if(product === item.product) {
+				const updatedCart = this.state.cart;
+				const updatedAmount = item.amount - 1;
+
+				updatedCart.splice(this.state.cart.indexOf(item), 1, {
+					product: item.product,
+					amount: updatedAmount
+				});
+
+				this.setState({
+					cart: updatedCart
+				})
+			}; 
+		});
+	}
+
+	AddToCounter = (product: Product) => {
+		this.state.cart.forEach(item => {
+			if (item.amount < 1 && product === item.product) {
+				this.addToCart(product);
+			
+			} else if(product === item.product) {
+				const updatedCart = this.state.cart;
+				const updatedAmount = item.amount + 1;
+
+				updatedCart.splice(this.state.cart.indexOf(item), 1, {
+					product: item.product,
+					amount: updatedAmount
+				});
+
+				this.setState({
+					cart: updatedCart
+				})
+			}; 
+		});
+	}
 
 	render() {
 		return (

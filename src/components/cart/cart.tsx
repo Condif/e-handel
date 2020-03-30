@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 interface Props {
     isOpen: boolean;
     toggleDrawer: (anchor: string, open: boolean) => void
-    cartList: string;
+    newCartList: Product[];
 }
 
 export default function Cart(props: Props) {
@@ -29,7 +29,6 @@ export default function Cart(props: Props) {
     // })
 
     
-    const newCartList = props.cartList
     const list = () => (
         <div
             className={classes.list}
@@ -42,7 +41,7 @@ export default function Cart(props: Props) {
             </List>
             <List>
                 <Container style={{width: "100%"}}>
-                    {newCartList.map((product: Product) => (
+                    {props.newCartList.map((product: Product) => (
                         <CardFactory product={product} view="cart" />
                     ))}
                     {/* {newCartList != undefined &&

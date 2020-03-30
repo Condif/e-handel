@@ -38,11 +38,11 @@ function ProductGrid(props: Props) {
 		<React.Fragment>
 			<CssBaseline />
 			<Container maxWidth="lg" disableGutters={false}>
-			{ProductList.map(product => (
-							<Grid key={product.serial} item xs={12} sm={6} md={4}>
-								<Button onClick={(event) => props.addToCart(product)}></Button>
-							</Grid>
-						))}
+				{ProductList.map(product => (
+								<Grid key={product.serial} item xs={12} sm={6} md={4}>
+									<Button onClick={(event) => props.addToCart(product)}></Button>
+								</Grid>
+							))}
 			
 				<Typography variant="h2" className={classes.header}>
 					Products

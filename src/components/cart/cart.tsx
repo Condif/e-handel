@@ -15,8 +15,8 @@ import ContextButton from "../contextButton/contextButton";
 const anchor = "right";
 const useStyles = makeStyles({
 	list: {
-		width: "25vw",
-		minWidth: "20rem",
+		width: "25rem",
+		maxWidth: "100vw",
 
 		padding: "1rem"
 	}

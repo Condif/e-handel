@@ -56,8 +56,6 @@ function useForceUpdate() {
 }
 
 interface Props {
-	addNewProduct: () => void;
-	products: Product[];
 }
 
 function ProductGrid(props: Props) {
@@ -143,6 +141,4 @@ const btnWrapper: CSSProperties = {
 	left: "50%",
 	transform: "translatex(-50%)"
 };
-const btnStyle: CSSProperties = {
-	margin: ".2rem"
-};
+

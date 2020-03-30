@@ -1,80 +1,90 @@
 import React from "react";
 // import {  Theme, createStyles } from "@material-ui/core/styles";
-import { Drawer, Divider, List, makeStyles, Container, Typography } from "@material-ui/core";
-import { ProductList } from "../mockProducts/productsAPI";
-import CardFactory from "../cardFactory/cardFactory";
+import {
+	Drawer,
+	Divider,
+	List,
+	makeStyles,
+	Container,
+	Typography,
+	Grid
+} from "@material-ui/core";
+import { ProductList } from "../productsAPI/productsAPI";
+import ProductFactory from "../productFactory/productFactory";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from "@material-ui/icons/Close";
+import { ProductContext } from "../../contexts/productContext";
+import ContextButton from "../contextButton/contextButton";
 
-const anchor = 'right'
+const anchor = "right";
 const useStyles = makeStyles({
-    list: {
-        width: "100%",
-    },
+	list: {
+		width: "25vw",
+		minWidth: "20rem",
+
+		padding: "1rem"
+	}
 });
 export default function Cart() {
-    const classes = useStyles();
-    const [state, setState] = React.useState({
-        right: false,
-    })
+	const classes = useStyles();
+	const [state, setState] = React.useState({
+		right: false
+	});
 
-    const toggleDrawer = (anchor: any, open: any) => (event: any) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
+	const toggleDrawer = (anchor: any, open: any) => (event: any) => {
+		if (
+			event.type === "keydown" &&
+			(event.key === "Tab" || event.key === "Shift")
+		) {
+			return;
+		}
 
-        setState({ ...state, [anchor]: open });
-    };
+		setState({ ...state, [anchor]: open });
+	};
 
-    const CartList = [0];
-    const list = (anchor: any) => (
-        <div
-            className={classes.list}
-            role="presentation"
-        >   
-            <Divider />
-            <List>
-                <Typography variant="h4">
-					Cart
-				</Typography> 
-            </List>
-            <List>
-                <Container style={{width: "100%"}}>
-                    {CartList.length > 0 &&
-                            <CardFactory product={ProductList[0]} view="cart" />
-                    }
-                    {CartList.length === 0 &&
-                        <Typography variant="h4">
-					        Your cart is empty
-				        </Typography> 
-                    }
-                       
-                </Container>
-            </List>
-            <Divider style={{display: "flex"}} />
-            <List>
-                <Typography variant="h4">
-					Total: 10000
-				</Typography> 
-            </List>
-            <Divider />
-            <List>
-                <Typography variant="h4">
-					Button
-				</Typography> 
-            </List>
-        </div>
-    );
-    return (
-        <div>
-            <React.Fragment>
-                <ShoppingCartIcon onClick={toggleDrawer(anchor, true)} />
-                <Drawer
-                    anchor={anchor} open={state[anchor]}>
-                     <CloseIcon style={{ height: "2rem", fontSize: 'large'}} onClick={toggleDrawer(anchor, false)} />
-                    {list(anchor)}
-                </Drawer>
-            </React.Fragment>
-        </div>
-    )
+	const CartList = [0];
+
+	const list = (anchor: any) => (
+		<ProductContext.Consumer>
+			{value => (
+				<div className={classes.list} role="presentation">
+					<Grid container>
+
+						<Grid item xs={12}>
+							<Typography variant="h4">cart</Typography>
+						</Grid>
+
+						<Grid item xs={12}>
+							{value.cart.map(item => (
+								<ProductFactory
+									key={item.product.serial}
+                                    product={item.product}
+                                    amount={item.amount}
+									productShape="cart"
+								/>
+							))}
+						</Grid>
+
+                        <Grid item xs={12}>
+                            <ContextButton shape="clearCart" />
+                        </Grid>
+
+					</Grid>
+				</div>
+			)}
+		</ProductContext.Consumer>
+	)
+
+	return (
+		<div>
+			<ShoppingCartIcon onClick={toggleDrawer(anchor, true)} />
+			<Drawer anchor={anchor} open={state[anchor]}>
+				<CloseIcon
+					style={{ height: "2rem", fontSize: "large" }}
+					onClick={toggleDrawer(anchor, false)}
+				/>
+				{list(anchor)}
+			</Drawer>
+		</div>
+	);
 }

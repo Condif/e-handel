@@ -5,9 +5,6 @@ import ProductView from "./productView/productView";
 import { Switch, Route } from "react-router-dom";
 import { Product } from "../../interfaces&types/interfaces";
 
-			<Route>something went wrong</Route>
-		</Switch>
-	);
 interface Props {}
 interface State {
 	products: Product[];

@@ -1,5 +1,4 @@
 import React from "react";
-import { ProductList } from "../mockProducts/productsAPI";
 import MainView from "../mainView/mainView";
 import Footer from "../footer/footer";
 // npm

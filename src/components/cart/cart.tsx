@@ -21,22 +21,13 @@ const useStyles = makeStyles({
 		padding: "1rem"
 	}
 });
-export default function Cart() {
+
+interface Props {
+	isOpen: boolean;
+	toggleDrawer: () => void;
+}
+export default function Cart(props: Props) {
 	const classes = useStyles();
-	const [state, setState] = React.useState({
-		right: false
-	});
-
-	const toggleDrawer = (anchor: any, open: any) => (event: any) => {
-		if (
-			event.type === "keydown" &&
-			(event.key === "Tab" || event.key === "Shift")
-		) {
-			return;
-		}
-
-		setState({ ...state, [anchor]: open });
-	};
 
 	const list = (anchor: any) => (
 		<ProductContext.Consumer>

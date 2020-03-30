@@ -1,26 +1,15 @@
 import React from "react";
 import "./App.css";
-import Footer from "../footer/footer";
-import CardMaker from "../cardMaker/cardMaker";
-
-import { Container } from "@material-ui/core";
+import { BrowserRouter } from "react-router-dom";
 import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline";
-import { ProductList } from "../mockProducts/products";
-import Register from '../register/register'
+import Layout from "../layout/layout";
 
 function App() {
 	return (
 		<ScopedCssBaseline>
-			{/* <Container> */}
-				<Register />
-
-				{/* </Register> */}
-				{/* {ProductList.map((card: any) => (
-					<CardMaker key={card.serial} product={card}></CardMaker>
-				))} */}
-			{/* </Container> */}
-
-			<Footer />
+			<BrowserRouter >
+				<Layout />
+			</BrowserRouter>
 		</ScopedCssBaseline>
 	);
 }

@@ -253,17 +253,15 @@ export function ProductCart(props: Props) {
 						{"Price: " + props.product.price}:-
 					</Typography>
 				</CardContent>
-				<CardContent>
-					<Typography variant="subtitle1">
-						{"amount :  " + props.amount}
-					</Typography>
-				</CardContent>
-				<CardContent>
-                    <ContextButton product={props.product} shape="addToCounter" />
-                </CardContent>
-				<CardContent>
+				<Box display="flex">
+                    <ContextButton  product={props.product} shape="addToCounter" />
+					<Box display="flex" margin="0 0.4rem 0 0.4rem">
+						<Typography variant="subtitle1">
+							{props.amount}
+						</Typography>
+					</Box>
 					<ContextButton product={props.product} shape="removeFromCounter" />
-				</CardContent>
+				</Box>
 			</Card>
 		</Box>
 	);

@@ -29,10 +29,21 @@ import InfoIcon from "@material-ui/icons/Info";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		root: {
+			position: 'relative',
+			margin: '1rem 0',
+			'& .MuiGrid-container': {
+				padding: theme.spacing(1,1)
+			},
+			'& .MuiCardContent-root': {
+				padding: theme.spacing(1,1)
+			},
+		},
 		header: {
 			position: "absolute",
-
-			color: "#e7e7e7bb",
+			width: '100%',
+			color: "#0f0f0f",
+			backgroundColor: '#e7e7e74D',
 			letterSpacing: ".2rem"
 		},
 		media: {
@@ -67,7 +78,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			maxHeight: "100%"
 		},
 		imgCart: {
-			height: "5rem"
+			height: "5rem",
+			width: '3.5rem',
+			objectFit: 'cover',
 		},
 		addToCart: {
 			padding: "20% 2rem"
@@ -88,6 +101,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 			margin: "5rem",
 			padding: "2rem"
+		},
+		cartCardWrapper: {
+			display: 'flex'
 		}
 	})
 );
@@ -184,34 +200,6 @@ export function ProductPage(props: Props) {
 					<Grid item>
 						<Typography variant="h6">{props.product.desc}</Typography>
 					</Grid>
-					<Grid item>
-						<Typography variant="h6">choose size :</Typography>
-						<ButtonGroup
-							size="medium"
-							aria-label="medium outlined button group">
-							{props.product.info?.sizes.map(size => (
-								<Button
-									key={size}
-									variant="outlined"
-									color="secondary"
-									disableElevation>
-									{size}
-								</Button>
-							))}
-						</ButtonGroup>
-
-						<Typography variant="h6">choose color :</Typography>
-						{props.product.info?.colors.map(color => (
-							<Fab
-								key={color}
-								size="small"
-								aria-label={color}
-								className={classes.margin}
-								style={{ backgroundColor: color }}>
-									<></>
-								</Fab>
-						))}
-					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
 					<Button
@@ -231,36 +219,36 @@ export function ProductCart(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Box
-			display="flex"
-			flexDirection="column"
-			p={1}
-			m={0}
+		<Box className={classes.root}
 			bgcolor="background.paper">
 			<Card>
-				<CardContent>
-					<img
-						className={classes.imgCart}
-						alt="complex"
-						src={props.product.img}
-					/>
-				</CardContent>
-				<CardContent>
-					<Typography variant="subtitle1">
-						{"Name:  " + props.product.name}
-					</Typography>
-					<Typography variant="subtitle1">
-						{"Price: " + props.product.price}:-
-					</Typography>
-				</CardContent>
-				<CardContent>
-					<Typography variant="subtitle1">
-						{"amount :  " + props.amount}
-					</Typography>
-				</CardContent>
-				<CardContent>
-					<ContextButton product={props.product} shape="removeFromCart" />
-				</CardContent>
+				<Grid container spacing= {1}>
+					<Grid item xs={3}>
+						<CardContent>
+							<img
+								className={classes.imgCart}
+								alt="complex"
+								src={props.product.img}
+							/>
+						</CardContent>
+					</Grid>
+					<Grid item xs={9}>
+						<CardContent>
+							<Typography variant="subtitle1">
+								{"Name:  " + props.product.name}
+							</Typography>
+							<Typography variant="subtitle1">
+								{"Price: " + props.product.price}:-
+							</Typography>
+							<Typography variant="subtitle1">
+								{"amount :  " + props.amount}
+							</Typography>
+						</CardContent>
+					</Grid>
+					<CardContent>
+						<ContextButton product={props.product} shape="removeFromCart" />
+					</CardContent>
+				</Grid>
 			</Card>
 		</Box>
 	);

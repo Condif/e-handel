@@ -1,6 +1,5 @@
 import React from "react";
 import { ProductContext } from "../../contexts/productContext";
-import { Product } from "../../interfaces&types/interfaces";
 
 interface Props {
 	product?: any;

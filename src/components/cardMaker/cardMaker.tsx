@@ -7,7 +7,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { Product } from "../mockProducts/iProduct";
+import { Product } from "../../interfaces&types/interfaces";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

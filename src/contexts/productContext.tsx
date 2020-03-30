@@ -30,8 +30,9 @@ export class ProductProvider extends React.Component<Props, State> {
 
 		this.state = {
 			products: ProductList,
-			cart: [],
-
+			// cart: [],
+			//Tillfällig fyllning av carten
+			cart: this.generatePlaceholders(ProductList),
 			removeLastItem: this.removeLastItem,
 			addNewItem: this.addNewItem,
 			addToCart: this.addToCart,
@@ -75,6 +76,19 @@ export class ProductProvider extends React.Component<Props, State> {
 			});
 		}
 	};
+
+	//Tillfällig funktion som fyller carten
+	generatePlaceholders(ProductList: Product[]) {
+		let productArray: { product: Product; amount: number }[] = []
+		ProductList.forEach(product => {
+			const newCartItem = {
+				product: product,
+				amount: 1
+			};
+			productArray.push(newCartItem)
+		});
+		return productArray
+	}
 
 	removeFromCart = (product: Product) => {
 		console.log(product);

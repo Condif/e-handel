@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Product } from "../../interfaces&types/interfaces";
+import ContextButton from "../contextButton/contextButton";
 
 import {
 	Card,
@@ -28,6 +29,8 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import InfoIcon from "@material-ui/icons/Info";
+import { render } from "react-dom";
+import shape from "@material-ui/core/styles/shape";
 
 function getModalStyle() {
 	return {
@@ -76,6 +79,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			maxWidth: "100%",
 			maxHeight: "100%"
 		},
+		imgCart: {
+			height: "5rem"
+		},
 		addToCart: {
 			padding: "20% 2rem"
 		},
@@ -101,6 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
 	product: Product;
+	amount?: number;
 }
 
 export function ProductCard(props: Props) {
@@ -152,7 +159,7 @@ export function ProductCard(props: Props) {
 				</button>
 
 				<IconButton aria-label="addToCard" style={{ marginLeft: "auto" }}>
-					<ShoppingCartIcon />
+					<ContextButton product={props.product} shape="addToCart" />
 				</IconButton>
 			</CardActions>
 			<Modal
@@ -229,5 +236,44 @@ export function ProductPage(props: Props) {
 				</Grid>
 			</Grid>
 		</Grid>
+	);
+}
+
+export function ProductCart(props: Props) {
+	const classes = useStyles();
+
+	return (
+		<Box
+			display="flex"
+			flexDirection="column"
+			p={1}
+			m={0}
+			bgcolor="background.paper">
+			<Card>
+				<CardContent>
+					<img
+						className={classes.imgCart}
+						alt="complex"
+						src={props.product.img}
+					/>
+				</CardContent>
+				<CardContent>
+					<Typography variant="subtitle1">
+						{"Name:  " + props.product.name}
+					</Typography>
+					<Typography variant="subtitle1">
+						{"Price: " + props.product.price}:-
+					</Typography>
+				</CardContent>
+				<CardContent>
+					<Typography variant="subtitle1">
+						{"amount :  " + props.amount}
+					</Typography>
+				</CardContent>
+				<CardContent>
+					<ContextButton product={props.product} shape="removeFromCart" />
+				</CardContent>
+			</Card>
+		</Box>
 	);
 }

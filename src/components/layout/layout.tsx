@@ -11,33 +11,23 @@ function Layout() {
 
 	const [drawer, setDrawer] = React.useState(false)
 
-	const [cartList, setCartList] = React.useState(
-		[]
-	)
 
 	const toggleDrawer = (anchor: string, open: boolean) => {
 		// console.log(state)
 		setDrawer(!drawer);
 	};
 
-	const addToCart = (value: Product) =>  {
-		setCartList(cartList)
-	}
-
 	//Callback funktion om cart ska synas i footer
 	return (
 		<div>
 			<CssBaseline />
-			<MainView
-				 addToCart={addToCart}
-			/>
+			<MainView/>
 			<Footer
 				isOpen={drawer}
 				toggleDrawer={toggleDrawer}
 			/>
 
 			<Cart
-				newCartList={cartList}
 				isOpen={drawer}
 				toggleDrawer={toggleDrawer}
 			/>

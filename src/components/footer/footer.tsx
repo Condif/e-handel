@@ -31,7 +31,6 @@ export default function Footer(props: Props) {
 	const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
 		setValue(newValue);
 	};
-	// console.log(value);
 
 	return (
 		<BottomNavigation

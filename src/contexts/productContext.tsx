@@ -1,12 +1,14 @@
 import React from "react";
 
-import { Product } from "../interfaces&types/interfaces";
+import { Product, NewProduct } from "../interfaces&types/interfaces";
 import { ProductList } from "../components/productsAPI/productsAPI";
 
 export const ProductContext = React.createContext<State>({
 	products: ProductList,
 	cart: [],
-	removeLastItem: () => {},
+	usedSerialnumbers: [],
+
+	deleteItem: () => {},
 	addNewItem: () => {},
 	addToCart: () => {},
 	removeFromCart: () => {},
@@ -17,9 +19,11 @@ interface Props {}
 interface State {
 	products: Product[];
 	cart: { product: Product; amount: number }[];
-	removeLastItem: () => void;
+	usedSerialnumbers: number[];
+
+	deleteItem: (deleteThis: Product) => void;
 	clearCart: () => void;
-	addNewItem: (newProduct: Product) => void;
+	addNewItem: (newProduct: NewProduct) => void;
 	addToCart: (product: Product) => void;
 	removeFromCart: (product: Product) => void;
 }
@@ -32,7 +36,9 @@ export class ProductProvider extends React.Component<Props, State> {
 			products: ProductList,
 			cart: [],
 
-			removeLastItem: this.removeLastItem,
+			usedSerialnumbers: [],
+
+			deleteItem: this.deleteItem,
 			addNewItem: this.addNewItem,
 			addToCart: this.addToCart,
 			removeFromCart: this.removeFromCart,
@@ -98,22 +104,27 @@ export class ProductProvider extends React.Component<Props, State> {
 	};
 
 	// - - - - ALL PRODUCTS
-	addNewItem = (newProduct: Product) => {
+	addNewItem = (newProduct: NewProduct) => {
+		console.log(newProduct);
+
+		const product: Product = {
+			...newProduct,
+			serial: this.state.products.length + 1
+		};
+
 		this.setState({
-			products: [...this.state.products, newProduct]
+			products: [...this.state.products, product]
 		});
 	};
 
-	removeLastItem = () => {
+	deleteItem = (deleteThis: Product) => {
 		const updatedProductList = this.state.products;
-		updatedProductList.pop();
 
-		this.setState(
-			{
-				products: updatedProductList
-			},
-			() => console.log(this.state)
-		);
+		updatedProductList.splice(updatedProductList.indexOf(deleteThis), 1);
+
+		this.setState({
+			products: updatedProductList
+		});
 	};
 
 	render() {

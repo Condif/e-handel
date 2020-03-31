@@ -40,14 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const getProduct = (product: Product) => {
-	return <CardFactory product={product} productShape="fullpage" />;
-};
-
 const ProductView = ({ match }: any) => {
 	const classes = useStyles();
 
-	// const [product, serProduct] = React.useState(serialNumber => {});
+	const serialNumber = parseInt(match.params.serial);
 
 	return (
 		<ProductContext.Consumer>
@@ -57,7 +53,7 @@ const ProductView = ({ match }: any) => {
 						<Paper className={classes.paper}>
 							{value.products.map((product: Product) =>
 								product.serial === serialNumber ? (
-									<CardFactory product={product} productShape="fullpage" />
+									<CardFactory key={serialNumber} product={product} productShape="fullpage" />
 								) : null
 							)}
 						</Paper>

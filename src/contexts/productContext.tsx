@@ -6,7 +6,6 @@ import { ProductList } from "../components/productsAPI/productsAPI";
 export const ProductContext = React.createContext<State>({
 	products: ProductList,
 	cart: [],
-	usedSerialnumbers: [],
 
 	deleteItem: () => {},
 	addNewItem: () => {},
@@ -21,7 +20,6 @@ interface Props {}
 interface State {
 	products: Product[];
 	cart: { product: Product; amount: number }[];
-	usedSerialnumbers: number[];
 
 	deleteItem: (deleteThis: Product) => void;
 	clearCart: () => void;

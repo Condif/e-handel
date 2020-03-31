@@ -99,6 +99,7 @@ function AdminControlls() {
 							<Grid container spacing={2}>
 								{inputs.map(input => (
 									<AdminInput
+										key={input}
 										name={input}
 										hook={newItem}
 										setHook={setNewItem}

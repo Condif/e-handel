@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import {
 	Grid,
@@ -7,20 +7,9 @@ import {
 	createStyles,
 	Container,
 	Typography,
-	Modal,
-	Paper,
-	TextField,
-	FormControl,
-	InputLabel,
-	Input,
-	FormHelperText
 } from "@material-ui/core";
 import CardFactory from "../../productFactory/productFactory";
 import { ProductContext } from "../../../contexts/productContext";
-import { ProductList } from "../../productsAPI/productsAPI";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
-import { Product } from "../../../interfaces&types/interfaces";
-import { open } from "fs";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -55,64 +44,18 @@ function useForceUpdate() {
 	return () => setValue(value => ++value); // update the state to force render
 }
 
-interface Props {
-}
+interface Props {}
 
 function ProductGrid(props: Props) {
 	const classes = useStyles();
 
-	// MODAL
-	const [open, setOpen] = React.useState(false);
-
-	const handleOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
-
 	return (
 		<ProductContext.Consumer>
-			{({ products, removeLastItem, addNewItem }) => (
+			{({ products }) => (
 				<Container maxWidth="lg" disableGutters={false}>
 					<Typography variant="h2" className={classes.header}>
 						Products
 					</Typography>
-
-					<div style={btnWrapper}>
-						<button onClick={removeLastItem}>-</button>
-						<button onClick={handleOpen}>+</button>
-					</div>
-
-					<Modal
-						aria-labelledby="simple-modal-title"
-						aria-describedby="simple-modal-description"
-						open={open}
-						onClose={handleClose}>
-						<div className={classes.modalWrapper}>
-							<Paper className={classes.modalContent}>
-								<Typography variant="h4">add new item</Typography>
-								<form className={classes.root} noValidate autoComplete="off">
-									<div>
-										<TextField
-											id="name"
-											label="name"
-											placeholder="add name"
-											helperText="name of the new product"
-										/>
-										<TextField
-											id="price"
-											label="price"
-											placeholder="add price"
-											helperText="price of the new product"
-										/>
-									</div>
-								</form>
-							</Paper>
-						</div>
-					</Modal>
-
 					<Grid
 						container
 						direction="column"
@@ -134,11 +77,4 @@ function ProductGrid(props: Props) {
 }
 
 export default ProductGrid;
-
-const btnWrapper: CSSProperties = {
-	position: "absolute",
-	top: 10,
-	left: "50%",
-	transform: "translatex(-50%)"
-};
 

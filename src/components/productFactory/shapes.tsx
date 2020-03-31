@@ -104,6 +104,18 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		cartCardWrapper: {
 			height: '7rem',
+		},
+		amountWrapper: {
+			display: 'flex',
+			position: 'relative'
+		},
+		totalAmount: {
+			position: 'absolute',
+			left: '6rem'
+		},
+		secondary: {
+			fontSize: '.8rem',
+			color: '#404040'
 		}
 	})
 );
@@ -237,18 +249,24 @@ export function ProductCart(props: Props) {
 							<Typography variant="subtitle1">
 								{"Name:  " + props.product.name}
 							</Typography>
-							<Typography variant="subtitle1">
+							<Typography className={classes.secondary} variant="subtitle1">
 								{"Price: " + props.product.price}:-
 							</Typography>
-							<Box display="flex">
-								<ContextButton product={props.product} shape="addToCounter" />
-								<Box display="flex" margin="0 0.4rem 0 0.4rem">
-									<Typography variant="subtitle1">
-										{props.amount}
-									</Typography>
+							<div className={classes.amountWrapper}>
+								<Box display="flex">
+									<ContextButton product={props.product} shape="addToCounter" />
+									<Box display="flex" margin="0 0.4rem 0 0.4rem">
+										<Typography variant="subtitle1">
+											{props.amount}
+										</Typography>
+									</Box>
+									<ContextButton product={props.product} shape="removeFromCounter" />
 								</Box>
-								<ContextButton product={props.product} shape="removeFromCounter" />
-							</Box>
+								<Typography className={classes.totalAmount} variant="subtitle1">
+									{(props.amount) ? `Total: ${props.product.price * props.amount}:-`
+									: null}
+								</Typography>
+							</div>
 						</CardContent>
 					</Grid>
 					<CardContent>

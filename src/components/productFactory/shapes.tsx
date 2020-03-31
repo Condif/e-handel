@@ -161,6 +161,10 @@ export function ProductCard(props: Props) {
 				<div style={{ marginLeft: "auto" }}>
 					<ContextButton product={props.product} shape="addToCart" />
 				</div>
+
+				<div style={{ position: "absolute", top: 5, right: 5 }}>
+					<ContextButton product={props.product} shape="deleteItem" />
+				</div>
 			</CardActions>
 			<Modal
 				aria-labelledby="simple-modal-title"
@@ -222,8 +226,8 @@ export function ProductPage(props: Props) {
 								aria-label={color}
 								className={classes.margin}
 								style={{ backgroundColor: color }}>
-									<></>
-								</Fab>
+								<></>
+							</Fab>
 						))}
 					</Grid>
 				</Grid>

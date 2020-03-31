@@ -22,7 +22,7 @@ createStyles({
 		padding: "1rem"
 	},
 	header: {
-		margin: theme.spacing(1.5,4,2)
+		margin: theme.spacing(0,4)
 	},
 	closeIcon: {
 		height: '100%',
@@ -36,6 +36,7 @@ createStyles({
 		zIndex: 1,
 		backgroundColor: '#FFFFFF',
 		display: 'flex',
+		alignItems: 'center',
 		boxShadow: '0px 5px 5px -2px rgba(0,0,0,0.1)',
 		MozBoxShadow: '0px 5px 5px -2px rgba(0,0,0,0.1)',
 		WebkitBoxShadow: '0px 5px 5px -2px rgba(0,0,0,0.1)',
@@ -66,11 +67,6 @@ export default function Cart(props: Props) {
 								/>
 							))}
 						</Grid>
-
-						<Grid item xs={12}>
-							<ContextButton shape="clearCart" />
-						</Grid>
-
 					</Grid>
 				</div>
 			)}
@@ -85,6 +81,7 @@ export default function Cart(props: Props) {
 				<div className={classes.headerWrapper}>
 					<CloseIcon className={classes.closeIcon} onClick={() => props.toggleDrawer('right', false)} />
 					<Typography className={classes.header} variant="h4">Cart</Typography>
+					<ContextButton shape="clearCart" />
 				</div>
 				{list()}
 			</Drawer>

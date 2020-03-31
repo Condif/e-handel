@@ -46,7 +46,6 @@ const getProduct = (product: Product) => {
 
 const ProductView = ({ match }: any) => {
 	const classes = useStyles();
-	const serialNumber = parseInt(match.params.serial);
 
 	// const [product, serProduct] = React.useState(serialNumber => {});
 

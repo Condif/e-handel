@@ -12,7 +12,9 @@ export const ProductContext = React.createContext<State>({
 	addNewItem: () => {},
 	addToCart: () => {},
 	removeFromCart: () => {},
-	clearCart: () => {}
+	clearCart: () => {},
+	removeFromCounter: () => {},
+	addToCounter: () => {},
 });
 
 interface Props {}
@@ -26,6 +28,8 @@ interface State {
 	addNewItem: (newProduct: NewProduct) => void;
 	addToCart: (product: Product) => void;
 	removeFromCart: (product: Product) => void;
+	removeFromCounter: (product: Product) => void;
+	addToCounter: (product: Product) => void;
 }
 
 export class ProductProvider extends React.Component<Props, State> {
@@ -36,13 +40,14 @@ export class ProductProvider extends React.Component<Props, State> {
 			products: ProductList,
 			cart: [],
 
-			usedSerialnumbers: [],
 
 			deleteItem: this.deleteItem,
 			addNewItem: this.addNewItem,
 			addToCart: this.addToCart,
 			removeFromCart: this.removeFromCart,
-			clearCart: this.clearCart
+			clearCart: this.clearCart,
+			removeFromCounter: this.removeFromCounter,
+			addToCounter: this.AddToCounter
 		};
 	}
 	// - - - - CART
@@ -81,6 +86,19 @@ export class ProductProvider extends React.Component<Props, State> {
 			});
 		}
 	};
+
+	//Tillfällig funktion som fyller carten
+	generatePlaceholders(ProductList: Product[]) {
+		let productArray: { product: Product; amount: number }[] = []
+		ProductList.forEach(product => {
+			const newCartItem = {
+				product: product,
+				amount: 1
+			};
+			productArray.push(newCartItem)
+		});
+		return productArray
+	}
 
 	removeFromCart = (product: Product) => {
 		console.log(product);
@@ -126,6 +144,48 @@ export class ProductProvider extends React.Component<Props, State> {
 			products: updatedProductList
 		});
 	};
+
+	removeFromCounter = (product: Product) => {
+		this.state.cart.forEach(item => {
+			if (item.amount <= 1 && product === item.product) {
+				this.removeFromCart(product);
+			
+			} else if(product === item.product) {
+				const updatedCart = this.state.cart;
+				const updatedAmount = item.amount - 1;
+
+				updatedCart.splice(this.state.cart.indexOf(item), 1, {
+					product: item.product,
+					amount: updatedAmount
+				});
+
+				this.setState({
+					cart: updatedCart
+				})
+			}; 
+		});
+	}
+
+	AddToCounter = (product: Product) => {
+		this.state.cart.forEach(item => {
+			if (item.amount < 1 && product === item.product) {
+				this.addToCart(product);
+			
+			} else if(product === item.product) {
+				const updatedCart = this.state.cart;
+				const updatedAmount = item.amount + 1;
+
+				updatedCart.splice(this.state.cart.indexOf(item), 1, {
+					product: item.product,
+					amount: updatedAmount
+				});
+
+				this.setState({
+					cart: updatedCart
+				})
+			}; 
+		});
+	}
 
 	render() {
 		return (

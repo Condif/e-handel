@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ProductGrid from "./productGrid/productGrid";
 import ProductView from "./productView/productView";
 
 import { Switch, Route } from "react-router-dom";
-import { ProductList } from "../productsAPI/productsAPI";
 import { Product } from "../../interfaces&types/interfaces";
 
 interface Props {}

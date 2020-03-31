@@ -1,5 +1,6 @@
 import React from "react";
 import { ProductContext } from "../../contexts/productContext";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { Product } from "../../interfaces&types/interfaces";
 
 interface Props {
@@ -31,6 +32,32 @@ function ContextButton(props: Props) {
 					{value => (
 						<button onClick={() => value.removeFromCart(props.product)}>
 							removeFromCart
+						</button>
+					)}
+				</ProductContext.Consumer>
+			);
+
+		case "addNewItem":
+			return (
+				<ProductContext.Consumer>
+					{value => (
+						<button
+							type="button"
+							onClick={() => value.addNewItem(props.product)}>
+							add new item
+						</button>
+					)}
+				</ProductContext.Consumer>
+			);
+
+		case "deleteItem":
+			return (
+				<ProductContext.Consumer>
+					{value => (
+						<button
+							type="button"
+							onClick={() => value.deleteItem(props.product)}>
+							<DeleteIcon />
 						</button>
 					)}
 				</ProductContext.Consumer>

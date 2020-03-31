@@ -10,6 +10,8 @@ import {
 	Paper
 } from "@material-ui/core";
 import { ProductContext } from "../../../contexts/productContext";
+import { Product } from "../../../interfaces&types/interfaces";
+import { ProductPage } from "../../productFactory/shapes";
 
 interface Props extends RouteChildrenProps<{ serial: string }> {}
 
@@ -38,9 +40,15 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
+const getProduct = (product: Product) => {
+	return <CardFactory product={product} productShape="fullpage" />;
+};
+
 const ProductView = ({ match }: any) => {
 	const classes = useStyles();
 	const serialNumber = parseInt(match.params.serial);
+
+	// const [product, serProduct] = React.useState(serialNumber => {});
 
 	return (
 		<ProductContext.Consumer>
@@ -48,10 +56,11 @@ const ProductView = ({ match }: any) => {
 				<Container maxWidth="lg" className={classes.wrapper}>
 					<div className={classes.root}>
 						<Paper className={classes.paper}>
-							<CardFactory
-								product={value.products[parseInt(match.params.serial) - 1]}
-								productShape="fullpage"
-							/>
+							{value.products.map((product: Product) =>
+								product.serial === serialNumber ? (
+									<CardFactory product={product} productShape="fullpage" />
+								) : null
+							)}
 						</Paper>
 					</div>
 				</Container>

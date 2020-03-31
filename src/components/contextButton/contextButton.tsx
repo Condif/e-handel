@@ -3,14 +3,14 @@ import { ProductContext } from "../../contexts/productContext";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import { makeStyles, Theme, createStyles, Button } from "@material-ui/core";
 
 interface Props {
 	product?: any;
 	shape: string;
 }
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		removeFromCart: {
 			position: 'absolute',
@@ -23,6 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		counterButtons: {
 			color: '#d3d3d3'
 		},
+		clearCart: {
+			position: 'fixed',
+			right: '1rem',
+			height: '2rem',
+			boxShadow: 'none',
+		}
 	})
 )
 
@@ -40,29 +46,33 @@ function ContextButton(props: Props) {
 				</ProductContext.Consumer>
 			);
 		case "addToCounter":
-		return (
-			<ProductContext.Consumer>
-				{value => (
-					<AddCircleOutlineIcon 
-					className={classes.counterButtons}
-					onClick={() => value.addToCounter(props.product)} />
+			return (
+				<ProductContext.Consumer>
+					{value => (
+						<AddCircleOutlineIcon
+							className={classes.counterButtons}
+							onClick={() => value.addToCounter(props.product)} />
 					)}
-			</ProductContext.Consumer>
-		);
+				</ProductContext.Consumer>
+			);
 		case "removeFromCounter":
 			return (
 				<ProductContext.Consumer>
-				{value => (
-					<RemoveCircleOutlineIcon 
-					className={classes.counterButtons}
-					onClick={() => value.removeFromCounter(props.product)} />
-				)}
-			</ProductContext.Consumer>
-		);
+					{value => (
+						<RemoveCircleOutlineIcon
+							className={classes.counterButtons}
+							onClick={() => value.removeFromCounter(props.product)} />
+					)}
+				</ProductContext.Consumer>
+			);
 		case "clearCart":
 			return (
 				<ProductContext.Consumer>
-					{value => <button onClick={value.clearCart}>clearCart</button>}
+					{value =>
+					<Button className={classes.clearCart} variant="contained" size="small" onClick={value.clearCart}>
+						<DeleteIcon fontSize="small" />
+					Cart</Button>
+					}
 				</ProductContext.Consumer>
 			);
 		case "removeFromCart":
@@ -70,9 +80,9 @@ function ContextButton(props: Props) {
 				<ProductContext.Consumer>
 					{value => (
 						<DeleteIcon
-						className={classes.removeFromCart}
-						onClick={() => value.removeFromCart(props.product)}
-					/>
+							className={classes.removeFromCart}
+							onClick={() => value.removeFromCart(props.product)}
+						/>
 					)}
 				</ProductContext.Consumer>
 			);

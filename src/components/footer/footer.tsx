@@ -6,6 +6,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import Alert from '@material-ui/lab/Alert';
+
 const useStyles = makeStyles({
 	root: {
 		position: "fixed",
@@ -52,6 +54,11 @@ export default function Footer(props: Props) {
 					</Link>
 				}
 			/>
+			<div>
+			<Alert severity="success" color="info">
+       			 This is a success alert — check it out!
+     		 </Alert>
+			</div>
 			<BottomNavigationAction  
 			icon={
 				<ShoppingCartIcon onClick={(event) => props.toggleDrawer('right', true)}/>

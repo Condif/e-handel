@@ -47,37 +47,30 @@ export class ProductProvider extends React.Component<Props, State> {
 	}
 	// - - - - CART
 	addToCart = (product: Product) => {
-		if (this.state.cart.length === 0) {
+		let existingProduct: {product: Product, amount: number} | undefined;
+		this.state.cart.forEach(item => {
+			if (item.product === product) {
+				existingProduct = item
+			}
+		});
+		if (existingProduct) {
+			const updatedCart = this.state.cart;
+			const updatedItem = existingProduct
+			const updatedAmount = updatedItem.amount + 1
+			updatedCart.splice(this.state.cart.indexOf(updatedItem), 1, {
+				product: updatedItem.product,
+				amount: updatedAmount
+			});
+			this.setState({
+				cart: updatedCart
+			});
+		} else {
 			const newCartItem = {
 				product: product,
 				amount: 1
 			};
 			this.setState({
 				cart: [...this.state.cart, newCartItem]
-			});
-		} else {
-			this.state.cart.forEach(item => {
-				if (item.product === product) {
-					const updatedCart = this.state.cart;
-					const updatedAmount = item.amount + 1;
-
-					updatedCart.splice(this.state.cart.indexOf(item), 1, {
-						product: item.product,
-						amount: updatedAmount
-					});
-
-					this.setState({
-						cart: updatedCart
-					});
-				} else {
-					const newCartItem = {
-						product: product,
-						amount: 1
-					};
-					this.setState({
-						cart: [...this.state.cart, newCartItem]
-					});
-				}
 			});
 		}
 	};

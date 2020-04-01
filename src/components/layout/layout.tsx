@@ -44,6 +44,8 @@ function Layout() {
 			<CssBaseline />
 			<AdminControlls />
 			<MainView 
+				handleClose={handleClose}
+				alertIsOpen={open}
 				handleClick={handleClick}
 			/>
 			<Footer

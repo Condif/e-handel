@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
 	product: Product;
 	amount?: number;
-	handleClick: () => void;
+	handleClick?: () => void;
 }
 
 export function ProductCard(props: Props) {
@@ -219,14 +219,7 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<Button 
-						
-						size="large"
-						variant="contained"
-						color="primary"
-						className={classes.addToCartButton}>
-						add to cart <AddShoppingCartIcon />
-					</Button>
+					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" ></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>

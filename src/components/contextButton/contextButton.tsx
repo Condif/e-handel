@@ -7,8 +7,8 @@ import { makeStyles, Theme, createStyles, Button } from "@material-ui/core";
 
 interface Props {
 	product?: any;
-	shape: string;
-	handleClick: () => void;
+	shape?: string;
+	handleClick?: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,6 +32,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 )
+
+function twoOnclick(props: Props, addToCart: any) {
+	if(props.handleClick) {
+		props.handleClick()
+	}
+	addToCart(props.product)
+	
+}
+
 function ContextButton(props: Props) {
 	const classes = useStyles()
 	switch (props.shape) {
@@ -39,7 +48,7 @@ function ContextButton(props: Props) {
 			return (
 				<ProductContext.Consumer>
 					{value => (
-						<button onClick={() => [value.addToCart(props.product), props.handleClick]}>
+						<button  onClick={() => twoOnclick(props, value.addToCart)}>
 							add to cart
 						</button>
 					)}

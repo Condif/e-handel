@@ -8,7 +8,11 @@ import Cart from "../cart/cart";
 function Layout() {
 
 	const [drawer, setDrawer] = React.useState(false)
+	const [register, setRegister] = React.useState(false)
 
+	const setRegisterValue = (value: boolean) => {
+		setRegister(value)	
+	}
 
 	const toggleDrawer = (anchor: string, open: boolean) => {
 		// console.log(state)
@@ -20,13 +24,18 @@ function Layout() {
 		<div>
 			<CssBaseline />
 			<AdminControlls />
-			<MainView/>
+			<MainView
+				setRegisterValue={setRegisterValue}
+			/>
 			<Footer
+				setRegisterOpen={setRegisterValue}
+				isRegisterOpen={register}
 				isOpen={drawer}
 				toggleDrawer={toggleDrawer}
 			/>
 
 			<Cart
+				setRegisterOpen={setRegisterValue}
 				isOpen={drawer}
 				toggleDrawer={toggleDrawer}
 			/>

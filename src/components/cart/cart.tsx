@@ -101,6 +101,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
 	isOpen: boolean;
 	toggleDrawer: (anchor: string, open: boolean) => void;
+	setRegisterOpen: (value:boolean) => void
 }
 export default function Cart(props: Props) {
 	const classes = useStyles();
@@ -127,6 +128,11 @@ export default function Cart(props: Props) {
 		</ProductContext.Consumer>
 	)
 
+	const buyButtonClick = () => {
+		props.toggleDrawer('right', false)
+		props.setRegisterOpen(true)
+	}
+
 	const noItems = (classes: any) => {
 		return (
 			<div className={classes.noItemWrapper}>
@@ -146,7 +152,7 @@ export default function Cart(props: Props) {
 					{(value.itemTotal.itemAmount != 0)
 						?
 						<Link className={classes.buyButton} to="/register">
-							<Button variant="contained" color="primary" onClick={() => props.toggleDrawer('right', false)}>
+							<Button variant="contained" color="primary" onClick={buyButtonClick}>
 								BUY
 							</Button>
 						</Link>

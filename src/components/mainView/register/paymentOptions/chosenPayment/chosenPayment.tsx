@@ -2,8 +2,8 @@ import React from 'react'
 import { PaymentTypes, PaymentOption } from '../paymentAPI'
 import { Container, makeStyles, Theme, Typography, TextField, MenuItem, FormControl, Grid } from '@material-ui/core'
 import StoreRoundedIcon from '@material-ui/icons/StoreRounded';
-import Swishlogo from '../../../../assets/swish.png'
-import PayPallogo from '../../../../assets/paypal.png'
+import Swishlogo from '../../../../../assets/swish.png'
+import PayPallogo from '../../../../../assets/paypal.png'
 
 interface Props {
     identifier: PaymentOption

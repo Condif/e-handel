@@ -128,9 +128,12 @@ interface Props {
 	product: Product;
 	amount?: number;
 	handleClick?: () => void;
+	alertIsOpen?: boolean;
+	twoOnclickAlert?: () => void;
 }
 
 export function ProductCard(props: Props) {
+	console.log(props.handleClick);
 	const classes = useStyles();
 
 	// EXPAND
@@ -223,7 +226,7 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" ></ContextButton>
+					<ContextButton product={props.product} alertIsOpen={props.alertIsOpen} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart" isFullPage={true}></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>

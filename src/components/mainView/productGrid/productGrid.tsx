@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-	handleClick: () => void;
+	handleClick?: () => void;
 }
 
 function ProductGrid(props: Props) {

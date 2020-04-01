@@ -9,7 +9,7 @@ interface Props {
 	product: Product;
 	productShape: Shape;
 	amount?: number;
-	handleClick: () => void;
+	handleClick?: () => void;
 }
 
 export default function ProductFactory(props: Props) {
@@ -21,6 +21,6 @@ export default function ProductFactory(props: Props) {
 		case "listitem":
 			return <div>listItem</div>;
 		case "fullpage":
-			return <ProductPage product={props.product} handleClick={props.handleClick}/>;
+			return <ProductPage product={props.product} handleClick={props.handleClick} />;
 	}
 }

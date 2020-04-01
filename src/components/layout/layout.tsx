@@ -5,9 +5,10 @@ import Footer from "../footer/footer";
 import { CssBaseline, Snackbar } from "@material-ui/core";
 import Cart from "../cart/cart";
 import Alert from "@material-ui/lab/Alert";
+import { ProductContext } from "../../contexts/productContext";
 
 function Layout() {
-	const [open, setOpen] = React.useState(true);
+	const [open, setOpen] = React.useState(false);
 
 	const handleClick = () => {
 		setOpen(true);
@@ -21,6 +22,7 @@ function Layout() {
 		setOpen(false);
 	};
 
+
 	const [drawer, setDrawer] = React.useState(false)
 
 
@@ -28,12 +30,15 @@ function Layout() {
 		// console.log(state)
 		setDrawer(!drawer);
 	};
+
+	const vertical = 'top'
+	const horizontal = 'center'
 	//Callback funktion om cart ska synas i footer
 	return (
 		<div>
-			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity="success">
-					This is a success message!
+			<Snackbar style={{marginTop: '3rem'}} anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={1250} onClose={handleClose}>
+				<Alert style={{minWidth: '15rem'}} color="info" onClose={handleClose} severity="success">
+					Added to the cart
         		</Alert>
 			</Snackbar>
 			<CssBaseline />

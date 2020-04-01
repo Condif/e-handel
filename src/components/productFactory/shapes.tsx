@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Product } from "../../interfaces&types/interfaces";
-import ContextButton from "../contextButton/contextButton";
+import ContextButton from "../../contexts/contextButton/contextButton";
 
 import {
 	Card,
@@ -25,25 +25,25 @@ import {
 } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
-
+import { AdminContext } from "../../contexts/admin";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			position: 'relative',
-			margin: '1rem 0',
-			'& .MuiGrid-container': {
+			position: "relative",
+			margin: "1rem 0",
+			"& .MuiGrid-container": {
 				padding: theme.spacing(1, 1)
 			},
-			'& .MuiCardContent-root': {
+			"& .MuiCardContent-root": {
 				padding: theme.spacing(1, 1)
-			},
+			}
 		},
 		header: {
 			position: "absolute",
-			width: '100%',
+			width: "100%",
 			color: "#0f0f0f",
-			backgroundColor: '#e7e7e74D',
+			backgroundColor: "#e7e7e74D",
 			letterSpacing: ".2rem"
 		},
 		media: {
@@ -79,8 +79,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		imgCart: {
 			height: "5rem",
-			width: '3.5rem',
-			objectFit: 'cover',
+			width: "3.5rem",
+			objectFit: "cover"
 		},
 		addToCart: {
 			padding: "20% 2rem"
@@ -103,19 +103,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: "2rem"
 		},
 		cartCardWrapper: {
-			height: '7rem',
+			height: "7rem"
 		},
 		amountWrapper: {
-			display: 'flex',
-			position: 'relative'
+			display: "flex",
+			position: "relative"
 		},
 		totalAmount: {
-			position: 'absolute',
-			left: '6rem'
+			position: "absolute",
+			left: "6rem"
 		},
 		secondary: {
-			fontSize: '.8rem',
-			color: '#404040'
+			fontSize: ".8rem",
+			color: "#404040"
 		}
 	})
 );
@@ -176,10 +176,22 @@ export function ProductCard(props: Props) {
 					<ContextButton product={props.product} shape="addToCart" />
 				</div>
 
-				<div style={{ position: "absolute", top: 5, right: 5 }}>
-					<ContextButton product={props.product} shape="deleteItem" />
-				</div>
+				<AdminContext.Consumer>
+					{value =>
+						value.admin ? (
+							<>
+								<div style={{ position: "absolute", top: 5, right: 5 }}>
+									<ContextButton product={props.product} shape="deleteItem" />
+								</div>
+								<div style={{ position: "absolute", top: 5, right: 45 }}>
+									<ContextButton product={props.product} shape="editItem" />
+								</div>
+							</>
+						) : null
+					}
+				</AdminContext.Consumer>
 			</CardActions>
+
 			<Modal
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
@@ -191,6 +203,7 @@ export function ProductCard(props: Props) {
 					</Paper>
 				</div>
 			</Modal>
+			
 		</Card>
 	);
 }
@@ -235,8 +248,7 @@ export function ProductCart(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Box className={classes.root}
-			bgcolor="background.paper">
+		<Box className={classes.root} bgcolor="background.paper">
 			<Card className={classes.cartCardWrapper}>
 				<Grid container spacing={1}>
 					<Grid item xs={3}>
@@ -260,15 +272,17 @@ export function ProductCart(props: Props) {
 								<Box display="flex">
 									<ContextButton product={props.product} shape="addToCounter" />
 									<Box display="flex" margin="0 0.4rem 0 0.4rem">
-										<Typography variant="subtitle1">
-											{props.amount}
-										</Typography>
+										<Typography variant="subtitle1">{props.amount}</Typography>
 									</Box>
-									<ContextButton product={props.product} shape="removeFromCounter" />
+									<ContextButton
+										product={props.product}
+										shape="removeFromCounter"
+									/>
 								</Box>
 								<Typography className={classes.totalAmount} variant="subtitle1">
-									{(props.amount) ? `Total: ${props.product.price * props.amount}:-`
-									: null}
+									{props.amount
+										? `Total: ${props.product.price * props.amount}:-`
+										: null}
 								</Typography>
 							</div>
 						</CardContent>

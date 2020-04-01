@@ -11,7 +11,7 @@ import {
 import ProductFactory from "../productFactory/productFactory";
 import CloseIcon from "@material-ui/icons/Close";
 import { ProductContext } from "../../contexts/productContext";
-import ContextButton from "../contextButton/contextButton";
+import ContextButton from "../../contexts/contextButton/contextButton";
 
 const useStyles = makeStyles((theme: Theme) =>
 createStyles({

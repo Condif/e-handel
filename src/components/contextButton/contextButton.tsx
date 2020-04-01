@@ -9,6 +9,9 @@ interface Props {
 	product?: any;
 	shape?: string;
 	handleClick?: () => void;
+	alertIsOpen?: boolean;
+	isFullPage?: boolean;
+	twoOnclickAlert?: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 function twoOnclick(props: Props, addToCart: any) {
+	console.log('twoonClick')
 	if(props.handleClick) {
 		props.handleClick()
 	}
@@ -41,19 +45,43 @@ function twoOnclick(props: Props, addToCart: any) {
 	
 }
 
+function handleTwoOnclick(props: Props, addToCart: any) {
+	console.log(props.handleClick);
+	
+	if(props.twoOnclickAlert){
+		props.twoOnclickAlert()
+	}
+	if(props.handleClick) {
+		props.handleClick()
+	}
+	addToCart(props.product)
+}
+
 function ContextButton(props: Props) {
 	const classes = useStyles()
 	switch (props.shape) {
 		case "addToCart":
 			return (
-				<ProductContext.Consumer>
-					{value => (
-						<button  onClick={() => twoOnclick(props, value.addToCart)}>
-							add to cart
-						</button>
-					)}
-				</ProductContext.Consumer>
+					<ProductContext.Consumer>
+						{value => (
+							<button  onClick={() => twoOnclick(props, value.addToCart)}>
+								add to cart
+							</button>
+						)}
+					</ProductContext.Consumer>
 			);
+		case "productSiteAddToCart":
+			return (
+				<ProductContext.Consumer>
+						
+						{value => (
+							
+							<button  onClick={() => handleTwoOnclick(props, value.addToCart)}>
+								add to cart
+							</button>
+						)}
+				</ProductContext.Consumer>
+			)
 		case "addToCounter":
 			return (
 				<ProductContext.Consumer>

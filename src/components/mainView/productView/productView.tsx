@@ -10,6 +10,8 @@ import {
 	Paper
 } from "@material-ui/core";
 import { ProductContext } from "../../../contexts/productContext";
+import { Product } from "../../../interfaces&types/interfaces";
+import { ProductPage } from "../../productFactory/shapes";
 
 interface Props extends RouteChildrenProps<{ serial: string }> {handleClick: () => void;}
 
@@ -41,17 +43,19 @@ const useStyles = makeStyles((theme: Theme) =>
 const ProductView = ({ match }: any, props: Props) => {
 	const classes = useStyles();
 
+	const serialNumber = parseInt(match.params.serial);
+
 	return (
 		<ProductContext.Consumer>
 			{value => (
 				<Container maxWidth="lg" className={classes.wrapper}>
 					<div className={classes.root}>
 						<Paper className={classes.paper}>
-							<CardFactory
-								product={value.products[parseInt(match.params.serial) - 1]}
-								productShape="fullpage"
-								handleClick={props.handleClick}
-							/>
+							{value.products.map((product: Product) =>
+								product.serial === serialNumber ? (
+									<CardFactory key={serialNumber} product={product} handleClick={props.handleClick} productShape="fullpage" />
+								) : null
+							)}
 						</Paper>
 					</div>
 				</Container>

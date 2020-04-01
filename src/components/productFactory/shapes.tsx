@@ -180,6 +180,10 @@ export function ProductCard(props: Props) {
 				<div style={{ marginLeft: "auto" }}>
 					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" />
 				</div>
+
+				<div style={{ position: "absolute", top: 5, right: 5 }}>
+					<ContextButton product={props.product} shape="deleteItem" />
+				</div>
 			</CardActions>
 			<Modal
 				aria-labelledby="simple-modal-title"

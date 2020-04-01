@@ -105,6 +105,32 @@ function ContextButton(props: Props) {
 					)}
 				</ProductContext.Consumer>
 			);
+
+		case "addNewItem":
+			return (
+				<ProductContext.Consumer>
+					{value => (
+						<button
+							type="button"
+							onClick={() => value.addNewItem(props.product)}>
+							add new item
+						</button>
+					)}
+				</ProductContext.Consumer>
+			);
+
+		case "deleteItem":
+			return (
+				<ProductContext.Consumer>
+					{value => (
+						<button
+							type="button"
+							onClick={() => value.deleteItem(props.product)}>
+							<DeleteIcon />
+						</button>
+					)}
+				</ProductContext.Consumer>
+			);
 		default:
 			return null;
 	}

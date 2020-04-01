@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { ProductContext } from "../../../contexts/productContext";
 
-interface Props extends RouteChildrenProps<{ serial: string }> {}
+interface Props extends RouteChildrenProps<{ serial: string }> {handleClick: () => void;}
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const ProductView = ({ match }: any) => {
+const ProductView = ({ match }: any, props: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -50,6 +50,7 @@ const ProductView = ({ match }: any) => {
 							<CardFactory
 								product={value.products[parseInt(match.params.serial) - 1]}
 								productShape="fullpage"
+								handleClick={props.handleClick}
 							/>
 						</Paper>
 					</div>

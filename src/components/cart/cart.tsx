@@ -44,7 +44,7 @@ createStyles({
 }));
 
 interface Props {
-	isOpen: boolean;
+	isOpen?: boolean;
 	toggleDrawer: (anchor: string, open: boolean) => void;
 }
 export default function Cart(props: Props) {

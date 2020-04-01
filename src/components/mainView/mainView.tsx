@@ -5,7 +5,9 @@ import ProductView from "./productView/productView";
 import { Switch, Route } from "react-router-dom";
 import { Product } from "../../interfaces&types/interfaces";
 
-interface Props {}
+interface Props {
+	handleClick: () => void;
+}
 interface State {
 	products: Product[];
 }
@@ -14,10 +16,10 @@ class MainView extends React.Component<Props, State> {
 		return (
 			<Switch>
 				<Route exact path="/">
-					<ProductGrid />
+					<ProductGrid handleClick={this.props.handleClick}/>
 				</Route>
 
-				<Route path="/productview/:serial" exact component={ProductView} />
+				<Route path="/productview/:serial" exact component={ProductView} handleClick={this.props.handleClick} />
 
 				<Route>something went wrong</Route>
 			</Switch>

@@ -76,6 +76,13 @@ export class ProductProvider extends React.Component<Props, State> {
 		}
 	};
 
+	toggleAlert = (itemAdded: boolean) => {
+		let itemIsAdded = itemAdded
+		// this.setState ({
+		// 	itemAdded = true
+		// })
+	}
+
 	//Tillfällig funktion som fyller carten
 	generatePlaceholders(ProductList: Product[]) {
 		let productArray: { product: Product; amount: number }[] = []

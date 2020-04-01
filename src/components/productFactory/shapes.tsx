@@ -25,6 +25,7 @@ import {
 } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
+import Alert from "@material-ui/lab/Alert";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -116,6 +117,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		secondary: {
 			fontSize: '.8rem',
 			color: '#404040'
+		},
+		alert: {
+			width: "2rem",
 		}
 	})
 );
@@ -123,6 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
 	product: Product;
 	amount?: number;
+	handleClick: () => void;
 }
 
 export function ProductCard(props: Props) {
@@ -173,7 +178,7 @@ export function ProductCard(props: Props) {
 				</button>
 
 				<div style={{ marginLeft: "auto" }}>
-					<ContextButton product={props.product} shape="addToCart" />
+					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" />
 				</div>
 			</CardActions>
 			<Modal
@@ -183,7 +188,7 @@ export function ProductCard(props: Props) {
 				onClose={handleClose}>
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
-						<ProductPage product={props.product} />
+						<ProductPage handleClick={props.handleClick} product={props.product} />
 					</Paper>
 				</div>
 			</Modal>
@@ -214,7 +219,8 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<Button
+					<Button 
+						
 						size="large"
 						variant="contained"
 						color="primary"

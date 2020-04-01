@@ -8,6 +8,7 @@ export const ProductContext = React.createContext<State>({
 	cart: [],
 
 	deleteItem: () => {},
+	itemTotal: {totalValue: 0, itemAmount: 0},
 	addNewItem: () => {},
 	addToCart: () => {},
 	removeFromCart: () => {},
@@ -22,6 +23,7 @@ interface State {
 	cart: { product: Product; amount: number }[];
 
 	deleteItem: (deleteThis: Product) => void;
+	itemTotal: {totalValue: number, itemAmount: number}
 	clearCart: () => void;
 	addNewItem: (newProduct: NewProduct) => void;
 	addToCart: (product: Product) => void;
@@ -36,10 +38,11 @@ export class ProductProvider extends React.Component<Props, State> {
 
 		this.state = {
 			products: ProductList,
-			cart: [],
-
-
 			deleteItem: this.deleteItem,
+			// cart: [],
+			//Tillfällig fyllning av carten
+			cart: this.generatePlaceholders(ProductList),
+			itemTotal: {totalValue: 0, itemAmount: 0},
 			addNewItem: this.addNewItem,
 			addToCart: this.addToCart,
 			removeFromCart: this.removeFromCart,
@@ -66,7 +69,7 @@ export class ProductProvider extends React.Component<Props, State> {
 			});
 			this.setState({
 				cart: updatedCart
-			});
+			}, () => this.setCartTotal());
 		} else {
 			const newCartItem = {
 				product: product,
@@ -74,9 +77,27 @@ export class ProductProvider extends React.Component<Props, State> {
 			};
 			this.setState({
 				cart: [...this.state.cart, newCartItem]
-			});
+			}, () => this.setCartTotal());
 		}
 	};
+
+	calculateCartTotal = () => {
+		let totalValue: number = 0
+		let itemAmount: number = 0
+		this.state.cart.forEach((item) => {			
+			totalValue += item.product.price*item.amount
+			itemAmount += item.amount
+		})
+		return {totalValue, itemAmount}
+	}
+
+	setCartTotal = () => {
+		const itemTotal = this.calculateCartTotal()
+		// const {totalValue, itemAmount} = itemTotal
+		this.setState({
+			itemTotal: itemTotal
+		})
+	}
 
 	//Tillfällig funktion som fyller carten
 	generatePlaceholders(ProductList: Product[]) {
@@ -92,7 +113,7 @@ export class ProductProvider extends React.Component<Props, State> {
 	}
 
 	removeFromCart = (product: Product) => {
-		console.log(product);
+		// console.log(product);
 		this.state.cart.forEach(item => {
 			if (item.product === product) {
 				const updatedCart = this.state.cart;
@@ -101,7 +122,7 @@ export class ProductProvider extends React.Component<Props, State> {
 
 				this.setState({
 					cart: updatedCart
-				});
+				}, () => this.setCartTotal());
 			}
 		});
 	};
@@ -109,8 +130,12 @@ export class ProductProvider extends React.Component<Props, State> {
 	clearCart = () => {
 		this.setState({
 			cart: []
-		});
+		},() => this.setCartTotal());		
 	};
+
+	componentDidMount() {
+		this.setCartTotal()
+	}
 
 	// - - - - ALL PRODUCTS
 	addNewItem = (newProduct: NewProduct) => {
@@ -155,6 +180,7 @@ export class ProductProvider extends React.Component<Props, State> {
 				})
 			}; 
 		});
+		this.setCartTotal()
 	}
 
 	AddToCounter = (product: Product) => {
@@ -176,6 +202,7 @@ export class ProductProvider extends React.Component<Props, State> {
 				})
 			}; 
 		});
+		this.setCartTotal()
 	}
 
 	render() {

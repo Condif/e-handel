@@ -19,7 +19,7 @@ import {
 	Input
 } from "@material-ui/core";
 
-import ContextButton from "../contextButton/contextButton";
+import ContextButton from "../../contexts/contextButton/contextButton";
 import AdminInput from "./adminInput";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,6 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 			margin: "5rem",
 			padding: "2rem"
+		},
+		btnWrapper: {
+			position: "absolute",
+			top: 10,
+			left: "50%",
+			transform: "translatex(-50%)"
 		},
 		margin: {
 			margin: theme.spacing(1)
@@ -83,7 +89,7 @@ function AdminControlls() {
 
 	return (
 		<>
-			<div style={btnWrapper}>
+			<div className={classes.btnWrapper}>
 				<button onClick={handleOpen}>+</button>
 			</div>
 
@@ -100,6 +106,7 @@ function AdminControlls() {
 								{inputs.map(input => (
 									<AdminInput
 										key={input}
+										mode="add"
 										name={input}
 										hook={newItem}
 										setHook={setNewItem}
@@ -119,10 +126,3 @@ function AdminControlls() {
 }
 
 export default AdminControlls;
-
-const btnWrapper: CSSProperties = {
-	position: "absolute",
-	top: 10,
-	left: "50%",
-	transform: "translatex(-50%)"
-};

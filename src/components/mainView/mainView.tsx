@@ -6,7 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import { Product } from "../../interfaces&types/interfaces";
 
 interface Props {
-	handleClick: () => void;
+	handleClick?: () => void;
 }
 interface State {
 	products: Product[];

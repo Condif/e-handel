@@ -9,25 +9,29 @@ export const ProductContext = React.createContext<State>({
 
 	deleteItem: () => {},
 	itemTotal: {totalValue: 0, itemAmount: 0},
+	editItem: () => {},
 	addNewItem: () => {},
 	addToCart: () => {},
 	removeFromCart: () => {},
 	clearCart: () => {},
 	removeFromCounter: () => {},
-	addToCounter: () => {},
+	addToCounter: () => {}
 });
 
 interface Props {}
 interface State {
 	products: Product[];
 	cart: { product: Product; amount: number }[];
-
-	deleteItem: (deleteThis: Product) => void;
 	itemTotal: {totalValue: number, itemAmount: number}
-	clearCart: () => void;
+
 	addNewItem: (newProduct: NewProduct) => void;
+	deleteItem: (deleteThis: Product) => void;
+	editItem: (oldItem: Product, updatedItem: NewProduct) => void;
+
 	addToCart: (product: Product) => void;
 	removeFromCart: (product: Product) => void;
+	clearCart: () => void;
+
 	removeFromCounter: (product: Product) => void;
 	addToCounter: (product: Product) => void;
 }
@@ -38,31 +42,35 @@ export class ProductProvider extends React.Component<Props, State> {
 
 		this.state = {
 			products: ProductList,
-			deleteItem: this.deleteItem,
 			// cart: [],
 			//Tillfällig fyllning av carten
 			cart: this.generatePlaceholders(ProductList),
 			itemTotal: {totalValue: 0, itemAmount: 0},
+
 			addNewItem: this.addNewItem,
+			deleteItem: this.deleteItem,
+			editItem: this.editItem,
+
 			addToCart: this.addToCart,
 			removeFromCart: this.removeFromCart,
 			clearCart: this.clearCart,
+			
 			removeFromCounter: this.removeFromCounter,
 			addToCounter: this.AddToCounter
 		};
 	}
 	// - - - - CART
 	addToCart = (product: Product) => {
-		let existingProduct: {product: Product, amount: number} | undefined;
+		let existingProduct: { product: Product; amount: number } | undefined;
 		this.state.cart.forEach(item => {
 			if (item.product === product) {
-				existingProduct = item
+				existingProduct = item;
 			}
 		});
 		if (existingProduct) {
 			const updatedCart = this.state.cart;
-			const updatedItem = existingProduct
-			const updatedAmount = updatedItem.amount + 1
+			const updatedItem = existingProduct;
+			const updatedAmount = updatedItem.amount + 1;
 			updatedCart.splice(this.state.cart.indexOf(updatedItem), 1, {
 				product: updatedItem.product,
 				amount: updatedAmount
@@ -101,15 +109,15 @@ export class ProductProvider extends React.Component<Props, State> {
 
 	//Tillfällig funktion som fyller carten
 	generatePlaceholders(ProductList: Product[]) {
-		let productArray: { product: Product; amount: number }[] = []
+		let productArray: { product: Product; amount: number }[] = [];
 		ProductList.forEach(product => {
 			const newCartItem = {
 				product: product,
 				amount: 1
 			};
-			productArray.push(newCartItem)
+			productArray.push(newCartItem);
 		});
-		return productArray
+		return productArray;
 	}
 
 	removeFromCart = (product: Product) => {
@@ -150,7 +158,28 @@ export class ProductProvider extends React.Component<Props, State> {
 			products: [...this.state.products, product]
 		});
 	};
+	editItem = (oldItem: Product, updatedItem: NewProduct) => {
+		const updatedProductList = this.state.products;
+		const editedItem: Product = {
+			name: updatedItem.name != "" ? updatedItem.name : oldItem.name,
+			desc: updatedItem.desc != "" ? updatedItem.desc : oldItem.desc,
+			img: updatedItem.img != "" ? updatedItem.img : oldItem.img,
+			price: updatedItem.price != 0 ? updatedItem.price : oldItem.price,
+			serial: oldItem.serial
+		};
 
+		console.log("old item : ", oldItem);
+		console.log("updated item : ", updatedItem);
+
+		updatedProductList.splice(
+			updatedProductList.indexOf(oldItem),
+			1,
+			editedItem
+		);
+		this.setState({
+			products: updatedProductList
+		});
+	};
 	deleteItem = (deleteThis: Product) => {
 		const updatedProductList = this.state.products;
 
@@ -165,8 +194,7 @@ export class ProductProvider extends React.Component<Props, State> {
 		this.state.cart.forEach(item => {
 			if (item.amount <= 1 && product === item.product) {
 				this.removeFromCart(product);
-			
-			} else if(product === item.product) {
+			} else if (product === item.product) {
 				const updatedCart = this.state.cart;
 				const updatedAmount = item.amount - 1;
 
@@ -177,8 +205,8 @@ export class ProductProvider extends React.Component<Props, State> {
 
 				this.setState({
 					cart: updatedCart
-				})
-			}; 
+				});
+			}
 		});
 		this.setCartTotal()
 	}
@@ -187,8 +215,7 @@ export class ProductProvider extends React.Component<Props, State> {
 		this.state.cart.forEach(item => {
 			if (item.amount < 1 && product === item.product) {
 				this.addToCart(product);
-			
-			} else if(product === item.product) {
+			} else if (product === item.product) {
 				const updatedCart = this.state.cart;
 				const updatedAmount = item.amount + 1;
 
@@ -199,8 +226,8 @@ export class ProductProvider extends React.Component<Props, State> {
 
 				this.setState({
 					cart: updatedCart
-				})
-			}; 
+				});
+			}
 		});
 		this.setCartTotal()
 	}

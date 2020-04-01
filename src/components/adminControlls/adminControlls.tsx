@@ -18,8 +18,9 @@ import {
 	OutlinedInput,
 	Input
 } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
 
-import ContextButton from "../contextButton/contextButton";
+import ContextButton from "../../contexts/contextButton/contextButton";
 import AdminInput from "./adminInput";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,11 +42,26 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: "center"
 		},
 		modalContent: {
+			position: "relative",
+
 			width: "50%",
 			height: "60%",
 
 			margin: "5rem",
 			padding: "2rem"
+		},
+		closeBtn: {
+			position: "absolute",
+			top: 0,
+			right: 0,
+
+			margin:"1rem"
+		},
+		btnWrapper: {
+			position: "absolute",
+			top: 10,
+			left: "50%",
+			transform: "translatex(-50%)"
 		},
 		margin: {
 			margin: theme.spacing(1)
@@ -83,7 +99,7 @@ function AdminControlls() {
 
 	return (
 		<>
-			<div style={btnWrapper}>
+			<div className={classes.btnWrapper}>
 				<button onClick={handleOpen}>+</button>
 			</div>
 
@@ -95,11 +111,13 @@ function AdminControlls() {
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
 						<Typography variant="h4">add new item</Typography>
+						<CancelIcon className={classes.closeBtn} onClick={handleClose} />
 						<form className={classes.root} noValidate autoComplete="off">
 							<Grid container spacing={2}>
 								{inputs.map(input => (
 									<AdminInput
 										key={input}
+										mode="add"
 										name={input}
 										hook={newItem}
 										setHook={setNewItem}
@@ -119,10 +137,3 @@ function AdminControlls() {
 }
 
 export default AdminControlls;
-
-const btnWrapper: CSSProperties = {
-	position: "absolute",
-	top: 10,
-	left: "50%",
-	transform: "translatex(-50%)"
-};

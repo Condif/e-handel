@@ -10,7 +10,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 const useStyles = makeStyles({
 	root: {
 		position: "fixed",
-		bottom: 0,
+		top: 0,
 
 		width: "100%",
 

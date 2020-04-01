@@ -41,12 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
 	handleClick?: () => void;
+}
+
 function useForceUpdate() {
 	const [value, setValue] = React.useState(0); // integer state
 	return () => setValue(value => ++value); // update the state to force render
 }
-
-interface Props {}
 
 function ProductGrid(props: Props) {
 	const classes = useStyles();

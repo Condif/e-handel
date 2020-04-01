@@ -2,7 +2,7 @@ import React from "react";
 import MainView from "../mainView/mainView";
 import Footer from "../footer/footer";
 import AdminControlls from "../adminControlls/adminControlls";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, Snackbar } from "@material-ui/core";
 import Cart from "../cart/cart";
 import Alert from "@material-ui/lab/Alert";
 import { ProductContext } from "../../contexts/productContext";

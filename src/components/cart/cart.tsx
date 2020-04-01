@@ -14,20 +14,22 @@ import CloseIcon from "@material-ui/icons/Close";
 import { ProductContext } from "../../contexts/productContext";
 import ContextButton from "../contextButton/contextButton";
 import TotalDisplay from "../totalDisplay/totalDisplay"
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		list: {
 			width: "25rem",
 			maxWidth: "100vw",
-			padding: "1rem"
+			padding: "1rem",
+			height: '100%',
 		},
 		listWrapper: {
 			position: 'relative',
-			height: 'calc(100% - 11rem)',
+			height: 'calc(100% - 13rem)',
 			top: '4rem',
 			width: '100%',
-			overflowY: 'auto'
+			overflowY: 'auto',
 		},
 		header: {
 			margin: theme.spacing(0, 4)
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		totalWrapper: {
 			width: '100%',
-			height: '7rem',
+			height: '9rem',
 			position: 'absolute',
 			bottom: '0',
 			left: '50%',
@@ -61,15 +63,35 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
-			justifyContent: 'space-evenly',
 			boxShadow: '0px -5px 5px -2px rgba(0,0,0,0.1)',
 			MozBoxShadow: '0px -5px 5px -2px rgba(0,0,0,0.1)',
 			WebkitBoxShadow: '0px -5px 5px -2px rgba(0,0,0,0.1)',
+			overflow: 'hidden'
 		},
 		buyButton: {
 			width: '60%',
-			marginBottom: '1rem'
-		}
+			marginBottom: '1.2rem'
+		},
+		noItemWrapper: {
+			width: '100%',
+			height: '100%',
+			display: 'flex',
+			// flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			'& > div': {
+				width: '80%',
+				height: '80%',
+				// backgroundColor: 'black',
+				borderRadius: '1rem',
+				border: '.2rem dashed rgb(0, 0, 0, 0.1)',
+				color: 'rgb(0, 0, 0, 0.26)',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center'
+			}
+		},
 	}));
 
 interface Props {
@@ -83,30 +105,46 @@ export default function Cart(props: Props) {
 		<ProductContext.Consumer>
 			{value => (
 				<div className={classes.list} role="presentation">
-					{value.cart.map(item => (
-						<ProductFactory
-							key={item.product.serial}
-							product={item.product}
-							amount={item.amount}
-							productShape="cart"
-						/>
-					))}
+					{
+						(value.cart.length != 0) ?
+							value.cart.map(item => (
+								<ProductFactory
+									key={item.product.serial}
+									product={item.product}
+									amount={item.amount}
+									productShape="cart"
+								/>
+							))
+							: noItems(classes)
+
+					}
 				</div>
 			)}
 		</ProductContext.Consumer>
 	)
+
+	const noItems = (classes: any) => {
+		return (
+			<div className={classes.noItemWrapper}>
+				<div>
+					<Typography variant="h6">No items in cart</Typography>
+					<RemoveShoppingCartIcon fontSize="large" />
+				</div>
+			</div>
+		)
+	}
 
 	const cartTotal = () => (
 		<ProductContext.Consumer>
 			{value => (
 				<div className={classes.totalWrapper}>
 					<TotalDisplay itemTotal={value.itemTotal} />
-					{(value.itemTotal.itemAmount != 0) 
-					? <Button className={classes.buyButton} variant="contained" color="primary">
-						BUY
+					{(value.itemTotal.itemAmount != 0)
+						? <Button className={classes.buyButton} variant="contained" color="primary">
+							BUY
 					</Button>
-					: <Button className={classes.buyButton} variant="contained" disabled>
-						add items
+						: <Button className={classes.buyButton} variant="contained" disabled>
+							add items
 				  	</Button>
 					}
 				</div>
@@ -115,8 +153,12 @@ export default function Cart(props: Props) {
 	)
 
 	return (
-		<div>
-			<Drawer
+		<div style={{
+			overflowX: 'hidden'
+		}}>
+			<Drawer style={{
+				overflowX: 'hidden'
+			}}
 				anchor='right'
 				open={props.isOpen}>
 				<div className={classes.headerWrapper}>

@@ -18,6 +18,7 @@ import {
 	OutlinedInput,
 	Input
 } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 import ContextButton from "../../contexts/contextButton/contextButton";
 import AdminInput from "./adminInput";
@@ -41,11 +42,20 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: "center"
 		},
 		modalContent: {
+			position: "relative",
+
 			width: "50%",
 			height: "60%",
 
 			margin: "5rem",
 			padding: "2rem"
+		},
+		closeBtn: {
+			position: "absolute",
+			top: 0,
+			right: 0,
+
+			margin:"1rem"
 		},
 		btnWrapper: {
 			position: "absolute",
@@ -101,6 +111,7 @@ function AdminControlls() {
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
 						<Typography variant="h4">add new item</Typography>
+						<CancelIcon className={classes.closeBtn} onClick={handleClose} />
 						<form className={classes.root} noValidate autoComplete="off">
 							<Grid container spacing={2}>
 								{inputs.map(input => (

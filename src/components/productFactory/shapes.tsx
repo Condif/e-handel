@@ -25,6 +25,7 @@ import {
 } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
+import CancelIcon from "@material-ui/icons/Cancel";
 import { AdminContext } from "../../contexts/admin";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -96,11 +97,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: "center"
 		},
 		modalContent: {
+			
+			position: "relative",
 			maxWidth: "80%",
 			maxHeight: "90%",
 
 			margin: "5rem",
 			padding: "2rem"
+		},closeBtn: {
+			position: "absolute",
+			top: 0,
+			right: 0,
+
+			margin:"1rem"
 		},
 		cartCardWrapper: {
 			height: "7rem"
@@ -199,11 +208,11 @@ export function ProductCard(props: Props) {
 				onClose={handleClose}>
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
+						<CancelIcon className={classes.closeBtn} onClick={handleClose} />
 						<ProductPage product={props.product} />
 					</Paper>
 				</div>
 			</Modal>
-			
 		</Card>
 	);
 }

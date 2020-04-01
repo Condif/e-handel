@@ -2,6 +2,8 @@ import React from "react";
 import { ProductContext } from "../productContext";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import CancelIcon from "@material-ui/icons/Cancel";
+
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import {
@@ -53,13 +55,21 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: "center"
 		},
 		modalContent: {
+			
+			position: "relative",
 			width: "50%",
 			height: "60%",
 
 			margin: "5rem",
 			padding: "2rem"
 		},
-		btnWrapper: {}
+		closeBtn: {
+			position: "absolute",
+			top: 0,
+			right: 0,
+
+			margin: "1rem"
+		}
 	})
 );
 
@@ -171,9 +181,7 @@ function ContextButton(props: Props) {
 				<ProductContext.Consumer>
 					{value => (
 						<>
-							<div className={classes.btnWrapper}>
-								<EditIcon onClick={handleOpen} />
-							</div>
+							<EditIcon onClick={handleOpen} />
 
 							<Modal
 								aria-labelledby="simple-modal-title"
@@ -182,6 +190,10 @@ function ContextButton(props: Props) {
 								onClose={handleClose}>
 								<div className={classes.modalWrapper}>
 									<Paper className={classes.modalContent}>
+										<CancelIcon
+											className={classes.closeBtn}
+											onClick={handleClose}
+										/>
 										<Typography variant="h4">edit item</Typography>
 										<form
 											className={classes.root}

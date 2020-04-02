@@ -256,8 +256,8 @@ export function ProductPage(props: Props) {
 				<div style={imgWrapper(props.product.img)}></div>
 			</Grid>
 
-			<Grid item xs={12} sm={6} className={classes.productInfo}>
-				<Grid container spacing={1}>
+			<Grid item xs={12} sm={6} className={classes.productInfo} direction='column'>
+				<Grid container spacing={1} >
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>
 						<Typography variant="h5">{props.product.price}:-</Typography>

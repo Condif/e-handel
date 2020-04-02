@@ -24,9 +24,10 @@ export default function CheckoutTotal(props: Props) {
 
     return (
         <>
-            <p>{`${props.itemTotal.itemAmount} Items, excl. VAT: ${props.itemTotal.totalValue*.8}:-`}</p>
-            <p>{`Shipping: ${props.delivery.price}:-`}</p>
-            <p>{`Total: ${(typeof props.delivery.price === "number") ? (props.itemTotal.totalValue + props.delivery.price) : null}`}</p>
+            <p>{`${props.itemTotal.itemAmount} Items: excl. VAT: ${(props.itemTotal.totalValue*.8).toFixed(2)}:-`}</p>
+            <p>{`VAT: +${(props.itemTotal.totalValue*.2).toFixed(2)}:-`}</p>
+            <p>{`Shipping: +${props.delivery.price}:-`}</p>
+            <p>{`Total: ${(typeof props.delivery.price === "number") ? (props.itemTotal.totalValue + props.delivery.price).toFixed(2) : null}`}</p>
             {/* <p>{props.payment.name}</p> */}
         </>
     )

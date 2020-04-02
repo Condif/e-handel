@@ -167,7 +167,6 @@ export class ProductProvider extends React.Component<Props, State> {
 
 	// - - - - ALL PRODUCTS
 	addNewItem = (newProduct: NewProduct) => {
-
 		const product: Product = {
 			...newProduct,
 			serial: this.state.products.length + 1

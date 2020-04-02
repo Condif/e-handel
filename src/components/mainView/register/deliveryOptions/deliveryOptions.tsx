@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, List } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { DeliveryTypes, DeliveryOption, baseDelivery } from './deliveryAPI'
+import { DeliveryTypes, DeliveryOption } from './deliveryAPI'
 import RegisterListItem from '../registerListItem/registerListItem';
 import { PaymentOption } from '../paymentOptions/paymentAPI';
 
@@ -43,10 +43,7 @@ export default function DeliveryOptions(props: Props) {
                             selectedIndex={props.selectedDelivery}
                             identifier={element}
                             handleListItemClick={props.setSelectedDelivery}
-                            // name={element.name}
-                            // desc={element.desc}
                             delTime={element.deliveryTime}
-                            // price={element.price}
                         />
                     )}
                 </List>

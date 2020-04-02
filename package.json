@@ -1,6 +1,6 @@
 {
   "name": "e-handel",
-  "home-page": "https://condif.github.io/e-handel/",
+  
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,6 +22,7 @@
     "typeface-roboto": "0.0.75",
     "typescript": "^3.8.3"
   },
+  "home-page": "https://condif.github.io/e-handel/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

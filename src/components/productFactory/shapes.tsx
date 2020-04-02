@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 
 import { Product } from "../../interfaces&types/interfaces";
@@ -72,14 +72,16 @@ const useStyles = makeStyles((theme: Theme) =>
 			margin: theme.spacing(1)
 		},
 		imgWrapper: {
+			background: "green",
+
 			height: "100%",
 			width: "100%"
 		},
 		img: {
 			height: "100%",
-			width: "100%",
+			width: "100%"
 
-			objectFit: "cover"
+			// objectFit: "fill"
 		},
 		imgCart: {
 			height: "5rem",
@@ -87,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			objectFit: "cover"
 		},
 		addToCart: {
-			margin: "3rem auto",
+			margin: "3rem auto"
 		},
 		addToCartButton: {
 			width: "80%"
@@ -139,11 +141,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		productInfo: {
 			height: "100%",
+			maxHeight: "80vh",
 
 			display: "flex",
 			justifyContent: "space-between",
-			alignItems: "center",
-
+			alignItems: "center"
 		}
 	})
 );
@@ -250,14 +252,12 @@ export function ProductPage(props: Props) {
 
 	return (
 		<Grid container spacing={4} style={{ height: "100%" }}>
-			<Grid item xs={12} sm={6}>
-				<div className={classes.imgWrapper}>
-					<img className={classes.img} alt="complex" src={props.product.img} />
-				</div>
+			<Grid item xs={12} sm={6} style={{ height: "100%" }}>
+				<div style={imgWrapper(props.product.img)}></div>
 			</Grid>
 
 			<Grid item xs={12} sm={6} className={classes.productInfo}>
-				<Grid container spacing={1} className={classes.productInfo}>
+				<Grid container spacing={1}>
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>
 						<Typography variant="h5">{props.product.price}:-</Typography>
@@ -333,3 +333,13 @@ export function ProductCart(props: Props) {
 		</Box>
 	);
 }
+
+const imgWrapper: (imageSrc: string) => CSSProperties = imageSrc => ({
+	background: `url(${imageSrc})`,
+	backgroundSize: "cover",
+	backgroundPosition: "center",
+	backgroundRepeat: "no-repeat",
+
+	height: "100%",
+	width: "100%"
+});

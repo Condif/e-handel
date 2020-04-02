@@ -20,7 +20,6 @@ import {
 } from "@material-ui/core";
 import AdminInput from "../../components/adminControlls/adminInput";
 import { NewProduct } from "../../interfaces&types/interfaces";
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 interface Props {
 	product?: any;

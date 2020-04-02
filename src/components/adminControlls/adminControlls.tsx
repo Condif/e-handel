@@ -55,9 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 			margin: "1rem"
 		},
-		btnWrapper: {
-			border: "1px solid red"
-		},
 		margin: {
 			margin: theme.spacing(1)
 		},

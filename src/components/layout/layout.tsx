@@ -37,7 +37,7 @@ function Layout() {
 	const horizontal = "center";
 
 	return (
-		<>
+		<div style={{height: "100vh" }}>
 			<CssBaseline />
 
 			<Topbar isOpen={drawer} toggleDrawer={toggleDrawer} />
@@ -56,6 +56,7 @@ function Layout() {
 					Added to the cart
 				</Alert>
 			</Snackbar>
+
 			<MainView
 				setRegisterValue={setRegisterValue}
 				handleClose={handleClose}
@@ -67,7 +68,7 @@ function Layout() {
 				toggleDrawer={toggleDrawer}
 				setRegisterOpen={setRegisterValue}
 			/>
-		</>
+		</div>
 	);
 }
 

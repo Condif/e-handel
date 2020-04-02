@@ -41,7 +41,6 @@ function Layout() {
 			<CssBaseline />
 
 			<Topbar isOpen={drawer} toggleDrawer={toggleDrawer} />
-			{/* <MainView /> */}
 
 			<Snackbar
 				style={{ marginTop: "3rem" }}

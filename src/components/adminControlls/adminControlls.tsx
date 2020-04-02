@@ -129,7 +129,7 @@ function AdminControlls(props: Props) {
 						keepMounted
 						transformOrigin={{
 							vertical: "top",
-							horizontal: "right"
+							horizontal: "left"
 						}}
 						open={openMenu}
 						onClose={handleMenuClose}

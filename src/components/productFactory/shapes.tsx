@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Product } from "../../interfaces&types/interfaces";
 import ContextButton from "../../contexts/contextButton/contextButton";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 import {
 	Card,
@@ -96,15 +97,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		modalContent: {
 			position: "relative",
 
-			width: "50%",
-			minWidth:"19rem",
-			height: "60%",
-			minHeight:"35rem",
+			width: "65%",
+			minWidth: "19rem",
+			height: "80%",
+			minHeight: "35rem",
 
 			margin: "5rem",
 			padding: "2rem",
 
-			overflow: "scroll"
+			overflow: "auto"
 		},
 		closeBtn: {
 			position: "absolute",
@@ -125,11 +126,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			left: "6rem"
 		},
 		secondary: {
-			fontSize: '.8rem',
-			color: '#404040'
+			fontSize: ".8rem",
+			color: "#404040"
 		},
 		alert: {
-			width: "2rem",
+			width: "2rem"
 		}
 	})
 );
@@ -142,7 +143,6 @@ interface Props {
 }
 
 export function ProductCard(props: Props) {
-	console.log(props.handleClick);
 	const classes = useStyles();
 
 	// EXPAND
@@ -185,12 +185,16 @@ export function ProductCard(props: Props) {
 					<InfoIcon />
 				</IconButton>
 
-				<button type="button" onClick={handleOpen}>
-					quickview
-				</button>
+				<IconButton aria-label="addToCard" onClick={handleOpen}>
+					<VisibilityIcon />
+				</IconButton>
 
 				<div style={{ marginLeft: "auto" }}>
-					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" />
+					<ContextButton
+						product={props.product}
+						handleClick={props.handleClick}
+						shape="addToCart"
+					/>
 				</div>
 
 				<AdminContext.Consumer>
@@ -217,7 +221,10 @@ export function ProductCard(props: Props) {
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
 						<CancelIcon className={classes.closeBtn} onClick={handleClose} />
-						<ProductPage handleClick={props.handleClick} product={props.product} />
+						<ProductPage
+							handleClick={props.handleClick}
+							product={props.product}
+						/>
 					</Paper>
 				</div>
 			</Modal>
@@ -248,7 +255,11 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton product={props.product} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart"></ContextButton>
+					<ContextButton
+						product={props.product}
+						handleClick={props.handleClick}
+						twoOnclickAlert={props.twoOnclickAlert}
+						shape="productSiteAddToCart"></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>
@@ -281,7 +292,10 @@ export function ProductCart(props: Props) {
 							</Typography>
 							<div className={classes.amountWrapper}>
 								<Box display="flex">
-									<ContextButton product={props.product} shape="removeFromCounter" />
+									<ContextButton
+										product={props.product}
+										shape="removeFromCounter"
+									/>
 									<Box display="flex" margin="0 0.4rem 0 0.4rem">
 										<Typography variant="subtitle1">{props.amount}</Typography>
 									</Box>

@@ -21,7 +21,6 @@ function AdminInput(props: Props) {
 	let placeHolder: any = props.name;
 
 	if (props.mode === "edit") {
-		console.log("in edit mode");
 		switch (props.name) {
 			case "name":
 				placeHolder = props.placeHolder?.name;
@@ -50,18 +49,9 @@ function AdminInput(props: Props) {
 	return (
 		<Grid item sm={12} md={6}>
 			<FormControl fullWidth>
-				{/* <Input
-					id={props.name}
-					onChange={(event: any) =>
-						props.setHook({
-							...props.hook,
-							[`${props.name}`]: event.target.value
-						})
-					}
-					placeholder={placeHolder}
-				/> */}
 				<TextField
 					required
+					type={props.name === "price" ? "number" : "text"}
 					id={props.name}
 					label={"enter " + placeHolder}
 					placeholder={placeHolder}

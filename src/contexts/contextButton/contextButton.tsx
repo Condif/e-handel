@@ -22,6 +22,8 @@ import { NewProduct } from "../../interfaces&types/interfaces";
 interface Props {
 	product?: any;
 	shape: string;
+	handleClick?: () => void;
+	twoOnclickAlert?: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -72,6 +74,26 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
+function twoOnclick(props: Props, addToCart: any) {
+	if(props.handleClick) {
+		props.handleClick()
+	}
+	addToCart(props.product)
+	
+}
+
+function handleTwoOnclick(props: Props, addToCart: any) {
+	
+	//If productsite render alert on there otherwise render it in layout/add item to cart in both cases.
+	if(props.twoOnclickAlert){
+		props.twoOnclickAlert()
+	}
+	if(props.handleClick) {
+		props.handleClick()
+	}
+	addToCart(props.product)
+}
+
 function ContextButton(props: Props) {
 	const classes = useStyles();
 
@@ -95,17 +117,30 @@ function ContextButton(props: Props) {
 		setOpen(false);
 	};
 
+
 	switch (props.shape) {
 		case "addToCart":
 			return (
-				<ProductContext.Consumer>
+					<ProductContext.Consumer>
+						{value => (
+							<button  onClick={() => twoOnclick(props, value.addToCart)}>
+								add to cart
+							</button>
+						)}
+					</ProductContext.Consumer>
+			);
+		case "productSiteAddToCart":
+		return (
+			<ProductContext.Consumer>
+					
 					{value => (
-						<button onClick={() => value.addToCart(props.product)}>
+						
+						<button  onClick={() => handleTwoOnclick(props, value.addToCart)}>
 							add to cart
 						</button>
 					)}
-				</ProductContext.Consumer>
-			);
+			</ProductContext.Consumer>
+		)
 		case "addToCounter":
 			return (
 				<ProductContext.Consumer>

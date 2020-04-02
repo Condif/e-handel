@@ -7,8 +7,9 @@ import {
 	Grid,
 	createStyles,
 	Theme,
-	Button
+	Button,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import ProductFactory from "../productFactory/productFactory";
 import CloseIcon from "@material-ui/icons/Close";
 import { ProductContext } from "../../contexts/productContext";
@@ -70,7 +71,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		buyButton: {
 			width: '60%',
-			marginBottom: '1.2rem'
+			marginBottom: '1.2rem',
+			'& > button': {
+				width: '100%'
+			}
 		},
 		noItemWrapper: {
 			width: '100%',
@@ -95,8 +99,9 @@ const useStyles = makeStyles((theme: Theme) =>
 	}));
 
 interface Props {
-	isOpen: boolean;
+	isOpen?: boolean;
 	toggleDrawer: (anchor: string, open: boolean) => void;
+	setRegisterOpen: (value:boolean) => void
 }
 export default function Cart(props: Props) {
 	const classes = useStyles();
@@ -123,6 +128,11 @@ export default function Cart(props: Props) {
 		</ProductContext.Consumer>
 	)
 
+	const buyButtonClick = () => {
+		props.toggleDrawer('right', false)
+		props.setRegisterOpen(true)
+	}
+
 	const noItems = (classes: any) => {
 		return (
 			<div className={classes.noItemWrapper}>
@@ -140,9 +150,12 @@ export default function Cart(props: Props) {
 				<div className={classes.totalWrapper}>
 					<TotalDisplay itemTotal={value.itemTotal} />
 					{(value.itemTotal.itemAmount != 0)
-						? <Button className={classes.buyButton} variant="contained" color="primary">
-							BUY
-					</Button>
+						?
+						<Link className={classes.buyButton} to="/register">
+							<Button variant="contained" color="primary" onClick={buyButtonClick}>
+								BUY
+							</Button>
+						</Link>
 						: <Button className={classes.buyButton} variant="contained" disabled>
 							add items
 				  	</Button>

@@ -25,7 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function ProductGrid() {
+interface Props {
+	handleClick?: () => void;
+}
+
+
+
+function ProductGrid(props: Props) {
 	const classes = useStyles();
 
 	return (
@@ -44,7 +50,7 @@ function ProductGrid() {
 						<Grid container justify="center" spacing={2}>
 							{products.map((product: any) => (
 								<Grid key={product.serial} item xs={12} sm={6} md={4}>
-									<CardFactory product={product} productShape="card" />
+									<CardFactory product={product} handleClick={props.handleClick} productShape="card" />
 								</Grid>
 							))}
 						</Grid>

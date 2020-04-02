@@ -8,7 +8,7 @@ import Layout from "../layout/layout";
 
 function App() {
 	return (
-		<BrowserRouter>
+		<BrowserRouter basename={'/e-handel'} >
 			<AdminProvider>
 				<ProductProvider>
 					<Layout />

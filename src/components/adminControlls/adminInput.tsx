@@ -21,7 +21,6 @@ function AdminInput(props: Props) {
 	let placeHolder: any = props.name;
 
 	if (props.mode === "edit") {
-		console.log("in edit mode");
 		switch (props.name) {
 			case "name":
 				placeHolder = props.placeHolder?.name;

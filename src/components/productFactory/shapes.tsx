@@ -142,7 +142,6 @@ interface Props {
 }
 
 export function ProductCard(props: Props) {
-	console.log(props.handleClick);
 	const classes = useStyles();
 
 	// EXPAND

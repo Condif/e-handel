@@ -121,7 +121,6 @@ export class ProductProvider extends React.Component<Props, State> {
 	}
 
 	removeFromCart = (product: Product) => {
-		// console.log(product);
 		this.state.cart.forEach(item => {
 			if (item.product === product) {
 				const updatedCart = this.state.cart;
@@ -147,7 +146,6 @@ export class ProductProvider extends React.Component<Props, State> {
 
 	// - - - - ALL PRODUCTS
 	addNewItem = (newProduct: NewProduct) => {
-		console.log(newProduct);
 
 		const product: Product = {
 			...newProduct,
@@ -167,9 +165,6 @@ export class ProductProvider extends React.Component<Props, State> {
 			price: updatedItem.price != 0 ? updatedItem.price : oldItem.price,
 			serial: oldItem.serial
 		};
-
-		console.log("old item : ", oldItem);
-		console.log("updated item : ", updatedItem);
 
 		updatedProductList.splice(
 			updatedProductList.indexOf(oldItem),

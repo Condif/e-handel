@@ -2,25 +2,45 @@ import React from "react";
 import MainView from "../mainView/mainView";
 import Footer from "../footer/footer";
 import AdminControlls from "../adminControlls/adminControlls";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, Snackbar } from "@material-ui/core";
 import Cart from "../cart/cart";
+import Alert from "@material-ui/lab/Alert";
+import { ProductContext } from "../../contexts/productContext";
 import { AdminContext } from "../../contexts/admin";
 
 function Layout() {
 
-	const [drawer, setDrawer] = React.useState(false)
 	const [register, setRegister] = React.useState(false)
 
 	const setRegisterValue = (value: boolean) => {
 		setRegister(value)	
 	}
+	//State for alert
+	const [open, setOpen] = React.useState(false);
+
+	const handleClick = () => {
+		setOpen(true);
+	};
+
+	const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setOpen(false);
+	};
+
+	//State for module
+	const [drawer, setDrawer] = React.useState(false)
+
 
 	const toggleDrawer = (anchor: string, open: boolean) => {
-		// console.log(state)
 		setDrawer(!drawer);
 	};
 
-	//Callback funktion om cart ska synas i footer
+	const vertical = 'top'
+	const horizontal = 'center'
+
 	return (
 		<AdminContext.Consumer>
 			{value => (
@@ -42,21 +62,27 @@ function Layout() {
 						<br />
 						{value.admin ? "on" : "off"}
 					</button>
-
+					<Snackbar style={{marginTop: '3rem'}} anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={1250} onClose={handleClose}>
+						<Alert style={{minWidth: '15rem'}} color="info" onClose={handleClose} severity="success">
+							Added to the cart
+	        			</Alert>
+					</Snackbar>
 					<MainView 
-					setRegisterValue={setRegisterValue}
+						setRegisterValue={setRegisterValue}
+						handleClose={handleClose}
+						handleClick={handleClick}
 					/>
-					<Footer 
-					isOpen={drawer} 
-					toggleDrawer={toggleDrawer} 
-					setRegisterOpen={setRegisterValue}
-					isRegisterOpen={register}
+					<Footer
+						isOpen={drawer}
+						toggleDrawer={toggleDrawer}
+						setRegisterOpen={setRegisterValue}
+						isRegisterOpen={register}
 					/>
-
-					<Cart 
-					isOpen={drawer} 
-					toggleDrawer={toggleDrawer} 
-					setRegisterOpen={setRegisterValue}
+		
+					<Cart
+						isOpen={drawer}
+						toggleDrawer={toggleDrawer}
+						setRegisterOpen={setRegisterValue}
 					/>
 				</>
 			)}

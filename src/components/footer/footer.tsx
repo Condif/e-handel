@@ -6,16 +6,19 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-// import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+
 const useStyles = makeStyles({
 	root: {
 		position: "fixed",
-		bottom: 0,
-		zIndex: 1,
+		top: 0,
 
 		width: "100%",
 
 		background: "#fefefe"
+	},
+	alert: {
+		zindex: 999,
+		
 	}
 });
 interface Props {

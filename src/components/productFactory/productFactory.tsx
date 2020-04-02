@@ -8,13 +8,16 @@ import { Shape } from "../../interfaces&types/types";
 interface Props {
 	product: Product;
 	productShape: Shape;
-	amount?: number
+	amount?: number;
+	handleClick?: () => void;
+	twoOnclickAlert?: () => void;
 }
 
 export default function ProductFactory(props: Props) {
+	
 	switch (props.productShape) {
 		case "card":
-			return <ProductCard product={props.product} />;
+			return <ProductCard product={props.product}  handleClick={props.handleClick}/>;
 		case "cart":
 			return <ProductCart product={props.product} amount={props.amount} />;
 		case "checkout":
@@ -22,6 +25,6 @@ export default function ProductFactory(props: Props) {
 		case "listitem":
 			return <div>listItem</div>;
 		case "fullpage":
-			return <ProductPage product={props.product} />;
+			return <ProductPage product={props.product} twoOnclickAlert={props.twoOnclickAlert} />;
 	}
 }

@@ -13,9 +13,6 @@ import {
 	Collapse,
 	IconButton,
 	Grid,
-	Fab,
-	Button,
-	ButtonGroup,
 	Box,
 	Paper,
 	makeStyles,
@@ -23,9 +20,7 @@ import {
 	createStyles,
 	Modal
 } from "@material-ui/core";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
-import Alert from "@material-ui/lab/Alert";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -128,7 +123,6 @@ interface Props {
 	product: Product;
 	amount?: number;
 	handleClick?: () => void;
-	alertIsOpen?: boolean;
 	twoOnclickAlert?: () => void;
 }
 
@@ -226,7 +220,7 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton product={props.product} alertIsOpen={props.alertIsOpen} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart" isFullPage={true}></ContextButton>
+					<ContextButton product={props.product} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart" isFullPage={true}></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>

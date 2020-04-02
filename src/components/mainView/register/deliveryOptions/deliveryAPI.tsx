@@ -10,9 +10,9 @@ export interface DeliveryOption extends RegisterAPI {
 
 export const baseDelivery: DeliveryOption = {
     type: 'del',
-    name: 'Parcel',
-    desc: 'Deliver to your postal office',
-    deliveryTime: '2-3 work days',
+    name: '',
+    desc: '',
+    deliveryTime: '',
     price: 'none',
 }
 

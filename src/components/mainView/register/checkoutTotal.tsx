@@ -56,11 +56,6 @@ export default function CheckoutTotal(props: Props) {
 					<Typography variant="body1">
 						{`VAT: +${(props.itemTotal.totalValue * 0.2).toFixed(2)}:-`}
 					</Typography>
-					{/* <Typography variant="body1">
-						{props.delivery != baseDelivery
-							? `Shipping: +${props.delivery.price}:-`
-							: `No delivery option chosen`}
-					</Typography> */}
 				</Grid>
 				<Grid
 					item

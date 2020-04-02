@@ -89,9 +89,6 @@ export default function CustomerInformation(props: Props) {
                             value={props.values.postal}
                             onChange={(event) => props.handleInputChange(event, 'postal')}
                             type="number"
-                            //   InputLabelProps={{
-                            //     shrink: true,
-                            //   }}
                             variant="outlined"
                         />
                     </FormControl>

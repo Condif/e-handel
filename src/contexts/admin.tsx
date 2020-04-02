@@ -22,7 +22,6 @@ export class AdminProvider extends React.Component<Props, State> {
 			toggleAdmin: this.toggleAdmin
 		};
 	}
-	// - - - - CART
 	toggleAdmin = () => {
 		this.setState({
 			admin: !this.state.admin

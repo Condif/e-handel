@@ -5,6 +5,11 @@ import { DeliveryTypes, DeliveryOption, baseDelivery } from './deliveryAPI'
 import RegisterListItem from '../registerListItem/registerListItem';
 import { PaymentOption } from '../paymentOptions/paymentAPI';
 
+interface Props {
+    selectedDelivery: DeliveryOption 
+    setSelectedDelivery: (value: DeliveryOption | PaymentOption) => void
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
@@ -22,16 +27,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function DeliveryOptions() {
+export default function DeliveryOptions(props: Props) {
     const classes = useStyles();
-    const [selectedIndex, setSelectedIndex] = React.useState(baseDelivery);
-
-    const handleListItemClick = (
-        identifier: PaymentOption | DeliveryOption,
-    ) => {
-        (identifier.type === 'del') ? setSelectedIndex(identifier) : console.log(null);
-        
-    };
 
     return (
         <>
@@ -43,9 +40,9 @@ export default function DeliveryOptions() {
                     {DeliveryTypes.map((element: DeliveryOption) =>
                         <RegisterListItem 
                             key={element.name}
-                            selectedIndex={selectedIndex}
+                            selectedIndex={props.selectedDelivery}
                             identifier={element}
-                            handleListItemClick={handleListItemClick}
+                            handleListItemClick={props.setSelectedDelivery}
                             // name={element.name}
                             // desc={element.desc}
                             delTime={element.deliveryTime}

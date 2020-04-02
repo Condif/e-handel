@@ -187,7 +187,6 @@ export class ProductProvider extends React.Component<Props, State> {
 			serial: oldItem.serial
 		};
 
-
 		updatedProductList.splice(
 			updatedProductList.indexOf(oldItem),
 			1,

@@ -5,6 +5,11 @@ import RegisterListItem from '../registerListItem/registerListItem';
 import ChosenPayment from './chosenPayment/chosenPayment';
 import { DeliveryOption } from '../deliveryOptions/deliveryAPI';
 
+interface Props {
+    selectedPayment: PaymentOption 
+    setSelectedPayment: (value: DeliveryOption | PaymentOption) => void
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
     title: {
         margin: theme.spacing(0, 0, 2),
@@ -17,17 +22,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-export default function CardInformation() {
+export default function CardInformation(props: Props) {
     const classes = useStyles();
-    const [selectedIndex, setSelectedIndex] = React.useState(basePayment);
-    const handleListItemClick = (
-        identifier: PaymentOption | DeliveryOption,
-      ) => {
-          (identifier.type === 'pay') ? 
-          setSelectedIndex(identifier)
-          : console.log(null);
-          
-    };
 
     return (
         <>
@@ -39,17 +35,14 @@ export default function CardInformation() {
                     {PaymentTypes.map((element: PaymentOption) =>
                         <RegisterListItem 
                             key={element.name}
-                            selectedIndex={selectedIndex}
+                            selectedIndex={props.selectedPayment}
                             identifier={element}
-                            handleListItemClick={handleListItemClick}
-                            // name={element.name}
-                            // desc={element.desc}
-                            // price={element.fee}
+                            handleListItemClick={props.setSelectedPayment}
                         />
                     )}
                 </Grid>
                 <Grid item md={8} sm={6} xs={12}>
-                    <ChosenPayment identifier={selectedIndex} />
+                    <ChosenPayment identifier={props.selectedPayment} />
                 </Grid>
             </Grid>
         </>

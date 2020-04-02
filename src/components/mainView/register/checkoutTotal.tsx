@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStyles, makeStyles } from '@material-ui/core'
 import { DeliveryOption, baseDelivery } from './deliveryOptions/deliveryAPI';
-import { PaymentOption } from './paymentOptions/paymentAPI';
+import { PaymentOption, basePayment } from './paymentOptions/paymentAPI';
 
 interface Props {
     itemTotal: { totalValue: number, itemAmount: number }
@@ -23,7 +23,12 @@ export default function CheckoutTotal(props: Props) {
     const classes = useStyles();
 
     return (
-        <>
+        <>  
+            <p>{(props.payment != basePayment) ? 
+                `Payment option: ${props.payment.name}`
+                : `No payment option chosen`
+                }
+            </p>
             <p>{`${props.itemTotal.itemAmount} Items: excl. VAT: ${(props.itemTotal.totalValue*.8).toFixed(2)}:-`}</p>
             <p>{`VAT: +${(props.itemTotal.totalValue*.2).toFixed(2)}:-`}</p>
             <p>{(props.delivery != baseDelivery) ?
@@ -32,7 +37,6 @@ export default function CheckoutTotal(props: Props) {
                 }
             </p>
             <p>{`Total: ${(typeof props.delivery.price === "number") ? (props.itemTotal.totalValue + props.delivery.price).toFixed(2) : null}`}</p>
-            {/* <p>{props.payment.name}</p> */}
         </>
     )
 }

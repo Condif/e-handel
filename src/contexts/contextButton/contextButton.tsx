@@ -20,6 +20,7 @@ import {
 } from "@material-ui/core";
 import AdminInput from "../../components/adminControlls/adminInput";
 import { NewProduct } from "../../interfaces&types/interfaces";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 interface Props {
 	product?: any;
@@ -119,23 +120,22 @@ function ContextButton(props: Props) {
 	switch (props.shape) {
 		case "addToCart":
 			return (
-				<ProductContext.Consumer>
-					{value => (
-						<IconButton onClick={() => twoOnclick(props, value.addToCart)}>
-							<AddShoppingCartIcon />
-						</IconButton>
-					)}
-				</ProductContext.Consumer>
+					<ProductContext.Consumer>
+						{value => (
+							<Button  size="small" color="primary" variant="contained" onClick={() => twoOnclick(props, value.addToCart)}>
+								add to cart &nbsp;<AddShoppingCartIcon/>
+							</Button>
+						)}
+					</ProductContext.Consumer>
 			);
 		case "productSiteAddToCart":
 			return (
 				<ProductContext.Consumer>
 					{value => (
-						<IconButton
-							style={{ background: "#34a864", borderRadius:".2rem"}}
-							onClick={() => handleTwoOnclick(props, value.addToCart)}>
-							add to cart <AddShoppingCartIcon />
-						</IconButton>
+						
+						<Button color="primary" variant="contained" onClick={() => handleTwoOnclick(props, value.addToCart)}>
+							add to cart &nbsp;<AddShoppingCartIcon/>
+						</Button>
 					)}
 				</ProductContext.Consumer>
 			);

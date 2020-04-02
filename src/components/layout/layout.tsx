@@ -10,7 +10,6 @@ import { AdminContext } from "../../contexts/admin";
 
 function Layout() {
 
-	const [drawer, setDrawer] = React.useState(false)
 	const [register, setRegister] = React.useState(false)
 
 	const setRegisterValue = (value: boolean) => {

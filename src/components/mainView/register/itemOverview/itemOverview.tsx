@@ -1,54 +1,47 @@
 import React from 'react'
 import { Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { ProductContext } from '../../../../contexts/productContext';
+import ProductFactory from '../../../productFactory/productFactory';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
     },
-    demo: {
-        backgroundColor: theme.palette.background.paper,
+    list: {
+        width: "100%",
+        // padding: "1rem",
+        height: '100%',
     },
     title: {
         margin: theme.spacing(0, 0, 2),
     },
 }));
 
-function generate(element: React.ReactElement) {
-    return [0, 1, 2].map(value =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
-
 export default function ItemOverview() {
     const classes = useStyles();
-    const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(true);
 
     return (
         <>
             <Typography variant="h5" className={classes.title}>
                 Your items
             </Typography>
-            <div className={classes.demo}>
-                <List dense={dense}>
-                    {generate(
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar>
-                                    {/* <FolderIcon /> */}
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                            primary="Single-line item"
-                            secondary={secondary ? 'Secondary text' : null}
-                            />
-                        </ListItem>,
-                    )}
-                </List>
-            </div>
+            <ProductContext.Consumer>
+                {value => (
+                    <div className={classes.list} role="presentation">
+                        {
+                                value.cart.map(item => (
+                                    <ProductFactory
+                                        key={item.product.serial}
+                                        product={item.product}
+                                        amount={item.amount}
+                                        productShape="checkout"
+                                    />
+                                ))
+                        }
+                    </div>
+                )}
+            </ProductContext.Consumer>
         </>
     )
 }

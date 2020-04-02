@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 
 import { Product } from "../../interfaces&types/interfaces";
@@ -19,7 +19,8 @@ import {
 	makeStyles,
 	Theme,
 	createStyles,
-	Modal
+	Modal,
+	Divider
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -70,11 +71,17 @@ const useStyles = makeStyles((theme: Theme) =>
 		margin: {
 			margin: theme.spacing(1)
 		},
+		imgWrapper: {
+			background: "green",
+
+			height: "100%",
+			width: "100%"
+		},
 		img: {
-			margin: "auto",
-			display: "block",
-			maxWidth: "100%",
-			maxHeight: "100%"
+			height: "100%",
+			width: "100%"
+
+			// objectFit: "fill"
 		},
 		imgCart: {
 			height: "5rem",
@@ -82,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			objectFit: "cover"
 		},
 		addToCart: {
-			padding: "20% 2rem"
+			margin: "3rem auto"
 		},
 		addToCartButton: {
 			width: "80%"
@@ -97,15 +104,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		modalContent: {
 			position: "relative",
 
-			width: "50%",
+			width: "65%",
 			minWidth: "19rem",
-			height: "60%",
+			height: "80%",
 			minHeight: "35rem",
 
 			margin: "5rem",
 			padding: "2rem",
 
-			overflow: "scroll"
+			overflow: "auto"
 		},
 		closeBtn: {
 			position: "absolute",
@@ -234,21 +241,22 @@ export function ProductPage(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Grid container spacing={4}>
-			<Grid item xs={12} sm={6}>
-				<img className={classes.img} alt="complex" src={props.product.img} />
+		<Grid container spacing={4} style={{ height: "100%" }}>
+			<Grid item xs={12} sm={6} style={{ height: "100%" }}>
+				<div style={imgWrapper(props.product.img)}></div>
 			</Grid>
 
-			<Grid item xs={12} sm={6}>
-				<Grid container spacing={1}>
+			<Grid item xs={12} sm={6} direction='column'>
+				<Grid container spacing={1} >
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>
 						<Typography variant="h5">{props.product.price}:-</Typography>
 						<Typography variant="caption">
 							incl. VAT, plus shipping cost
 						</Typography>
-					</Grid>
-					<Grid item>
+
+						<Divider style={{ margin: "1rem" }} />
+
 						<Typography variant="h6">{props.product.desc}</Typography>
 					</Grid>
 				</Grid>
@@ -363,3 +371,13 @@ export function ProductCheckout(props: Props) {
 		</Card>
 	);
 }
+
+const imgWrapper: (imageSrc: string) => CSSProperties = imageSrc => ({
+	background: `url(${imageSrc})`,
+	backgroundSize: "cover",
+	backgroundPosition: "center",
+	backgroundRepeat: "no-repeat",
+
+	height: "100%",
+	width: "100%"
+});

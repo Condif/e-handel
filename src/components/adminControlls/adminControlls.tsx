@@ -55,9 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 			margin: "1rem"
 		},
-		btnWrapper: {
-			border: "1px solid red"
-		},
 		margin: {
 			margin: theme.spacing(1)
 		},
@@ -129,7 +126,7 @@ function AdminControlls(props: Props) {
 						keepMounted
 						transformOrigin={{
 							vertical: "top",
-							horizontal: "right"
+							horizontal: "left"
 						}}
 						open={openMenu}
 						onClose={handleMenuClose}

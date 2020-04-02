@@ -157,7 +157,7 @@ export class ProductProvider extends React.Component<Props, State> {
 			this.setState({
 				products: ProductList
 			});
-		}
+		}	
 	}
 
 	componentDidUpdate() {

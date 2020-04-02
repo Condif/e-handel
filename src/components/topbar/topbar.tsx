@@ -1,5 +1,5 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -11,6 +11,8 @@ import AdminControlls from "../adminControlls/adminControlls";
 
 import logo from "../../assets/flowerLogo.png";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../../contexts/productContext";
+import { Badge } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -25,6 +27,19 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 );
+
+const StyledBadge = withStyles((theme: Theme) =>
+  createStyles({
+    badge: {
+      right: -5,
+      top: 11,
+      border: `2px solid ${theme.palette.background.paper}`,
+	  padding: '0 2px 1px 2px',
+	  fontSize: '0.4rem',
+    },
+  }),
+)(Badge);
+
 
 interface Props {
 	isOpen: boolean;

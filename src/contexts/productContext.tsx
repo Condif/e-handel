@@ -8,7 +8,7 @@ export const ProductContext = React.createContext<State>({
 	cart: [],
 
 	deleteItem: () => {},
-	itemTotal: {totalValue: 0, itemAmount: 0},
+	itemTotal: { totalValue: 0, itemAmount: 0 },
 	editItem: () => {},
 	addNewItem: () => {},
 	addToCart: () => {},
@@ -22,7 +22,7 @@ interface Props {}
 interface State {
 	products: Product[];
 	cart: { product: Product; amount: number }[];
-	itemTotal: {totalValue: number, itemAmount: number}
+	itemTotal: { totalValue: number; itemAmount: number };
 
 	addNewItem: (newProduct: NewProduct) => void;
 	deleteItem: (deleteThis: Product) => void;
@@ -41,9 +41,10 @@ export class ProductProvider extends React.Component<Props, State> {
 		super(props);
 
 		this.state = {
-			products: ProductList,
-			cart: [],
-			itemTotal: {totalValue: 0, itemAmount: 0},
+			products: JSON.parse((window as any).localStorage.products || "[]"),
+
+			cart: JSON.parse((window as any).localStorage.cart || "[]"),
+			itemTotal: { totalValue: 0, itemAmount: 0 },
 
 			addNewItem: this.addNewItem,
 			deleteItem: this.deleteItem,
@@ -52,7 +53,7 @@ export class ProductProvider extends React.Component<Props, State> {
 			addToCart: this.addToCart,
 			removeFromCart: this.removeFromCart,
 			clearCart: this.clearCart,
-			
+
 			removeFromCounter: this.removeFromCounter,
 			addToCounter: this.AddToCounter
 		};
@@ -73,37 +74,43 @@ export class ProductProvider extends React.Component<Props, State> {
 				product: updatedItem.product,
 				amount: updatedAmount
 			});
-			this.setState({
-				cart: updatedCart
-			}, () => this.setCartTotal());
+			this.setState(
+				{
+					cart: updatedCart
+				},
+				() => this.setCartTotal()
+			);
 		} else {
 			const newCartItem = {
 				product: product,
 				amount: 1
 			};
-			this.setState({
-				cart: [...this.state.cart, newCartItem]
-			}, () => this.setCartTotal());
+			this.setState(
+				{
+					cart: [...this.state.cart, newCartItem]
+				},
+				() => this.setCartTotal()
+			);
 		}
 	};
 
 	calculateCartTotal = () => {
-		let totalValue: number = 0
-		let itemAmount: number = 0
-		this.state.cart.forEach((item) => {			
-			totalValue += item.product.price*item.amount
-			itemAmount += item.amount
-		})
-		return {totalValue, itemAmount}
-	}
+		let totalValue: number = 0;
+		let itemAmount: number = 0;
+		this.state.cart.forEach(item => {
+			totalValue += item.product.price * item.amount;
+			itemAmount += item.amount;
+		});
+		return { totalValue, itemAmount };
+	};
 
 	setCartTotal = () => {
-		const itemTotal = this.calculateCartTotal()
+		const itemTotal = this.calculateCartTotal();
 		// const {totalValue, itemAmount} = itemTotal
 		this.setState({
 			itemTotal: itemTotal
-		})
-	}
+		});
+	};
 
 	//Tillfällig funktion som fyller carten
 	generatePlaceholders(ProductList: Product[]) {
@@ -125,26 +132,41 @@ export class ProductProvider extends React.Component<Props, State> {
 
 				updatedCart.splice(this.state.cart.indexOf(item), 1);
 
-				this.setState({
-					cart: updatedCart
-				}, () => this.setCartTotal());
+				this.setState(
+					{
+						cart: updatedCart
+					},
+					() => this.setCartTotal()
+				);
 			}
 		});
 	};
 
 	clearCart = () => {
-		this.setState({
-			cart: []
-		},() => this.setCartTotal());		
+		this.setState(
+			{
+				cart: []
+			},
+			() => this.setCartTotal()
+		);
 	};
 
 	componentDidMount() {
-		this.setCartTotal()
+		this.setCartTotal();
+		if ((window as any).localStorage.products === "[]") {
+			this.setState({
+				products: ProductList
+			});
+		}
+	}
+
+	componentDidUpdate() {
+		(window as any).localStorage.cart = JSON.stringify(this.state.cart);
+		(window as any).localStorage.products = JSON.stringify(this.state.products);
 	}
 
 	// - - - - ALL PRODUCTS
 	addNewItem = (newProduct: NewProduct) => {
-
 		const product: Product = {
 			...newProduct,
 			serial: this.state.products.length + 1
@@ -201,8 +223,8 @@ export class ProductProvider extends React.Component<Props, State> {
 				});
 			}
 		});
-		this.setCartTotal()
-	}
+		this.setCartTotal();
+	};
 
 	AddToCounter = (product: Product) => {
 		this.state.cart.forEach(item => {
@@ -222,8 +244,8 @@ export class ProductProvider extends React.Component<Props, State> {
 				});
 			}
 		});
-		this.setCartTotal()
-	}
+		this.setCartTotal();
+	};
 
 	render() {
 		return (

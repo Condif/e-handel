@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.text.secondary,
     },
     title: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2, 0)
     }
   }));
 

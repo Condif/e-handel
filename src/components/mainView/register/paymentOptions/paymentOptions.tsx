@@ -8,7 +8,6 @@ import { RegisterInputValues } from '../registerAPI';
 
 interface Props {
     alternate: boolean
-    useAlternate: () => void
     values: RegisterInputValues
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => void
     selectedPayment: PaymentOption
@@ -32,26 +31,9 @@ export default function CardInformation(props: Props) {
 
     return (
         <>
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            }}>
-                <Typography variant="h5" className={classes.title}>
-                    Payment methods
-                </Typography>
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={props.alternate}
-                            onChange={props.useAlternate}
-                            name="useAlternateOptions"
-                            color="primary"
-                        />
-                    }
-                    label="Use alternate values"
-                />
-            </div>
+            <Typography variant="h5" className={classes.title}>
+                Payment methods
+            </Typography>
             <Grid container spacing={2}>
                 <Grid item md={4} sm={6} xs={12}>
                     {PaymentTypes.map((element: PaymentOption) =>

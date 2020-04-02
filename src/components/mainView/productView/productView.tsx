@@ -15,7 +15,6 @@ import Alert from "@material-ui/lab/Alert";
 
 interface Props extends RouteChildrenProps<{ serial: string }> {
 	handleClick: () => void;
-	alertIsOpen: boolean;
 	handleClose: () => void;
 	product?: any;
 }
@@ -70,8 +69,8 @@ const ProductView = ({ match }: any, props: Props) => {
 	
 	function twoOnclickAlert() {
 			handleClick()
-		
 	}
+	
 	return (
 		
 		<ProductContext.Consumer>

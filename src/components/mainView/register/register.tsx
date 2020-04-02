@@ -69,10 +69,22 @@ export default function Register(props: Props) {
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => {
+        console.log(validateNumerals(event.target.value));
+        
+
         setInputValues({
             ...inputValues, [id]: event.target.value
         });
     };
+
+    const validateNumerals = (value: string): boolean => {
+        const valid = /^[0-9]*$/
+        if (value.match(valid)) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     const handleOptionItemClick = (
         identifier: DeliveryOption | PaymentOption

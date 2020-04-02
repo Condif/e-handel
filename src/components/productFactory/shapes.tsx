@@ -97,19 +97,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: "center"
 		},
 		modalContent: {
-			
+
 			position: "relative",
 			maxWidth: "80%",
 			maxHeight: "90%",
 
 			margin: "5rem",
 			padding: "2rem"
-		},closeBtn: {
+		}, closeBtn: {
 			position: "absolute",
 			top: 0,
 			right: 0,
 
-			margin:"1rem"
+			margin: "1rem"
 		},
 		cartCardWrapper: {
 			height: "7rem"
@@ -277,6 +277,58 @@ export function ProductCart(props: Props) {
 							<Typography className={classes.secondary} variant="subtitle1">
 								{"Price: " + props.product.price}:-
 							</Typography>
+							<div className={classes.amountWrapper}>
+								<Box display="flex">
+									<ContextButton product={props.product} shape="addToCounter" />
+									<Box display="flex" margin="0 0.4rem 0 0.4rem">
+										<Typography variant="subtitle1">{props.amount}</Typography>
+									</Box>
+									<ContextButton
+										product={props.product}
+										shape="removeFromCounter"
+									/>
+								</Box>
+								<Typography className={classes.totalAmount} variant="subtitle1">
+									{props.amount
+										? `Total: ${props.product.price * props.amount}:-`
+										: null}
+								</Typography>
+							</div>
+						</CardContent>
+					</Grid>
+					<CardContent>
+						<ContextButton product={props.product} shape="removeFromCart" />
+					</CardContent>
+				</Grid>
+			</Card>
+		</Box>
+	);
+
+}
+export function ProductCheckout(props: Props) {
+	const classes = useStyles();
+
+	return (
+		<Box className={classes.root} bgcolor="background.paper">
+			<Card className={classes.cartCardWrapper}>
+				<Grid container spacing={1}>
+					<Grid item xs={3}>
+						<CardContent>
+							<img
+								className={classes.imgCart}
+								alt="complex"
+								src={props.product.img}
+							/>
+						</CardContent>
+					</Grid>
+					<Grid item xs={9}>
+						<CardContent>
+							<Typography variant="subtitle1">
+								{props.product.name}
+							</Typography>
+							<Typography className={classes.secondary} variant="subtitle1">
+								{"Price: " + props.product.price}:-
+								</Typography>
 							<div className={classes.amountWrapper}>
 								<Box display="flex">
 									<ContextButton product={props.product} shape="addToCounter" />

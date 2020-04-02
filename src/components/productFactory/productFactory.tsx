@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ProductCard, ProductPage, ProductCart } from "./shapes";
+import { ProductCard, ProductPage, ProductCart, ProductCheckout } from "./shapes";
 
 import { Product } from "../../interfaces&types/interfaces";
 import { Shape } from "../../interfaces&types/types";
@@ -17,6 +17,8 @@ export default function ProductFactory(props: Props) {
 			return <ProductCard product={props.product} />;
 		case "cart":
 			return <ProductCart product={props.product} amount={props.amount} />;
+		case "checkout":
+			return <ProductCheckout product={props.product} amount={props.amount} />;
 		case "listitem":
 			return <div>listItem</div>;
 		case "fullpage":

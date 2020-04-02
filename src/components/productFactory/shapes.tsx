@@ -331,14 +331,9 @@ export function ProductCheckout(props: Props) {
 								</Typography>
 							<div className={classes.amountWrapper}>
 								<Box display="flex">
-									<ContextButton product={props.product} shape="addToCounter" />
 									<Box display="flex" margin="0 0.4rem 0 0.4rem">
 										<Typography variant="subtitle1">{props.amount}</Typography>
 									</Box>
-									<ContextButton
-										product={props.product}
-										shape="removeFromCounter"
-									/>
 								</Box>
 								<Typography className={classes.totalAmount} variant="subtitle1">
 									{props.amount
@@ -348,9 +343,6 @@ export function ProductCheckout(props: Props) {
 							</div>
 						</CardContent>
 					</Grid>
-					<CardContent>
-						<ContextButton product={props.product} shape="removeFromCart" />
-					</CardContent>
 				</Grid>
 			</Card>
 		</Box>

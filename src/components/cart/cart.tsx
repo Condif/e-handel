@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	}));
 
 interface Props {
-	isOpen: boolean;
+	isOpen?: boolean;
 	toggleDrawer: (anchor: string, open: boolean) => void;
 	setRegisterOpen: (value:boolean) => void
 }

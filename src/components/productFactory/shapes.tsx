@@ -13,9 +13,6 @@ import {
 	Collapse,
 	IconButton,
 	Grid,
-	Fab,
-	Button,
-	ButtonGroup,
 	Box,
 	Paper,
 	makeStyles,
@@ -23,7 +20,6 @@ import {
 	createStyles,
 	Modal
 } from "@material-ui/core";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { AdminContext } from "../../contexts/admin";
@@ -123,8 +119,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			left: "6rem"
 		},
 		secondary: {
-			fontSize: ".8rem",
-			color: "#404040"
+			fontSize: '.8rem',
+			color: '#404040'
+		},
+		alert: {
+			width: "2rem",
 		}
 	})
 );
@@ -132,9 +131,12 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
 	product: Product;
 	amount?: number;
+	handleClick?: () => void;
+	twoOnclickAlert?: () => void;
 }
 
 export function ProductCard(props: Props) {
+	console.log(props.handleClick);
 	const classes = useStyles();
 
 	// EXPAND
@@ -182,7 +184,7 @@ export function ProductCard(props: Props) {
 				</button>
 
 				<div style={{ marginLeft: "auto" }}>
-					<ContextButton product={props.product} shape="addToCart" />
+					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" />
 				</div>
 
 				<AdminContext.Consumer>
@@ -209,7 +211,7 @@ export function ProductCard(props: Props) {
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
 						<CancelIcon className={classes.closeBtn} onClick={handleClose} />
-						<ProductPage product={props.product} />
+						<ProductPage handleClick={props.handleClick} product={props.product} />
 					</Paper>
 				</div>
 			</Modal>
@@ -240,13 +242,7 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<Button
-						size="large"
-						variant="contained"
-						color="primary"
-						className={classes.addToCartButton}>
-						add to cart <AddShoppingCartIcon />
-					</Button>
+					<ContextButton product={props.product} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart"></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>
@@ -279,14 +275,11 @@ export function ProductCart(props: Props) {
 							</Typography>
 							<div className={classes.amountWrapper}>
 								<Box display="flex">
-									<ContextButton product={props.product} shape="addToCounter" />
+									<ContextButton product={props.product} shape="removeFromCounter" />
 									<Box display="flex" margin="0 0.4rem 0 0.4rem">
 										<Typography variant="subtitle1">{props.amount}</Typography>
 									</Box>
-									<ContextButton
-										product={props.product}
-										shape="removeFromCounter"
-									/>
+									<ContextButton product={props.product} shape="addToCounter" />
 								</Box>
 								<Typography className={classes.totalAmount} variant="subtitle1">
 									{props.amount

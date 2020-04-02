@@ -9,9 +9,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexGrow: 1,
     },
     list: {
-        width: "25rem",
-        maxWidth: "100vw",
-        padding: "1rem",
+        width: "100%",
+        // padding: "1rem",
         height: '100%',
     },
     title: {

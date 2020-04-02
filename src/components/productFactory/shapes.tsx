@@ -97,9 +97,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: "relative",
 
 			width: "50%",
-			minWidth:"19rem",
+			minWidth: "19rem",
 			height: "60%",
-			minHeight:"35rem",
+			minHeight: "35rem",
 
 			margin: "5rem",
 			padding: "2rem",
@@ -248,7 +248,7 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton product={props.product} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart"></ContextButton>
+					<ContextButton product={props.product} handleClick={props.handleClick} twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart"></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>
@@ -307,40 +307,37 @@ export function ProductCheckout(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Card style={{ position: 'relative', marginBottom: '1rem', display: 'flex'}}>
-			{/* <Grid container spacing={1}> */}
-				{/* <Grid item md={1} sm={1} style={{ margin: '.5rem .5rem .3rem .5rem' }}> */}
-					<div style={{ margin: '.5rem .5rem .3rem .5rem' }}>
-						<img
-							className={classes.imgCart}
-							alt="complex"
-							src={props.product.img}
-						/>
-					</div>
-				{/* </Grid> */}
-				{/* <Grid item md={8} sm={6} style={{  display: 'flex', flexDirection: 'column', justifyContent: 'center' }}> */}
-					<div style={{  display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-						<Typography variant="subtitle1">
-							{props.product.name}
-						</Typography>
-						{/* <Typography className={classes.secondary} variant="subtitle1">
-							{"Price: " + props.product.price}:-
-						</Typography> */}
-						<Typography className={classes.secondary} variant="subtitle1">
-							{`Amount: ${props.amount}`}
-						</Typography>
-					</div>
-				{/* </Grid> */}
-				{/* <Grid item md={2} sm={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}> */}
-					<div style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)' }}>
+		<Card style={{ position: 'relative', marginBottom: '1rem', display: 'flex' }}>
+			<Box component="div" style={{ margin: '.5rem .5rem .3rem .5rem' }}>
+				<img
+					className={classes.imgCart}
+					alt="complex"
+					src={props.product.img}
+				/>
+			</Box>
+			<Box component="div" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+				<Typography variant="subtitle1">
+					{props.product.name}
+				</Typography>
+				<Typography className={classes.secondary} variant="subtitle1">
+					{`Amount: ${props.amount}`}
+				</Typography>
+					<Box display={{ xs: 'block', sm: 'none' }}>
 						<Typography variant="subtitle1">
 							{props.amount
 								? `Total: ${props.product.price * props.amount}:-`
-								: null}
+								: null
+							}
 						</Typography>
-					</div>
-				{/* </Grid> */}
-			{/* </Grid> */}
+					</Box>
+			</Box>
+			<Box component="div" display={{ xs: 'none', sm: 'block' }} style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)' }}>
+				<Typography variant="subtitle1">
+					{props.amount
+						? `Total: ${props.product.price * props.amount}:-`
+						: null}
+				</Typography>
+			</Box>
 		</Card>
 	);
 }

@@ -272,7 +272,7 @@ export function ProductCart(props: Props) {
 					<Grid item xs={9}>
 						<CardContent>
 							<Typography variant="subtitle1">
-								{"Name:  " + props.product.name}
+								{props.product.name}
 							</Typography>
 							<Typography className={classes.secondary} variant="subtitle1">
 								{"Price: " + props.product.price}:-

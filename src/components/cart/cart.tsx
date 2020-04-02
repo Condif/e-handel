@@ -121,7 +121,6 @@ export default function Cart(props: Props) {
 								/>
 							))
 							: noItems(classes)
-
 					}
 				</div>
 			)}

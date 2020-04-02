@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Typography, Grid, Paper } from '@material-ui/core'
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,14 +7,17 @@ import CustomerInformation from './customerInformation/customerInformation';
 import DeliveryOptions from './deliveryOptions/deliveryOptions';
 import PaymentOptions from './paymentOptions/paymentOptions';
 
+interface Props {
+    setRegisterValue: (value: boolean) => void
+}
+
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
     },
     wrapper: {
         minHeight: '100vh',
-        height: '100%',
-        padding: theme.spacing(6,0)
+        height: '100%'
     },
     paper: {
         height: '100%',
@@ -26,8 +29,12 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function Register() {
+export default function Register(props: Props) {
     const classes = useStyles();
+
+    useEffect(() => {
+        props.setRegisterValue(true)
+    });
 
     return (
         <Container maxWidth="md" className={classes.wrapper}>

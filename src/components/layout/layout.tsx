@@ -7,7 +7,13 @@ import Cart from "../cart/cart";
 import { AdminContext } from "../../contexts/admin";
 
 function Layout() {
-	const [drawer, setDrawer] = React.useState(false);
+
+	const [drawer, setDrawer] = React.useState(false)
+	const [register, setRegister] = React.useState(false)
+
+	const setRegisterValue = (value: boolean) => {
+		setRegister(value)	
+	}
 
 	const toggleDrawer = (anchor: string, open: boolean) => {
 		// console.log(state)
@@ -37,10 +43,21 @@ function Layout() {
 						{value.admin ? "on" : "off"}
 					</button>
 
-					<MainView />
-					<Footer isOpen={drawer} toggleDrawer={toggleDrawer} />
+					<MainView 
+					setRegisterValue={setRegisterValue}
+					/>
+					<Footer 
+					isOpen={drawer} 
+					toggleDrawer={toggleDrawer} 
+					setRegisterOpen={setRegisterValue}
+					isRegisterOpen={register}
+					/>
 
-					<Cart isOpen={drawer} toggleDrawer={toggleDrawer} />
+					<Cart 
+					isOpen={drawer} 
+					toggleDrawer={toggleDrawer} 
+					setRegisterOpen={setRegisterValue}
+					/>
 				</>
 			)}
 		</AdminContext.Consumer>

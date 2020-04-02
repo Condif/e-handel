@@ -23,6 +23,7 @@ import {
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import CancelIcon from "@material-ui/icons/Cancel";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { AdminContext } from "../../contexts/admin";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -185,9 +186,10 @@ export function ProductCard(props: Props) {
 					<InfoIcon />
 				</IconButton>
 
-				<button type="button" onClick={handleOpen}>
-					quickview
-				</button>
+				<IconButton aria-label="addToCard" onClick={handleOpen}>
+					<VisibilityIcon />
+				</IconButton>
+			
 
 				<div style={{ marginLeft: "auto" }}>
 					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" />

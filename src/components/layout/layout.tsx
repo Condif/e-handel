@@ -8,6 +8,8 @@ import Alert from "@material-ui/lab/Alert";
 import { ProductContext } from "../../contexts/productContext";
 
 function Layout() {
+
+	//State for alert
 	const [open, setOpen] = React.useState(false);
 
 	const handleClick = () => {
@@ -22,18 +24,17 @@ function Layout() {
 		setOpen(false);
 	};
 
-
+	//State for module
 	const [drawer, setDrawer] = React.useState(false)
 
 
 	const toggleDrawer = (anchor: string, open: boolean) => {
-		// console.log(state)
 		setDrawer(!drawer);
 	};
 
 	const vertical = 'top'
 	const horizontal = 'center'
-	//Callback funktion om cart ska synas i footer
+
 	return (
 		<div>
 			<Snackbar style={{marginTop: '3rem'}} anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={1250} onClose={handleClose}>
@@ -45,7 +46,6 @@ function Layout() {
 			<AdminControlls />
 			<MainView 
 				handleClose={handleClose}
-				alertIsOpen={open}
 				handleClick={handleClick}
 			/>
 			<Footer

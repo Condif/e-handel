@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import { Product } from "../../interfaces&types/interfaces";
 import ContextButton from "../../contexts/contextButton/contextButton";
-import VisibilityIcon from "@material-ui/icons/Visibility";
 
 import {
 	Card,
@@ -247,7 +246,7 @@ export function ProductPage(props: Props) {
 				<div style={imgWrapper(props.product.img)}></div>
 			</Grid>
 
-			<Grid item xs={12} sm={6} className={classes.productInfo} direction='column'>
+			<Grid item xs={12} sm={6} direction='column'>
 				<Grid container spacing={1} >
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>

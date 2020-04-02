@@ -220,7 +220,7 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton product={props.product} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart" isFullPage={true}></ContextButton>
+					<ContextButton product={props.product} handleClick={props.handleClick}  twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart"></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>

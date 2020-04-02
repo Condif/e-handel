@@ -47,7 +47,7 @@ function Topbar(props: Props) {
 						position="static"
 						style={{
 							height: "4rem",
-							background:"#34a864"
+							background: "#34a864"
 						}}>
 						<Toolbar
 							style={{
@@ -83,14 +83,13 @@ function Topbar(props: Props) {
 
 							<IconButton
 								style={{
-									width:"4rem",
+									width: "4rem",
 									color: "#333"
 								}}
 								edge="start"
-								aria-label="menu">
-								<ShoppingCartIcon
-									onClick={event => props.toggleDrawer("right", true)}
-								/>
+								aria-label="menu"
+								onClick={event => props.toggleDrawer("right", true)}>
+								<ShoppingCartIcon />
 							</IconButton>
 						</Toolbar>
 					</AppBar>

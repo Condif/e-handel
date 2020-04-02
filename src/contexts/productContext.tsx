@@ -42,9 +42,7 @@ export class ProductProvider extends React.Component<Props, State> {
 
 		this.state = {
 			products: ProductList,
-			// cart: [],
-			//Tillfällig fyllning av carten
-			cart: this.generatePlaceholders(ProductList),
+			cart: [],
 			itemTotal: {totalValue: 0, itemAmount: 0},
 
 			addNewItem: this.addNewItem,

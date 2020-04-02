@@ -2,10 +2,7 @@ import { RegisterAPI } from "../registerAPI"
 
 export interface DeliveryOption extends RegisterAPI {
     type: 'del',
-    // name: string,
-    // desc: string,
     deliveryTime: string,
-    // price: number,
 }
 
 export const baseDelivery: DeliveryOption = {

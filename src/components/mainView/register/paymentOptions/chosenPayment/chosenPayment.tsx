@@ -153,8 +153,6 @@ const generatePaypalInput = (classes: any) => {
 }
 
 const generatePurchaseOptions = (classes: any, props: Props, type: string, handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
-    console.log(props.identifier);
-
     return (
         <Container className={classes.wrapper}>
             <Typography variant="h5" className={classes.blankTitle}>
@@ -198,7 +196,6 @@ export default function ChosenPayment(props: Props) {
     const classes = useStyles();
     const [type, setType] = React.useState('VISA');
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('change');
 
         setType(event.target.value);
     };

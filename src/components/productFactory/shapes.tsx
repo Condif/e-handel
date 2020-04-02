@@ -19,11 +19,11 @@ import {
 	makeStyles,
 	Theme,
 	createStyles,
-	Modal,
+	Modal
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import CancelIcon from "@material-ui/icons/Cancel";
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import { AdminContext } from "../../contexts/admin";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -126,11 +126,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			left: "6rem"
 		},
 		secondary: {
-			fontSize: '.8rem',
-			color: '#404040'
+			fontSize: ".8rem",
+			color: "#404040"
 		},
 		alert: {
-			width: "2rem",
+			width: "2rem"
 		}
 	})
 );
@@ -143,7 +143,6 @@ interface Props {
 }
 
 export function ProductCard(props: Props) {
-	console.log(props.handleClick);
 	const classes = useStyles();
 
 	// EXPAND
@@ -154,11 +153,9 @@ export function ProductCard(props: Props) {
 
 	// MODAL
 	const [open, setOpen] = React.useState(false);
-
 	const handleOpen = () => {
 		setOpen(true);
 	};
-
 	const handleClose = () => {
 		setOpen(false);
 	};
@@ -189,10 +186,13 @@ export function ProductCard(props: Props) {
 				<IconButton aria-label="addToCard" onClick={handleOpen}>
 					<VisibilityIcon />
 				</IconButton>
-			
 
 				<div style={{ marginLeft: "auto" }}>
-					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" />
+					<ContextButton
+						product={props.product}
+						handleClick={props.handleClick}
+						shape="addToCart"
+					/>
 				</div>
 
 				<AdminContext.Consumer>
@@ -219,7 +219,10 @@ export function ProductCard(props: Props) {
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
 						<CancelIcon className={classes.closeBtn} onClick={handleClose} />
-						<ProductPage handleClick={props.handleClick} product={props.product} />
+						<ProductPage
+							handleClick={props.handleClick}
+							product={props.product}
+						/>
 					</Paper>
 				</div>
 			</Modal>
@@ -250,7 +253,11 @@ export function ProductPage(props: Props) {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton product={props.product} handleClick={props.handleClick} twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart"></ContextButton>
+					<ContextButton
+						product={props.product}
+						handleClick={props.handleClick}
+						twoOnclickAlert={props.twoOnclickAlert}
+						shape="productSiteAddToCart"></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>
@@ -275,15 +282,16 @@ export function ProductCart(props: Props) {
 					</Grid>
 					<Grid item xs={9}>
 						<CardContent>
-							<Typography variant="subtitle1">
-								{props.product.name}
-							</Typography>
+							<Typography variant="subtitle1">{props.product.name}</Typography>
 							<Typography className={classes.secondary} variant="subtitle1">
 								{"Price: " + props.product.price}:-
 							</Typography>
 							<div className={classes.amountWrapper}>
 								<Box display="flex">
-									<ContextButton product={props.product} shape="removeFromCounter" />
+									<ContextButton
+										product={props.product}
+										shape="removeFromCounter"
+									/>
 									<Box display="flex" margin="0 0.4rem 0 0.4rem">
 										<Typography variant="subtitle1">{props.amount}</Typography>
 									</Box>
@@ -309,31 +317,43 @@ export function ProductCheckout(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Card style={{ position: 'relative', marginBottom: '1rem', display: 'flex' }}>
-			<Box component="div" style={{ margin: '.5rem .5rem .3rem .5rem' }}>
+		<Card
+			style={{ position: "relative", marginBottom: "1rem", display: "flex" }}>
+			<Box component="div" style={{ margin: ".5rem .5rem .3rem .5rem" }}>
 				<img
 					className={classes.imgCart}
 					alt="complex"
 					src={props.product.img}
 				/>
 			</Box>
-			<Box component="div" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-				<Typography variant="subtitle1">
-					{props.product.name}
-				</Typography>
+			<Box
+				component="div"
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center"
+				}}>
+				<Typography variant="subtitle1">{props.product.name}</Typography>
 				<Typography className={classes.secondary} variant="subtitle1">
 					{`Amount: ${props.amount}`}
 				</Typography>
-					<Box display={{ xs: 'block', sm: 'none' }}>
-						<Typography variant="subtitle1">
-							{props.amount
-								? `Total: ${props.product.price * props.amount}:-`
-								: null
-							}
-						</Typography>
-					</Box>
+				<Box display={{ xs: "block", sm: "none" }}>
+					<Typography variant="subtitle1">
+						{props.amount
+							? `Total: ${props.product.price * props.amount}:-`
+							: null}
+					</Typography>
+				</Box>
 			</Box>
-			<Box component="div" display={{ xs: 'none', sm: 'block' }} style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)' }}>
+			<Box
+				component="div"
+				display={{ xs: "none", sm: "block" }}
+				style={{
+					position: "absolute",
+					right: "1rem",
+					top: "50%",
+					transform: "translateY(-50%)"
+				}}>
 				<Typography variant="subtitle1">
 					{props.amount
 						? `Total: ${props.product.price * props.amount}:-`

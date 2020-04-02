@@ -1,5 +1,4 @@
 import React from "react";
-// import {  Theme, createStyles } from "@material-ui/core/styles";
 import {
 	Drawer,
 	makeStyles,
@@ -80,13 +79,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			height: '100%',
 			display: 'flex',
-			// flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
 			'& > div': {
 				width: '80%',
 				height: '80%',
-				// backgroundColor: 'black',
 				borderRadius: '1rem',
 				border: '.2rem dashed rgb(0, 0, 0, 0.1)',
 				color: 'rgb(0, 0, 0, 0.26)',

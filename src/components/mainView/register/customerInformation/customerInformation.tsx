@@ -52,9 +52,6 @@ export default function CustomerInformation() {
                             required
                             label="Mobile number"
                             type="number"
-                        //   InputLabelProps={{
-                        //     shrink: true,
-                        //   }}
                             variant="outlined"
                         />
                     </FormControl>
@@ -76,9 +73,6 @@ export default function CustomerInformation() {
                             id="outlined-number"
                             label="Postal code"
                             type="number"
-                        //   InputLabelProps={{
-                        //     shrink: true,
-                        //   }}
                             variant="outlined"
                         />
                     </FormControl>

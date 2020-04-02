@@ -13,15 +13,13 @@ import {
 	Collapse,
 	IconButton,
 	Grid,
-	Fab,
 	Button,
-	ButtonGroup,
 	Box,
 	Paper,
 	makeStyles,
 	Theme,
 	createStyles,
-	Modal
+	Modal,
 } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
@@ -125,7 +123,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		secondary: {
 			fontSize: ".8rem",
 			color: "#404040"
-		}
+		},
 	})
 );
 
@@ -303,48 +301,45 @@ export function ProductCart(props: Props) {
 			</Card>
 		</Box>
 	);
-
 }
 export function ProductCheckout(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Box className={classes.root} bgcolor="background.paper">
-			<Card className={classes.cartCardWrapper}>
-				<Grid container spacing={1}>
-					<Grid item xs={3}>
-						<CardContent>
-							<img
-								className={classes.imgCart}
-								alt="complex"
-								src={props.product.img}
-							/>
-						</CardContent>
-					</Grid>
-					<Grid item xs={9}>
-						<CardContent>
-							<Typography variant="subtitle1">
-								{props.product.name}
-							</Typography>
-							<Typography className={classes.secondary} variant="subtitle1">
-								{"Price: " + props.product.price}:-
-								</Typography>
-							<div className={classes.amountWrapper}>
-								<Box display="flex">
-									<Box display="flex" margin="0 0.4rem 0 0.4rem">
-										<Typography variant="subtitle1">{props.amount}</Typography>
-									</Box>
-								</Box>
-								<Typography className={classes.totalAmount} variant="subtitle1">
-									{props.amount
-										? `Total: ${props.product.price * props.amount}:-`
-										: null}
-								</Typography>
-							</div>
-						</CardContent>
-					</Grid>
-				</Grid>
-			</Card>
-		</Box>
+		<Card style={{ position: 'relative', marginBottom: '1rem', display: 'flex'}}>
+			{/* <Grid container spacing={1}> */}
+				{/* <Grid item md={1} sm={1} style={{ margin: '.5rem .5rem .3rem .5rem' }}> */}
+					<div style={{ margin: '.5rem .5rem .3rem .5rem' }}>
+						<img
+							className={classes.imgCart}
+							alt="complex"
+							src={props.product.img}
+						/>
+					</div>
+				{/* </Grid> */}
+				{/* <Grid item md={8} sm={6} style={{  display: 'flex', flexDirection: 'column', justifyContent: 'center' }}> */}
+					<div style={{  display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+						<Typography variant="subtitle1">
+							{props.product.name}
+						</Typography>
+						{/* <Typography className={classes.secondary} variant="subtitle1">
+							{"Price: " + props.product.price}:-
+						</Typography> */}
+						<Typography className={classes.secondary} variant="subtitle1">
+							{`Amount: ${props.amount}`}
+						</Typography>
+					</div>
+				{/* </Grid> */}
+				{/* <Grid item md={2} sm={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}> */}
+					<div style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)' }}>
+						<Typography variant="subtitle1">
+							{props.amount
+								? `Total: ${props.product.price * props.amount}:-`
+								: null}
+						</Typography>
+					</div>
+				{/* </Grid> */}
+			{/* </Grid> */}
+		</Card>
 	);
 }

@@ -9,8 +9,6 @@ interface Props {
 	product?: any;
 	shape?: string;
 	handleClick?: () => void;
-	alertIsOpen?: boolean;
-	isFullPage?: boolean;
 	twoOnclickAlert?: () => void;
 }
 
@@ -37,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 function twoOnclick(props: Props, addToCart: any) {
-	console.log('twoonClick')
 	if(props.handleClick) {
 		props.handleClick()
 	}
@@ -46,8 +43,8 @@ function twoOnclick(props: Props, addToCart: any) {
 }
 
 function handleTwoOnclick(props: Props, addToCart: any) {
-	console.log(props.handleClick);
 	
+	//If productsite render alert on there otherwise render it in layout/add item to cart in both cases.
 	if(props.twoOnclickAlert){
 		props.twoOnclickAlert()
 	}

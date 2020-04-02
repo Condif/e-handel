@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			flexGrow: 1
-			// marginBottom: "4rem"
 		},
 		removeFromCart: {
 			position: "absolute",
@@ -238,9 +237,11 @@ function ContextButton(props: Props) {
 												{inputs.map(input => (
 													<AdminInput
 														key={input}
+
 														mode="edit"
 														name={input}
 														placeHolder={props.product}
+														
 														hook={editItem}
 														setHook={setEditItem}
 													/>

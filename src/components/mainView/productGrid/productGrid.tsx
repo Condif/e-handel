@@ -38,7 +38,7 @@ function ProductGrid(props: Props) {
 		<ProductContext.Consumer>
 			{({ products }) => (
 				<Container maxWidth="lg" disableGutters={false}>
-					<Typography variant="h2" className={classes.header}>
+					<Typography variant="h4" className={classes.header}>
 						Products
 					</Typography>
 					<Grid

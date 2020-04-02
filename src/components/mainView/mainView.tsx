@@ -12,15 +12,17 @@ interface State {
 class MainView extends React.Component<Props, State> {
 	render() {
 		return (
-			<Switch>
-				<Route exact path="/">
-					<ProductGrid />
-				</Route>
+			<>
+				<Switch>
+					<Route exact path="/">
+						<ProductGrid />
+					</Route>
 
-				<Route path="/productview/:serial" exact component={ProductView} />
+					<Route path="/productview/:serial" exact component={ProductView} />
 
-				<Route>something went wrong</Route>
-			</Switch>
+					<Route>something went wrong</Route>
+				</Switch>
+			</>
 		);
 	}
 }

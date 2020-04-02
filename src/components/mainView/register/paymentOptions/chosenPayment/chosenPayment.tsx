@@ -4,9 +4,13 @@ import { Container, makeStyles, Theme, Typography, TextField, MenuItem, FormCont
 import StoreRoundedIcon from '@material-ui/icons/StoreRounded';
 import Swishlogo from '../../../../../assets/swish.png'
 import PayPallogo from '../../../../../assets/paypal.png'
+import { RegisterInputValues } from '../../registerAPI';
 
 interface Props {
+    alternate: boolean
     identifier: PaymentOption
+    values: RegisterInputValues
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => void
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -65,7 +69,7 @@ const blankPage = (classes: Record<"blankTitle" | "noSelection", string>) => {
     )
 }
 
-const generateCardInputs = (classes: any) => {
+const generateCardInputs = (classes: any, props: Props) => {
     return (
         <Grid container spacing={4} className={classes.cardWrapper}>
             <Grid item xs={12} sm={12} md={6}>
@@ -73,6 +77,8 @@ const generateCardInputs = (classes: any) => {
                     <TextField
                         size="small"
                         required
+                        value={(!props.alternate) ? props.values.firstName : props.values.altFirstName}
+                        onChange={(event) => props.handleInputChange(event, `${(!props.alternate) ? "firstName" : "altFirstName"}`)}
                         label="First name"
                     />
                 </FormControl>
@@ -82,6 +88,8 @@ const generateCardInputs = (classes: any) => {
                     <TextField
                         size="small"
                         required
+                        value={(!props.alternate) ? props.values.lastName : props.values.altLastName}
+                        onChange={(event) => props.handleInputChange(event, `${(!props.alternate) ? "lastName" : "altLastName"}`)}
                         label="Last name"
                     />
                 </FormControl>
@@ -92,6 +100,8 @@ const generateCardInputs = (classes: any) => {
                         size="small"
                         type="number"
                         required
+                        value={props.values.cardNumber}
+                        onChange={(event) => props.handleInputChange(event, 'cardNumber')}
                         label="Card number"
                     />
                 </FormControl>
@@ -103,6 +113,8 @@ const generateCardInputs = (classes: any) => {
                         type="number"
                         required
                         label="CVC/CVV"
+                        value={props.values.CVC}
+                        onChange={(event) => props.handleInputChange(event, 'CVC')}
                         helperText="The last three digits on signature strip"
                     />
                 </FormControl>
@@ -113,6 +125,8 @@ const generateCardInputs = (classes: any) => {
                         size="small"
                         type="number"
                         required
+                        value={props.values.expiry}
+                        onChange={(event) => props.handleInputChange(event, 'expiry')}
                         label="Expiry date"
                     />
                 </FormControl>
@@ -121,7 +135,7 @@ const generateCardInputs = (classes: any) => {
     )
 }
 
-const generateSwishInput = (classes: any) => {
+const generateSwishInput = (classes: any, props: Props) => {
     return (
         <div className={classes.formWrapper}>
             <FormControl fullWidth className={classes.centeredContent}>
@@ -129,6 +143,8 @@ const generateSwishInput = (classes: any) => {
                 <TextField
                     size="small"
                     required
+                    value={(!props.alternate) ? props.values.mobileNumber : props.values.altMobileNumber}
+                    onChange={(event) => props.handleInputChange(event, `${(!props.alternate) ? "mobileNumber" : "altMobileNumber"}`)}
                     label="Your mobile number"
                     type="number"
                 />
@@ -159,9 +175,9 @@ const generatePurchaseOptions = (classes: any, props: Props, type: string, handl
                 {props.identifier.name}
             </Typography>
             {(props.identifier.name === 'Card')
-                ? generateCardInputs(classes)
+                ? generateCardInputs(classes, props)
                 : props.identifier.name === 'Swish'
-                    ? generateSwishInput(classes)
+                    ? generateSwishInput(classes, props)
                     : props.identifier.name === 'Paypal'
                         ? generatePaypalInput(classes)
                         : null

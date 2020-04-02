@@ -43,10 +43,48 @@ export default function Register(props: Props) {
     const classes = useStyles();
     const [deliveryOption, setDeliveryOption] = useState(baseDelivery)
     const [paymentOption, setPaymentOption] = useState(basePayment)
+    const [inputValues, setInputValues] = React.useState({
+        firstName: '',
+        altFirstName: '',
+        lastName: '',
+        altLastName: '',
+        mobileNumber: '',
+        altMobileNumber: '',
+        address: '',
+        postal: '',
+        city: '',
+        cardNumber: '',
+        CVC: '',
+        expiry: '',
+    });
 
+    const [useAltValues, setUseAltValues] = React.useState(false)
+    
     useEffect(() => {
         props.setRegisterValue(true)
     });
+    
+    const handleAlternateInput = () => {
+        setUseAltValues(!useAltValues)
+    }
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => {
+        console.log(validateNumerals(event.target.value));
+        
+
+        setInputValues({
+            ...inputValues, [id]: event.target.value
+        });
+    };
+
+    const validateNumerals = (value: string): boolean => {
+        const valid = /^[0-9]*$/
+        if (value.match(valid)) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     const handleOptionItemClick = (
         identifier: DeliveryOption | PaymentOption
@@ -68,7 +106,10 @@ export default function Register(props: Props) {
                     </Grid>
                     <Grid item xs={12} sm={12} md={7}>
                         <Paper className={classes.paper}>
-                            <CustomerInformation />
+                            <CustomerInformation 
+                                values={inputValues}
+                                handleInputChange={handleInputChange}
+                            />
                         </Paper>
                     </Grid>
                     <Grid item xs={12} sm={12} md={5}>
@@ -82,6 +123,10 @@ export default function Register(props: Props) {
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             <PaymentOptions
+                                alternate={useAltValues}
+                                useAlternate={handleAlternateInput}
+                                values={inputValues}
+                                handleInputChange={handleInputChange}
                                 selectedPayment={paymentOption}
                                 setSelectedPayment={handleOptionItemClick} 
                             />

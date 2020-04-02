@@ -6,6 +6,7 @@ import { CssBaseline, Snackbar } from "@material-ui/core";
 import Cart from "../cart/cart";
 import Alert from "@material-ui/lab/Alert";
 import { ProductContext } from "../../contexts/productContext";
+import { AdminContext } from "../../contexts/admin";
 
 function Layout() {
 
@@ -36,28 +37,47 @@ function Layout() {
 	const horizontal = 'center'
 
 	return (
-		<div>
-			<Snackbar style={{marginTop: '3rem'}} anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={1250} onClose={handleClose}>
-				<Alert style={{minWidth: '15rem'}} color="info" onClose={handleClose} severity="success">
-					Added to the cart
-        		</Alert>
-			</Snackbar>
-			<CssBaseline />
-			<AdminControlls />
-			<MainView 
-				handleClose={handleClose}
-				handleClick={handleClick}
-			/>
-			<Footer
-				isOpen={drawer}
-				toggleDrawer={toggleDrawer}
-			/>
+		<AdminContext.Consumer>
+			{value => (
+				<>
+					<CssBaseline />
 
-			<Cart
-				isOpen={drawer}
-				toggleDrawer={toggleDrawer}
-			/>
-		</div>
+					{value.admin ? <AdminControlls /> : null}
+
+					<button
+						style={{
+							position: "absolute",
+							top: 0,
+							right: 0,
+							padding: ".2rem",
+							margin: ".2rem"
+						}}
+						onClick={value.toggleAdmin}>
+						admin mode
+						<br />
+						{value.admin ? "on" : "off"}
+					</button>
+					<Snackbar style={{marginTop: '3rem'}} anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={1250} onClose={handleClose}>
+						<Alert style={{minWidth: '15rem'}} color="info" onClose={handleClose} severity="success">
+							Added to the cart
+	        			</Alert>
+					</Snackbar>
+					<MainView 
+						handleClose={handleClose}
+						handleClick={handleClick}
+					/>
+					<Footer
+						isOpen={drawer}
+						toggleDrawer={toggleDrawer}
+					/>
+		
+					<Cart
+						isOpen={drawer}
+						toggleDrawer={toggleDrawer}
+					/>
+				</>
+			)}
+		</AdminContext.Consumer>
 	);
 }
 

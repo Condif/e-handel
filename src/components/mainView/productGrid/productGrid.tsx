@@ -22,20 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderBottom: "2px solid #97ADA188",
 			color: "#4B6155"
 		},
-		modalWrapper: {
-			width: "100vw",
-			height: "100vh",
-			display: "flex",
-			justifyContent: "center",
-			alignItems: "center"
-		},
-		modalContent: {
-			width: "50%",
-			height: "60%",
-
-			margin: "5rem",
-			padding: "2rem"
-		}
 	})
 );
 
@@ -43,10 +29,7 @@ interface Props {
 	handleClick?: () => void;
 }
 
-function useForceUpdate() {
-	const [value, setValue] = React.useState(0); // integer state
-	return () => setValue(value => ++value); // update the state to force render
-}
+
 
 function ProductGrid(props: Props) {
 	const classes = useStyles();

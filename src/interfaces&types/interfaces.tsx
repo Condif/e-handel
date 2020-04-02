@@ -1,13 +1,15 @@
 export interface Product {
 	name: string;
-	serial?: number;
-	img: string;
-	price: number;
     desc: string;
+	img: string;
+	
+	price: number;
+	serial?: number;
 }
 export interface NewProduct {
 	name: string;
 	img: string;
-	price: number;
 	desc: string;
+
+	price: number;
 }

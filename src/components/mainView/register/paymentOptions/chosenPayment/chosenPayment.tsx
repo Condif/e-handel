@@ -5,11 +5,15 @@ import StoreRoundedIcon from '@material-ui/icons/StoreRounded';
 import Swishlogo from '../../../../../assets/swish.png'
 import PayPallogo from '../../../../../assets/paypal.png'
 import { RegisterInputValues } from '../../registerAPI';
+import RegisterListItem from '../../registerListItem/registerListItem';
+import { DeliveryOption } from '../../deliveryOptions/deliveryAPI';
 
 interface Props {
+    selectedPayOpt: PaymentOption | DeliveryOption
     alternate: boolean
     identifier: PaymentOption
     values: RegisterInputValues
+    setSelectedPayment: (value: DeliveryOption | PaymentOption) => void
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => void
 }
 
@@ -136,9 +140,9 @@ const generateCardInputs = (classes: any, props: Props) => {
                     />
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={12} md={4} style={{marginTop: '1rem', padding: '1rem'}}>
-                <InputLabel style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <p style={{marginRight: '.5rem'}}>Expiry:</p>
+            <Grid item xs={12} sm={12} md={4} style={{ marginTop: '1rem', padding: '1rem' }}>
+                <InputLabel style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <p style={{ marginRight: '.5rem' }}>Expiry:</p>
                     <TextField
                         size="small"
                         error={props.values.cardMonth.error}
@@ -150,7 +154,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                             maxlength: 2
                         }}
                     />
-                    <p style={{margin: '0 .3rem .5rem .3rem', fontSize: '.8rem'}}>/</p>
+                    <p style={{ margin: '0 .3rem .5rem .3rem', fontSize: '.8rem' }}>/</p>
                     <TextField
                         size="small"
                         error={props.values.cardYear.error}
@@ -213,30 +217,23 @@ const generatePurchaseOptions = (classes: any, props: Props, type: string, handl
                     ? generateSwishInput(classes, props)
                     : props.identifier.name === 'Paypal'
                         ? generatePaypalInput(classes)
-                        : null
+                        : generateKlarnaInput(props)
             }
         </Container>
     )
 }
 
-const generateOptionalDropDown = (props: Props, type: string, handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
+const generateKlarnaInput = (props: Props) => {
     return (
         (props.identifier.options) ?
-            <FormControl fullWidth>
-                <TextField
-                    select
-                    label={`${props.identifier.name} type:`}
-                    value={type}
-                    onChange={handleChange}
-                    helperText={`Please select type`}
-                >
-                    {props.identifier.options.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
-            </FormControl>
+            props.identifier.options.map(option => (
+                <RegisterListItem
+                    key={option.name}
+                    selectedIndex={props.selectedPayOpt}
+                    identifier={option}
+                    handleListItemClick={props.setSelectedPayment}
+                />
+            ))
             : null
     )
 }

@@ -11,6 +11,7 @@ interface Props {
     values: RegisterInputValues
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => void
     selectedPayment: PaymentOption
+    selectedPayOpt: PaymentOption
     setSelectedPayment: (value: DeliveryOption | PaymentOption) => void
 }
 
@@ -47,6 +48,8 @@ export default function CardInformation(props: Props) {
                 </Grid>
                 <Grid item md={8} sm={6} xs={12}>
                     <ChosenPayment
+                        selectedPayOpt={props.selectedPayOpt}
+                        setSelectedPayment={props.setSelectedPayment}
                         alternate={props.alternate}
                         identifier={props.selectedPayment}
                         values={props.values}

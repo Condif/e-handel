@@ -43,6 +43,7 @@ export default function Register(props: Props) {
     const classes = useStyles();
     const [deliveryOption, setDeliveryOption] = useState(baseDelivery)
     const [paymentOption, setPaymentOption] = useState(basePayment)
+    const [subPayment, setSubPayment] = useState(basePayment)
     const [inputValues, setInputValues] = React.useState({
         firstName: {
             value: '',
@@ -172,7 +173,8 @@ export default function Register(props: Props) {
     const handleOptionItemClick = (
         identifier: DeliveryOption | PaymentOption
     ) => {
-        (identifier.type === 'del') ? setDeliveryOption(identifier) : setPaymentOption(identifier)
+        (identifier.type === 'del') ? setDeliveryOption(identifier) : 
+        (identifier.type === 'pay') ? setPaymentOption(identifier) : setSubPayment(identifier)
     };
 
     return (
@@ -212,6 +214,7 @@ export default function Register(props: Props) {
                                 values={inputValues}
                                 handleInputChange={handleInputChange}
                                 selectedPayment={paymentOption}
+                                selectedPayOpt={subPayment}
                                 setSelectedPayment={handleOptionItemClick}
                             />
                         </Paper>

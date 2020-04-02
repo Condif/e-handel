@@ -4,10 +4,12 @@ import ProductView from "./productView/productView";
 
 import { Switch, Route } from "react-router-dom";
 import { Product } from "../../interfaces&types/interfaces";
+import Register from "./register/register";
 
 interface Props {
 	handleClick?: () => void;
 	handleClose?: () => void;
+	setRegisterValue: (value: boolean) => void
 }
 interface State {
 	products: Product[];
@@ -31,6 +33,11 @@ class MainView extends React.Component<Props, State> {
 				product={product}
 				/>}
 				/>
+				<Route path="/register">
+					<Register
+						setRegisterValue={this.props.setRegisterValue}
+					/>
+				</Route>
 					
 				
 				<Route>something went wrong</Route>

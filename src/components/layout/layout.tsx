@@ -10,6 +10,12 @@ import { AdminContext } from "../../contexts/admin";
 
 function Layout() {
 
+	const [drawer, setDrawer] = React.useState(false)
+	const [register, setRegister] = React.useState(false)
+
+	const setRegisterValue = (value: boolean) => {
+		setRegister(value)	
+	}
 	//State for alert
 	const [open, setOpen] = React.useState(false);
 
@@ -63,17 +69,21 @@ function Layout() {
 	        			</Alert>
 					</Snackbar>
 					<MainView 
+						setRegisterValue={setRegisterValue}
 						handleClose={handleClose}
 						handleClick={handleClick}
 					/>
 					<Footer
 						isOpen={drawer}
 						toggleDrawer={toggleDrawer}
+						setRegisterOpen={setRegisterValue}
+						isRegisterOpen={register}
 					/>
 		
 					<Cart
 						isOpen={drawer}
 						toggleDrawer={toggleDrawer}
+						setRegisterOpen={setRegisterValue}
 					/>
 				</>
 			)}

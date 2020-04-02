@@ -11,9 +11,7 @@ import {
 } from "@material-ui/core";
 import { ProductContext } from "../../../contexts/productContext";
 import { Product } from "../../../interfaces&types/interfaces";
-import { ProductPage } from "../../productFactory/shapes";
 import Alert from "@material-ui/lab/Alert";
-import ContextButton from "../../contextButton/contextButton";
 
 interface Props extends RouteChildrenProps<{ serial: string }> {
 	handleClick: () => void;
@@ -71,7 +69,6 @@ const ProductView = ({ match }: any, props: Props) => {
 	const serialNumber = parseInt(match.params.serial);
 	
 	function twoOnclickAlert() {
-			console.log(handleClick)
 			handleClick()
 		
 	}
@@ -84,7 +81,7 @@ const ProductView = ({ match }: any, props: Props) => {
 						<Paper className={classes.paper}>
 							{value.products.map((product: Product) =>
 								product.serial === serialNumber ? (
-									<CardFactory key={serialNumber} product={product} alertIsOpen={props.alertIsOpen} handleClick={props.handleClick}  twoOnclickAlert={twoOnclickAlert} productShape="fullpage" />
+									<CardFactory key={serialNumber} product={product}  handleClick={props.handleClick}  twoOnclickAlert={twoOnclickAlert} productShape="fullpage" />
 								) : null
 							)}
 						</Paper>

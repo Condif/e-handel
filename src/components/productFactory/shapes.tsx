@@ -13,6 +13,7 @@ import {
 	Collapse,
 	IconButton,
 	Grid,
+	Button,
 	Box,
 	Paper,
 	makeStyles,
@@ -93,19 +94,24 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: "center"
 		},
 		modalContent: {
-			
 			position: "relative",
-			maxWidth: "80%",
-			maxHeight: "90%",
+
+			width: "50%",
+			minWidth:"19rem",
+			height: "60%",
+			minHeight:"35rem",
 
 			margin: "5rem",
-			padding: "2rem"
-		},closeBtn: {
+			padding: "2rem",
+
+			overflow: "scroll"
+		},
+		closeBtn: {
 			position: "absolute",
 			top: 0,
 			right: 0,
 
-			margin:"1rem"
+			margin: "1rem"
 		},
 		cartCardWrapper: {
 			height: "7rem"
@@ -194,7 +200,7 @@ export function ProductCard(props: Props) {
 								<div style={{ position: "absolute", top: 5, right: 5 }}>
 									<ContextButton product={props.product} shape="deleteItem" />
 								</div>
-								<div style={{ position: "absolute", top: 5, right: 45 }}>
+								<div style={{ position: "absolute", top: 30, right: 5 }}>
 									<ContextButton product={props.product} shape="editItem" />
 								</div>
 							</>

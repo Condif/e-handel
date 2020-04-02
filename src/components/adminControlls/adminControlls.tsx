@@ -1,7 +1,7 @@
-import React, { CSSProperties } from "react";
-import clsx from "clsx";
+import React  from "react";
 
-import { ProductContext } from "../../contexts/productContext";
+import SettingsIcon from "@material-ui/icons/Settings";
+import AddIcon from "@material-ui/icons/Add";
 import {
 	makeStyles,
 	Theme,
@@ -10,13 +10,9 @@ import {
 	Paper,
 	Typography,
 	Grid,
-	TextField,
-	FormControl,
-	FilledInput,
-	InputAdornment,
-	FormHelperText,
-	OutlinedInput,
-	Input
+	IconButton,
+	Menu,
+	MenuItem
 } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 
@@ -45,7 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: "relative",
 
 			width: "50%",
+			minWidth:"19rem",
 			height: "60%",
+			minHeight:"35rem",
 
 			margin: "5rem",
 			padding: "2rem"
@@ -55,13 +53,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			top: 0,
 			right: 0,
 
-			margin:"1rem"
+			margin: "1rem"
 		},
 		btnWrapper: {
-			position: "absolute",
-			top: 10,
-			left: "50%",
-			transform: "translatex(-50%)"
+			border: "1px solid red"
 		},
 		margin: {
 			margin: theme.spacing(1)
@@ -72,7 +67,11 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function AdminControlls() {
+interface Props {
+	auth: any;
+}
+
+function AdminControlls(props: Props) {
 	const classes = useStyles();
 
 	const inputs = ["name", "price", "desc", "img"];
@@ -83,6 +82,7 @@ function AdminControlls() {
 		desc: undefined,
 		img: undefined
 	});
+	const [filledForm, setFilledForm] = React.useState(false);
 
 	// MODAL
 	const [open, setOpen] = React.useState(false);
@@ -95,13 +95,54 @@ function AdminControlls() {
 		setOpen(false);
 	};
 
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const openMenu = Boolean(anchorEl);
+
+	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleMenuClose = () => {
+		setAnchorEl(null);
+	};
+
 	// - - - - - - -
 
 	return (
 		<>
-			<div className={classes.btnWrapper}>
-				<button onClick={handleOpen}>+</button>
-			</div>
+			{props.auth && (
+				<div>
+					<IconButton
+						aria-controls="admin"
+						aria-haspopup="true"
+						onClick={handleMenu}
+						color="inherit">
+						<SettingsIcon style={{ color: "#333" }} />
+					</IconButton>
+					<Menu
+						id="menu-appbar"
+						anchorEl={anchorEl}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "right"
+						}}
+						keepMounted
+						transformOrigin={{
+							vertical: "top",
+							horizontal: "right"
+						}}
+						open={openMenu}
+						onClose={handleMenuClose}
+						onClick={handleMenuClose}>
+						<MenuItem onClick={handleOpen}>
+							<AddIcon />
+							addItem
+						</MenuItem>
+
+						<MenuItem onClick={handleMenuClose}>close</MenuItem>
+					</Menu>
+				</div>
+			)}
 
 			<Modal
 				aria-labelledby="simple-modal-title"
@@ -121,11 +162,18 @@ function AdminControlls() {
 										name={input}
 										hook={newItem}
 										setHook={setNewItem}
+										formHook={setFilledForm}
 									/>
 								))}
 
 								<Grid item xs={12} onClick={handleClose}>
-									<ContextButton shape="addNewItem" product={newItem} />
+									{filledForm ? (
+										<ContextButton shape="addNewItem" product={newItem} />
+									) : (
+										<button type="button" disabled>
+											add new item
+										</button>
+									)}
 								</Grid>
 							</Grid>
 						</form>

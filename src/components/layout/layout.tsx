@@ -1,12 +1,12 @@
 import React from "react";
 import MainView from "../mainView/mainView";
-import Footer from "../footer/footer";
 import AdminControlls from "../adminControlls/adminControlls";
 import { CssBaseline, Snackbar } from "@material-ui/core";
 import Cart from "../cart/cart";
 import Alert from "@material-ui/lab/Alert";
 import { ProductContext } from "../../contexts/productContext";
 import { AdminContext } from "../../contexts/admin";
+import Topbar from "../topbar/topbar";
 
 function Layout() {
 
@@ -42,26 +42,12 @@ function Layout() {
 	const horizontal = 'center'
 
 	return (
-		<AdminContext.Consumer>
-			{value => (
-				<>
-					<CssBaseline />
+		<>
+			<CssBaseline />
 
-					{value.admin ? <AdminControlls /> : null}
+			<Topbar isOpen={drawer} toggleDrawer={toggleDrawer} />
+			<MainView />
 
-					<button
-						style={{
-							position: "absolute",
-							top: 0,
-							right: 0,
-							padding: ".2rem",
-							margin: ".2rem"
-						}}
-						onClick={value.toggleAdmin}>
-						admin mode
-						<br />
-						{value.admin ? "on" : "off"}
-					</button>
 					<Snackbar style={{marginTop: '3rem'}} anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={1250} onClose={handleClose}>
 						<Alert style={{minWidth: '15rem'}} color="info" onClose={handleClose} severity="success">
 							Added to the cart
@@ -86,7 +72,6 @@ function Layout() {
 					/>
 				</>
 			)}
-		</AdminContext.Consumer>
 	);
 }
 

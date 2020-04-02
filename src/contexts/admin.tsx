@@ -17,7 +17,7 @@ export class AdminProvider extends React.Component<Props, State> {
 		super(props);
 
 		this.state = {
-			admin: true,
+			admin: false,
 
 			toggleAdmin: this.toggleAdmin
 		};

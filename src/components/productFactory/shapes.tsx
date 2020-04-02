@@ -20,7 +20,8 @@ import {
 	makeStyles,
 	Theme,
 	createStyles,
-	Modal
+	Modal,
+	Divider
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -70,11 +71,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		margin: {
 			margin: theme.spacing(1)
 		},
+		imgWrapper: {
+			height: "100%",
+			width: "100%"
+		},
 		img: {
-			margin: "auto",
-			display: "block",
-			maxWidth: "100%",
-			maxHeight: "100%"
+			height: "100%",
+			width: "100%",
+
+			objectFit: "cover"
 		},
 		imgCart: {
 			height: "5rem",
@@ -82,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			objectFit: "cover"
 		},
 		addToCart: {
-			padding: "20% 2rem"
+			margin: "3rem auto",
 		},
 		addToCartButton: {
 			width: "80%"
@@ -131,6 +136,14 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		alert: {
 			width: "2rem"
+		},
+		productInfo: {
+			height: "100%",
+
+			display: "flex",
+			justifyContent: "space-between",
+			alignItems: "center",
+
 		}
 	})
 );
@@ -236,30 +249,33 @@ export function ProductPage(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Grid container spacing={4}>
+		<Grid container spacing={4} style={{ height: "100%" }}>
 			<Grid item xs={12} sm={6}>
-				<img className={classes.img} alt="complex" src={props.product.img} />
+				<div className={classes.imgWrapper}>
+					<img className={classes.img} alt="complex" src={props.product.img} />
+				</div>
 			</Grid>
 
-			<Grid item xs={12} sm={6}>
-				<Grid container spacing={1}>
+			<Grid item xs={12} sm={6} className={classes.productInfo}>
+				<Grid container spacing={1} className={classes.productInfo}>
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>
 						<Typography variant="h5">{props.product.price}:-</Typography>
 						<Typography variant="caption">
 							incl. VAT, plus shipping cost
 						</Typography>
-					</Grid>
-					<Grid item>
+
+						<Divider style={{ margin: "1rem" }} />
+
 						<Typography variant="h6">{props.product.desc}</Typography>
 					</Grid>
-				</Grid>
-				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton
-						product={props.product}
-						handleClick={props.handleClick}
-						twoOnclickAlert={props.twoOnclickAlert}
-						shape="productSiteAddToCart"></ContextButton>
+					<Grid item className={classes.addToCart}>
+						<ContextButton
+							product={props.product}
+							handleClick={props.handleClick}
+							twoOnclickAlert={props.twoOnclickAlert}
+							shape="productSiteAddToCart"></ContextButton>
+					</Grid>
 				</Grid>
 			</Grid>
 		</Grid>

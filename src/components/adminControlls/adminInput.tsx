@@ -32,18 +32,19 @@ function AdminInput(props: Props) {
 				placeHolder = props.placeHolder?.img;
 				break;
 			case "price":
-				placeHolder = props.placeHolder?.price;
+				placeHolder = props.placeHolder?.price.toString();
 				break;
 		}
 	}
 
 	if (
+		props.mode === "add" &&
 		props.hook.name != undefined &&
 		props.hook.desc != undefined &&
 		props.hook.img != undefined &&
 		props.hook.price != undefined
 	) {
-		props.formHook(true);
+		props?.formHook(true);
 	}
 
 	return (
@@ -53,8 +54,12 @@ function AdminInput(props: Props) {
 					required
 					type={props.name === "price" ? "number" : "text"}
 					id={props.name}
-					label={"enter " + placeHolder}
-					placeholder={placeHolder}
+					label={
+						props.mode === "edit"
+							? "enter new " + props.name
+							: "enter " + props.name
+					}
+					placeholder={placeHolder ? placeHolder : ""}
 					onChange={(event: any) =>
 						props.setHook({
 							...props.hook,

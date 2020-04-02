@@ -235,9 +235,11 @@ function ContextButton(props: Props) {
 												{inputs.map(input => (
 													<AdminInput
 														key={input}
+
 														mode="edit"
 														name={input}
 														placeHolder={props.product}
+
 														hook={editItem}
 														setHook={setEditItem}
 													/>

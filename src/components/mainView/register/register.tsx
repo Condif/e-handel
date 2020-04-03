@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Typography, Grid, Paper } from '@material-ui/core'
+import { Container, Typography, Grid, Paper, Button } from '@material-ui/core'
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import { makeStyles } from '@material-ui/core/styles';
 import ItemOverview from './itemOverview/itemOverview';
@@ -10,9 +10,12 @@ import CheckoutTotal from './checkoutTotal';
 import { ProductContext } from '../../../contexts/productContext';
 import { DeliveryOption, baseDelivery } from './deliveryOptions/deliveryAPI';
 import { PaymentOption, basePayment } from './paymentOptions/paymentAPI';
+import { Product } from '../../../interfaces&types/interfaces';
+import { Link } from "react-router-dom";
 
 interface Props {
     setRegisterValue: (value: boolean) => void
+    productList: { product: Product, amount: number }[]
 }
 
 const useStyles = makeStyles(theme => ({
@@ -152,16 +155,16 @@ export default function Register(props: Props) {
 
     const validateInputs = (value: string, letter: boolean): boolean => {
         console.log(letter);
-        
+
         if (letter) {
-            
+
             if (value.match(/^[A-ZÅÄÖa-zåäö]+$/)) {
                 return true
             } else {
                 return false
             }
         } else {
-            
+
             if (value.match(/^\d+$/)) {
                 return true
             } else {
@@ -173,73 +176,82 @@ export default function Register(props: Props) {
     const handleOptionItemClick = (
         identifier: DeliveryOption | PaymentOption
     ) => {
-        (identifier.type === 'del') ? setDeliveryOption(identifier) : 
-        (identifier.type === 'pay') ? setPaymentOption(identifier) : setSubPayment(identifier)
+        (identifier.type === 'del') ? setDeliveryOption(identifier) :
+            (identifier.type === 'pay') ? setPaymentOption(identifier) : setSubPayment(identifier)
     };
 
     return (
-        <Container maxWidth="md" className={classes.wrapper}>
-            <Typography variant="h3" className={classes.title} component="h1">
-                Checkout <ShoppingCartRoundedIcon fontSize="large" />
-            </Typography>
-            <div className={classes.root}>
-                <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper}>
-                            <ItemOverview />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={7}>
-                        <Paper className={classes.paper}>
-                            <CustomerInformation
-                                alternate={useAltValues}
-                                useAlternate={handleAlternateInput}
-                                values={inputValues}
-                                handleInputChange={handleInputChange}
-                            />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={5}>
-                        <Paper className={classes.paper}>
-                            <DeliveryOptions
-                                selectedDelivery={deliveryOption}
-                                setSelectedDelivery={handleOptionItemClick}
-                            />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper}>
-                            <PaymentOptions
-                                alternate={useAltValues}
-                                values={inputValues}
-                                handleInputChange={handleInputChange}
-                                selectedPayment={paymentOption}
-                                selectedPayOpt={subPayment}
-                                setSelectedPayment={handleOptionItemClick}
-                            />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper}>
-                            <ProductContext.Consumer>
-                                {value => (
-                                    <div className={classes.totalWrapper}>
-                                        <CheckoutTotal
-                                            useAlternate={useAltValues}
-                                            orderInputs={inputValues}
-                                            itemTotal={value.itemTotal}
-                                            delivery={deliveryOption}
-                                            payment={paymentOption}
-                                            subPayment={subPayment}
-                                        />
-                                    </div>
-                                )}
-                            </ProductContext.Consumer>
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </div>
-
-        </Container>
+        <>
+            {props.productList.length != 0 ?
+                <Container maxWidth="md" className={classes.wrapper}>
+                    <Typography variant="h3" className={classes.title} component="h1">
+                        Checkout <ShoppingCartRoundedIcon fontSize="large" />
+                    </Typography>
+                    <div className={classes.root}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Paper className={classes.paper}>
+                                    <ItemOverview productList={props.productList} />
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={7}>
+                                <Paper className={classes.paper}>
+                                    <CustomerInformation
+                                        alternate={useAltValues}
+                                        useAlternate={handleAlternateInput}
+                                        values={inputValues}
+                                        handleInputChange={handleInputChange}
+                                    />
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={5}>
+                                <Paper className={classes.paper}>
+                                    <DeliveryOptions
+                                        selectedDelivery={deliveryOption}
+                                        setSelectedDelivery={handleOptionItemClick}
+                                    />
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Paper className={classes.paper}>
+                                    <PaymentOptions
+                                        alternate={useAltValues}
+                                        values={inputValues}
+                                        handleInputChange={handleInputChange}
+                                        selectedPayment={paymentOption}
+                                        selectedPayOpt={subPayment}
+                                        setSelectedPayment={handleOptionItemClick}
+                                    />
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Paper className={classes.paper}>
+                                    <ProductContext.Consumer>
+                                        {value => (
+                                            <div className={classes.totalWrapper}>
+                                                <CheckoutTotal
+                                                    useAlternate={useAltValues}
+                                                    orderInputs={inputValues}
+                                                    itemTotal={value.itemTotal}
+                                                    delivery={deliveryOption}
+                                                    payment={paymentOption}
+                                                    subPayment={subPayment}
+                                                />
+                                            </div>
+                                        )}
+                                    </ProductContext.Consumer>
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Container>
+                : <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '5rem' }}>
+                    <Typography variant="h6" style={{ color: '#989898', marginBottom: '2rem' }}>Can't find any items here...</Typography>
+                    <Link to="/">
+                        <Button variant="contained">Get me some products!</Button>
+                    </Link>
+                </div>
+            }
+        </>
     )
 }

@@ -6,6 +6,7 @@ import ReceiptView from "./register/receipt/receiptView";
 import { Switch, Route } from "react-router-dom";
 import { Product, Receipt } from "../../interfaces&types/interfaces";
 import Register from "./register/register";
+import { ProductContext } from "../../contexts/productContext";
 
 interface Props {
 	handleClick?: () => void;
@@ -97,21 +98,24 @@ class MainView extends React.Component<Props, State> {
 					<ProductGrid handleClick={this.props.handleClick} />
 				</Route>
 
-				<Route
-					path="/productview/:serial"
-					render={props => (
-						<ProductView
-							{...props}
-							handleClick={this.props.handleClick}
-							handleClose={this.props.handleClose}
-							product={product}
-						/>
-					)}
+				<Route path="/productview/:serial" render={(props) =>
+					<ProductView {...props}
+						handleClick={this.props.handleClick}
+						handleClose={this.props.handleClose}
+						product={product}
+					/>}
 				/>
 				<Route path="/register">
-					<Register setRegisterValue={this.props.setRegisterValue} />
+					<ProductContext.Consumer>
+						{value => (
+							<Register
+								setRegisterValue={this.props.setRegisterValue}
+								productList={value.cart}
+							/>
+						)}
+					</ProductContext.Consumer>
 				</Route>
-				<Route path="/receipt">
+				<Route path="/receipt" >
 					<ReceiptView receipt={template} />
 				</Route>
 

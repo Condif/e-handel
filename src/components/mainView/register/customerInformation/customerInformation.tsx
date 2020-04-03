@@ -1,8 +1,10 @@
 import React from 'react'
-import { TextField, Typography, Grid, FormControl } from '@material-ui/core';
+import { TextField, Typography, Grid, FormControl, FormControlLabel, Switch } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 interface Props {
+    alternate: boolean
+    useAlternate: () => void
     values: any
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => void
 }
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         title: {
-            margin: theme.spacing(0, 0, 1),
+            margin: theme.spacing(0, 3, 1, 0),
         },
     }),
 );
@@ -29,19 +31,44 @@ export default function CustomerInformation(props: Props) {
 
     return (
         <div>
-            <Typography variant="h5" className={classes.title}>
-                Your information
-            </Typography>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+            }}>
+                <Typography variant="h5" className={classes.title}>
+                    Your information
+                </Typography>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            size="small"
+                            checked={props.alternate}
+                            onChange={props.useAlternate}
+                            name="useAlternateOptions"
+                            color="primary"
+                        />
+                    }
+                    label="Not for you?"
+                    style={{
+                        margin: 0
+                    }}
+                />
+            </div>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6} md={6}>
                     <FormControl fullWidth>
                         <TextField
                             required
-                            // multiline
-                            id="standard-required"
+                            error={props.values.firstName.error}
+                            // id="standard-required"
                             label="First name"
-                            value={props.values.firstName}
+                            value={props.values.firstName.value}
                             onChange={(event) => props.handleInputChange(event, 'firstName')}
+                            helperText={(props.values.firstName.error) ? "Enter letters" : null}
+                            inputProps={{
+                                maxlength: 20
+                            }}
                         />
                     </FormControl>
                 </Grid>
@@ -49,10 +76,15 @@ export default function CustomerInformation(props: Props) {
                     <FormControl fullWidth>
                         <TextField
                             required
+                            error={props.values.lastName.error}
                             id="standard-required"
-                            value={props.values.lastName}
+                            value={props.values.lastName.value}
                             label="Last name"
                             onChange={(event) => props.handleInputChange(event, 'lastName')}
+                            helperText={(props.values.lastName.error) ? "Enter letters" : null}
+                            inputProps={{
+                                maxlength: 20
+                            }}
                         />
                     </FormControl>
                 </Grid>
@@ -60,11 +92,15 @@ export default function CustomerInformation(props: Props) {
                     <FormControl fullWidth>
                         <TextField
                             required
+                            error={props.values.mobileNumber.error}
                             label="Mobile number"
-                            type="number"
-                            value={props.values.mobileNumber}
+                            value={props.values.mobileNumber.value}
                             onChange={(event) => props.handleInputChange(event, 'mobileNumber')}
                             variant="outlined"
+                            helperText={(props.values.mobileNumber.error) ? "Enter numbers" : null}
+                            inputProps={{
+                                maxlength: 10
+                            }}
                         />
                     </FormControl>
                 </Grid>
@@ -72,11 +108,14 @@ export default function CustomerInformation(props: Props) {
                     <FormControl fullWidth>
                         <TextField
                             required
+                            error={props.values.address.error}
                             id="outlined-required"
                             label="Address"
-                            value={props.values.address}
+                            value={props.values.address.value}
                             onChange={(event) => props.handleInputChange(event, 'address')}
-                            variant="outlined"
+                            inputProps={{
+                                maxlength: 20
+                            }}
                         />
                     </FormControl>
                 </Grid>
@@ -84,12 +123,15 @@ export default function CustomerInformation(props: Props) {
                     <FormControl fullWidth>
                         <TextField
                             required
+                            error={props.values.postal.error}
                             id="outlined-number"
                             label="Postal code"
-                            value={props.values.postal}
+                            value={props.values.postal.value}
                             onChange={(event) => props.handleInputChange(event, 'postal')}
-                            type="number"
-                            variant="outlined"
+                            helperText={(props.values.postal.error) ? "Enter numbers" : null}
+                            inputProps={{
+                                maxlength: 5
+                            }}
                         />
                     </FormControl>
                 </Grid>
@@ -97,11 +139,15 @@ export default function CustomerInformation(props: Props) {
                     <FormControl fullWidth>
                         <TextField
                             required
+                            error={props.values.city.error}
                             id="outlined-required"
                             label="City"
-                            value={props.values.city}
+                            value={props.values.city.value}
                             onChange={(event) => props.handleInputChange(event, 'city')}
-                            variant="outlined"
+                            helperText={(props.values.city.error) ? "Enter letters" : null}
+                            inputProps={{
+                                maxlength: 20
+                            }}
                         />
                     </FormControl>
                 </Grid>

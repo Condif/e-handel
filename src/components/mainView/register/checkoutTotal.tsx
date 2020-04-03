@@ -20,6 +20,7 @@ interface Props {
 	delivery: DeliveryOption;
 	payment: PaymentOption;
 	subPayment: PaymentOption;
+	handlePurchaseClick: (value: boolean) => void
 }
 
 const useStyles = makeStyles(() =>
@@ -190,14 +191,16 @@ export default function CheckoutTotal(props: Props) {
 						checkPayment(props) &&
 						!checkErrorsInInfo(props) &&
 						!checkErrorsInPay(props)) ?
-						<Link to="/receipt">
+						// <Link to="/receipt">
 							<Button
 								variant="contained"
 								color="primary"
-								style={{ padding: ".5rem 2rem", margin: "3rem" }}>
+								style={{ padding: ".5rem 2rem", margin: "3rem" }}
+								onClick={() => props.handlePurchaseClick(true)}
+								>
 								confirm
 							</Button>
-						</Link>
+						// </Link>
 						:
 						<Button
 							disabled

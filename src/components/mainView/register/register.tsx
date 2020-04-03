@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 interface Props {
     setRegisterValue: (value: boolean) => void
     productList: { product: Product, amount: number }[]
+    handlePurchaseClick: (value: boolean) => void
 }
 
 const useStyles = makeStyles(theme => ({
@@ -236,6 +237,7 @@ export default function Register(props: Props) {
                                                     delivery={deliveryOption}
                                                     payment={paymentOption}
                                                     subPayment={subPayment}
+                                                    handlePurchaseClick={props.handlePurchaseClick}
                                                 />
                                             </div>
                                         )}

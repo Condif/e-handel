@@ -3,7 +3,7 @@ import ProductGrid from "./productGrid/productGrid";
 import ProductView from "./productView/productView";
 import ReceiptView from "./register/receipt/receiptView";
 
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Product, Receipt } from "../../interfaces&types/interfaces";
 import Register from "./register/register";
 import { ProductContext } from "../../contexts/productContext";
@@ -16,17 +16,37 @@ interface Props {
 interface State {
 	validReceipt: boolean;
 	receiptInformation: Receipt | false;
+	confirmedPurchase: boolean
 }
 const product: Product[] = [];
 class MainView extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
-
 		this.state = {
 			validReceipt: false,
-			receiptInformation: false
+			receiptInformation: false,
+			confirmedPurchase: false,
 		};
 	}
+
+	mockAPICall = () => {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve(true);
+			}, 3000);
+		});
+	}
+
+	setConfirmedPurchase = async () => {
+		const result = await this.mockAPICall();
+		
+		if (typeof result === 'boolean') {
+			this.setState({
+				confirmedPurchase: result
+			})
+		}
+	}
+
 	render() {
 		const template: Receipt = {
 			alternate: true,
@@ -105,16 +125,21 @@ class MainView extends React.Component<Props, State> {
 						product={product}
 					/>}
 				/>
+				{/* <Route path="/register"> */}
 				<Route path="/register">
-					<ProductContext.Consumer>
-						{value => (
-							<Register
-								setRegisterValue={this.props.setRegisterValue}
-								productList={value.cart}
-							/>
-						)}
-					</ProductContext.Consumer>
+					{this.state.confirmedPurchase ? <Redirect to="/receipt" /> :
+						<ProductContext.Consumer>
+							{value => (
+								<Register
+									setRegisterValue={this.props.setRegisterValue}
+									productList={value.cart}
+									handlePurchaseClick={this.setConfirmedPurchase}
+								/>
+							)}
+						</ProductContext.Consumer>
+					}
 				</Route>
+				{/* </Route> */}
 				<Route path="/receipt" >
 					<ReceiptView receipt={template} />
 				</Route>

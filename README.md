@@ -1,4 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It was created using the [Material UI](https://material-ui.com/getting-started/installation/) design system.
+
+## Install the project
+
+To install the project, when it has been cloned to your local drive, run:
+
+### `npm i`
+
+to install dependencies.
 
 ## Available Scripts
 

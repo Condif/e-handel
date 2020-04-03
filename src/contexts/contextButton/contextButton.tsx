@@ -121,7 +121,7 @@ function ContextButton(props: Props) {
 			return (
 					<ProductContext.Consumer>
 						{value => (
-							<Button  size="small" color="primary" variant="contained" onClick={() => twoOnclick(props, value.addToCart)}>
+							<Button  size="small" style={{ backgroundColor: "#5DB984", color: 'white' }} variant="contained" onClick={() => twoOnclick(props, value.addToCart)}>
 								add to cart &nbsp;<AddShoppingCartIcon/>
 							</Button>
 						)}
@@ -132,7 +132,7 @@ function ContextButton(props: Props) {
 				<ProductContext.Consumer>
 					{value => (
 						
-						<Button color="primary" variant="contained" onClick={() => handleTwoOnclick(props, value.addToCart)}>
+						<Button style={{ backgroundColor: "#5DB984", color: 'white' }} variant="contained" onClick={() => handleTwoOnclick(props, value.addToCart)}>
 							add to cart &nbsp;<AddShoppingCartIcon/>
 						</Button>
 					)}

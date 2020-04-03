@@ -230,6 +230,7 @@ export default function Register(props: Props) {
                                             itemTotal={value.itemTotal}
                                             delivery={deliveryOption}
                                             payment={paymentOption}
+                                            subPayment={subPayment}
                                         />
                                     </div>
                                 )}

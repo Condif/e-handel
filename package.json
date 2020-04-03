@@ -1,6 +1,6 @@
 {
   "name": "e-handel",
-  "home-page": "https://condif.github.io/e-handel/public",
+  "homepage": "https://condif.github.io/e-handel/public",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

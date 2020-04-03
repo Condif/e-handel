@@ -34,10 +34,7 @@ export interface Receipt {
 	city: string;
 	cardNumber: string;
 
-	cost: {
-		subtotal: number;
-		vat: number;
-	};
+	cost: number,
 
 	delivery: DeliveryOption;
 	payment: PaymentOption;

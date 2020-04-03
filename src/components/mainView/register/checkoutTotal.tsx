@@ -5,22 +5,25 @@ import {
 	Grid,
 	Typography,
 	Button,
-	Divider,
+	Divider
 } from "@material-ui/core";
 import { DeliveryOption, baseDelivery } from "./deliveryOptions/deliveryAPI";
 import { PaymentOption, basePayment } from "./paymentOptions/paymentAPI";
 import { RegisterInputValues } from "./registerAPI";
-import ErrorIcon from '@material-ui/icons/Error';
+import ErrorIcon from "@material-ui/icons/Error";
 import { Link } from "react-router-dom";
+import { Product, Receipt } from "../../../interfaces&types/interfaces";
 
 interface Props {
-	useAlternate: boolean
-	orderInputs: RegisterInputValues
+	cart: { product: Product; amount: number }[];
+	useAlternate: boolean;
+	orderInputs: RegisterInputValues;
 	itemTotal: { totalValue: number; itemAmount: number };
 	delivery: DeliveryOption;
 	payment: PaymentOption;
 	subPayment: PaymentOption;
-	handlePurchaseClick: (value: boolean) => void
+
+	confirmReceipt: (receipt: Receipt) => void;
 }
 
 const useStyles = makeStyles(() =>
@@ -32,75 +35,88 @@ const useStyles = makeStyles(() =>
 			alignItems: "center"
 		},
 		progressBar: {
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: 'space-evenly',
-			alignItems: 'center',
+			display: "flex",
+			flexDirection: "column",
+			justifyContent: "space-evenly",
+			alignItems: "center"
 		},
 		errorMsg: {
-			color: 'red',
-			display: 'flex',
-			justifyContent: 'center',
-			alignItems: 'center',
-			'& .MuiSvgIcon-fontSizeSmall': {
-				margin: '0 .3rem .3rem 0'
+			color: "red",
+			display: "flex",
+			justifyContent: "center",
+			alignItems: "center",
+			"& .MuiSvgIcon-fontSizeSmall": {
+				margin: "0 .3rem .3rem 0"
 			}
 		}
 	})
 );
 
 const checkErrorsInInfo = (props: Props) => {
-	return (props.orderInputs.firstName.error ||
+	return (
+		props.orderInputs.firstName.error ||
 		props.orderInputs.lastName.error ||
 		props.orderInputs.mobileNumber.error ||
 		props.orderInputs.address.error ||
 		props.orderInputs.postal.error ||
-		props.orderInputs.city.error)
-}
+		props.orderInputs.city.error
+	);
+};
 
 const checkErrorsInPay = (props: Props) => {
-	if (props.payment.name === 'Card' && !props.useAlternate) {
-		return (props.orderInputs.firstName.error ||
+	if (props.payment.name === "Card" && !props.useAlternate) {
+		return (
+			props.orderInputs.firstName.error ||
 			props.orderInputs.lastName.error ||
 			props.orderInputs.CVC.error ||
 			props.orderInputs.cardNumber.error ||
 			props.orderInputs.cardMonth.error ||
-			props.orderInputs.cardYear.error)
-	} else if (props.payment.name === 'Card' && props.useAlternate) {
-		return (props.orderInputs.altFirstName.error ||
+			props.orderInputs.cardYear.error
+		);
+	} else if (props.payment.name === "Card" && props.useAlternate) {
+		return (
+			props.orderInputs.altFirstName.error ||
 			props.orderInputs.altLastName.error ||
 			props.orderInputs.CVC.error ||
 			props.orderInputs.cardNumber.error ||
 			props.orderInputs.cardMonth.error ||
-			props.orderInputs.cardYear.error)
-	} else if (props.payment.name === 'Swish' && !props.useAlternate) {
-		return (props.orderInputs.mobileNumber.error)
-	} else if (props.payment.name === 'Swish' && props.useAlternate) {
-		return (props.orderInputs.altMobileNumber.error)
+			props.orderInputs.cardYear.error
+		);
+	} else if (props.payment.name === "Swish" && !props.useAlternate) {
+		return props.orderInputs.mobileNumber.error;
+	} else if (props.payment.name === "Swish" && props.useAlternate) {
+		return props.orderInputs.altMobileNumber.error;
 	}
-}
+};
 
 const checkDelivery = (props: Props) => {
-	return props.delivery != baseDelivery
-}
+	return props.delivery != baseDelivery;
+};
 
 const checkPayment = (props: Props) => {
-	if (props.payment.name === 'Klarna') {
-		return props.subPayment != basePayment
+	if (props.payment.name === "Klarna") {
+		return props.subPayment != basePayment;
 	} else {
-		return props.payment != basePayment
+		return props.payment != basePayment;
 	}
-}
+};
 
 const calculateTotal = (props: Props) => {
-	if (typeof props.delivery.price != 'string') {
-		if (props.payment.name === 'Klarna' && typeof props.subPayment.price != 'string') {
-			return (props.subPayment.price + props.itemTotal.totalValue + props.delivery.price).toFixed(2)
+	if (typeof props.delivery.price != "string") {
+		if (
+			props.payment.name === "Klarna" &&
+			typeof props.subPayment.price != "string"
+		) {
+			return (
+				props.subPayment.price +
+				props.itemTotal.totalValue +
+				props.delivery.price
+			).toFixed(2);
 		} else {
-			return (props.itemTotal.totalValue + props.delivery.price).toFixed(2)
+			return (props.itemTotal.totalValue + props.delivery.price).toFixed(2);
 		}
 	}
-}
+};
 
 export default function CheckoutTotal(props: Props) {
 	const classes = useStyles();
@@ -109,24 +125,22 @@ export default function CheckoutTotal(props: Props) {
 		<>
 			<Grid container xs={12}>
 				<Grid item xs={12} className={classes.progressBar}>
-					{(checkErrorsInInfo(props)) ?
+					{checkErrorsInInfo(props) ? (
 						<div className={classes.errorMsg}>
 							<ErrorIcon fontSize="small" />
-							< Typography variant="body2" align="center">
+							<Typography variant="body2" align="center">
 								Error in "Your Information"
 							</Typography>
 						</div>
-						: null
-					}
-					{(checkErrorsInPay(props)) ?
+					) : null}
+					{checkErrorsInPay(props) ? (
 						<div className={classes.errorMsg}>
 							<ErrorIcon fontSize="small" />
-							< Typography variant="body2" align="center">
+							<Typography variant="body2" align="center">
 								Error in "Payment"
 							</Typography>
 						</div>
-						: null
-					}
+					) : null}
 					<Typography variant="body2" align="center">
 						{props.payment != basePayment
 							? `Payment option: ${props.payment.name}`
@@ -149,19 +163,17 @@ export default function CheckoutTotal(props: Props) {
 					<Typography variant="body1">
 						{`VAT: +${(props.itemTotal.totalValue * 0.2).toFixed(2)}:-`}
 					</Typography>
-					{(typeof props.delivery.price === "number") ?
-						< Typography variant="body1">
-							{`Shipping: +${(props.delivery.price).toFixed(2)}:-`}
+					{typeof props.delivery.price === "number" ? (
+						<Typography variant="body1">
+							{`Shipping: +${props.delivery.price.toFixed(2)}:-`}
 						</Typography>
-						: null
-					}
-					{(props.payment.name === "Klarna" && typeof props.subPayment.price != 'string') ?
-						< Typography variant="body1">
-							{`Payment fee: +${(props.subPayment.price).toFixed(2)}:-`}
+					) : null}
+					{props.payment.name === "Klarna" &&
+					typeof props.subPayment.price != "string" ? (
+						<Typography variant="body1">
+							{`Payment fee: +${props.subPayment.price.toFixed(2)}:-`}
 						</Typography>
-						: null
-					}
-
+					) : null}
 				</Grid>
 				<Grid
 					item
@@ -176,7 +188,7 @@ export default function CheckoutTotal(props: Props) {
 							typeof props.delivery.price === "number"
 								? calculateTotal(props)
 								: "Not completed"
-							}`}
+						}`}
 					</Typography>
 				</Grid>
 				<Grid
@@ -185,23 +197,45 @@ export default function CheckoutTotal(props: Props) {
 					xs={12}
 					direction="column"
 					alignItems="center"
-					justify="center"
-				>
-					{(checkDelivery(props) &&
-						checkPayment(props) &&
-						!checkErrorsInInfo(props) &&
-						!checkErrorsInPay(props)) ?
-						// <Link to="/receipt">
+					justify="center">
+					{checkDelivery(props) &&
+					checkPayment(props) &&
+					!checkErrorsInInfo(props) &&
+					!checkErrorsInPay(props) ? (
+						<Link to="/receipt">
 							<Button
 								variant="contained"
 								color="primary"
 								style={{ padding: ".5rem 2rem", margin: "3rem" }}
-								onClick={() => props.handlePurchaseClick(true)}
-								>
+								onClick={() =>
+									props.confirmReceipt({
+										alternate: props.useAlternate,
+
+										firstName: props.orderInputs.firstName.value,
+										lastName: props.orderInputs.lastName.value,
+										mobileNumber: props.orderInputs.mobileNumber.value,
+
+										altFirstName: props.orderInputs.altFirstName.value,
+										altLastName: props.orderInputs.altLastName.value,
+										altMobileNumber: props.orderInputs.altMobileNumber.value,
+
+										address: props.orderInputs.address.value,
+										postal: props.orderInputs.postal.value,
+										city: props.orderInputs.city.value,
+										cardNumber: props.orderInputs.cardNumber.value,
+
+										cost: props.itemTotal.totalValue,
+
+										delivery: props.delivery,
+										payment: props.payment,
+
+										cart: props.cart
+									})
+								}>
 								confirm
 							</Button>
-						// </Link>
-						:
+						</Link>
+					) : (
 						<Button
 							disabled
 							variant="contained"
@@ -209,10 +243,10 @@ export default function CheckoutTotal(props: Props) {
 							style={{ padding: ".5rem 2rem", margin: "3rem" }}>
 							confirm
 						</Button>
-
-					}
+					)}
 				</Grid>
 			</Grid>
 		</>
 	);
 }
+

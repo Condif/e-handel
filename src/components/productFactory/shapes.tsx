@@ -128,7 +128,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: "relative"
 		},
 		totalAmount: {
+			fontSize: '.8rem',
 			position: "absolute",
+			bottom: ".1rem",
 			left: "6rem"
 		},
 		secondary: {

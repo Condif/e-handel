@@ -41,12 +41,18 @@ export const PaymentTypes: PaymentOption[] = [
         desc: 'Pay by invoice after purchase',
         price: 'fee',
         options: [{
-            value: 'KLA14',
-            label: '14 day invoice'
+            type: 'payopt',
+            name: '14 day invoice',
+            desc: 'Pay within 14 days',
+            price: 'free',
+            options: false
         },
         {
-            value: 'KLA3M',
-            label: '3 months invoice'
+            type: 'payopt',
+            name: '3 months invoice',
+            desc: 'Pay within 3 months',
+            price: 99,
+            options: false
         }]
     },
     

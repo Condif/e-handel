@@ -12,6 +12,7 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
     nested: {
+        width: '100%',
         padding: theme.spacing(0, 4, 2, 4),
     },
 }));
@@ -44,8 +45,8 @@ export default function RegisterListItem(props: Props) {
                     primary={`${(typeof price === 'number') ? `${price}:-` : ``}`}
                 />
             </ListItem>
-            <Collapse in={(selectedIndex === identifier)} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
+            <Collapse in={(selectedIndex === identifier)} timeout="auto" unmountOnExit style={{width: '100%'}}>
+                <List component="div" disablePadding style={{width: '100%'}}>
                     <ListItem selected className={classes.nested}>
                         <ListItemText primary={`${desc} ${(delTime) ? `within ${delTime}.` : `` }`} />
                     </ListItem>

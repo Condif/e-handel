@@ -73,7 +73,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginBottom: "1.2rem",
 			"& > button": {
 				width: "100%",
-				backgroundColor: "#5DB984"
+				backgroundColor: "#5DB984",
+				color: 'white'
+			},
+			"& > button:hover": {
+				backgroundColor: "#7bc69a"
 			},
 			textDecoration: "none"
 		},
@@ -150,7 +154,6 @@ export default function Cart(props: Props) {
 						<Link className={classes.buyButton} to="/register">
 							<Button
 								variant="contained"
-								color="primary"
 								onClick={buyButtonClick}>
 								BUY
 							</Button>

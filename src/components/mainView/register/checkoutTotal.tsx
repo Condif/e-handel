@@ -18,6 +18,7 @@ interface Props {
 	itemTotal: { totalValue: number; itemAmount: number };
 	delivery: DeliveryOption;
 	payment: PaymentOption;
+	subPayment: PaymentOption;
 }
 
 const useStyles = makeStyles(() =>
@@ -74,6 +75,18 @@ const checkErrorsInPay = (props: Props) => {
 		return (props.orderInputs.mobileNumber.error)
 	} else if (props.payment.name === 'Swish' && props.useAlternate) {
 		return (props.orderInputs.altMobileNumber.error)
+	}
+}
+
+const checkDelivery = (props: Props) => {
+	return props.delivery != baseDelivery
+}
+
+const checkPayment = (props: Props) => {
+	if (props.payment.name === 'Klarna') {
+		return props.subPayment != basePayment
+	} else {
+		return props.payment != basePayment
 	}
 }
 
@@ -156,7 +169,8 @@ export default function CheckoutTotal(props: Props) {
 					justify="center">
 					<Button
 						disabled={
-							((props.delivery != baseDelivery && props.payment != basePayment) &&
+							(checkDelivery(props) &&
+								checkPayment(props) &&
 								!checkErrorsInInfo(props) &&
 								!checkErrorsInPay(props))
 								? false
@@ -167,8 +181,8 @@ export default function CheckoutTotal(props: Props) {
 						style={{ padding: ".5rem 2rem", margin: "3rem" }}>
 						confirm
 					</Button>
-				</Grid>
 			</Grid>
+		</Grid>
 		</>
 	);
 }

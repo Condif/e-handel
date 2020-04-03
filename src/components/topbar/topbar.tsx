@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const StyledBadge = withStyles((theme: Theme) =>
   createStyles({
     badge: {
-      right: -5,
-      top: 11,
+      right: 10,
+      top: 16,
       border: `2px solid ${theme.palette.background.paper}`,
-	  padding: '0 2px 1px 2px',
-	  fontSize: '0.4rem',
+	  padding: '2px 4px 1px 4px',
+	  fontSize: '0.6rem',
     },
   }),
 )(Badge);
@@ -95,17 +95,22 @@ function Topbar(props: Props) {
 							<Link to="/">
 								<img src={logo} alt="logo" className={classes.logo} />
 							</Link>
-
-							<IconButton
-								style={{
-									width: "4rem",
-									color: "#333"
-								}}
-								edge="start"
-								aria-label="menu"
-								onClick={event => props.toggleDrawer("right", true)}>
-								<ShoppingCartIcon />
-							</IconButton>
+							<ProductContext.Consumer>
+								{ value =>
+							<StyledBadge badgeContent={value.itemTotal.itemAmount} color="secondary">
+								<IconButton
+									style={{
+										width: "4rem",
+										color: "#333"
+									}}
+									edge="start"
+									aria-label="menu"
+									onClick={event => props.toggleDrawer("right", true)}>
+									<ShoppingCartIcon />
+								</IconButton>
+							</StyledBadge>
+								}
+							</ProductContext.Consumer>
 						</Toolbar>
 					</AppBar>
 				</div>

@@ -44,7 +44,7 @@ const ReceiptView = (props: Props) => {
 
 	return (
 		<Container maxWidth="md" className={classes.container}>
-			{props.receipt ? (
+			{props.receipt ? 
 				<Grid container xs={12}>
 					<Grid item>
 						<Typography variant="h3">Reciept</Typography>

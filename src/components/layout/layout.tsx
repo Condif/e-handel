@@ -4,6 +4,7 @@ import { CssBaseline, Snackbar } from "@material-ui/core";
 import Cart from "../cart/cart";
 import Alert from "@material-ui/lab/Alert";
 import Topbar from "../topbar/topbar";
+import { ProductContext } from "../../contexts/productContext";
 
 function Layout() {
 	const [register, setRegister] = React.useState(false);
@@ -37,7 +38,7 @@ function Layout() {
 	const horizontal = "center";
 
 	return (
-		<div style={{height: "100vh" }}>
+		<div style={{ height: "100vh" }}>
 			<CssBaseline />
 
 			<Topbar isOpen={drawer} toggleDrawer={toggleDrawer} />
@@ -56,12 +57,16 @@ function Layout() {
 					Added to the cart
 				</Alert>
 			</Snackbar>
-
-			<MainView
-				setRegisterValue={setRegisterValue}
-				handleClose={handleClose}
-				handleClick={handleClick}
-			/>
+			<ProductContext.Consumer>
+				{value => (
+					<MainView
+						clearCart={value.clearCart}
+						setRegisterValue={setRegisterValue}
+						handleClose={handleClose}
+						handleClick={handleClick}
+					/>
+				)}
+			</ProductContext.Consumer>
 
 			<Cart
 				isOpen={drawer}

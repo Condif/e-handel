@@ -9,13 +9,14 @@ import Register from "./register/register";
 import { ProductContext } from "../../contexts/productContext";
 
 interface Props {
+	clearCart: () => void;
 	handleClick?: () => void;
 	handleClose?: () => void;
 	setRegisterValue: (value: boolean) => void;
 }
 interface State {
 	receipt: Receipt | null;
-	confirmedPurchase: boolean
+	confirmedPurchase: boolean;
 }
 const product: Product[] = [];
 class MainView extends React.Component<Props, State> {
@@ -23,7 +24,7 @@ class MainView extends React.Component<Props, State> {
 		super(props);
 		this.state = {
 			receipt: null,
-			confirmedPurchase: false,
+			confirmedPurchase: false
 		};
 	}
 
@@ -33,24 +34,29 @@ class MainView extends React.Component<Props, State> {
 				resolve(true);
 			}, 3000);
 		});
-	}
+	};
 
 	setConfirmedPurchase = async (receipt: Receipt) => {
 		const result = await this.mockAPICall();
 
-		if (typeof result === 'boolean') {
-			this.setState({
-				receipt: receipt,
-				confirmedPurchase: result
-			})
+		if (typeof result === "boolean") {
+			this.setState(
+				{
+					receipt: receipt,
+					confirmedPurchase: result
+				},
+				() => this.props.clearCart()
+			);
 		}
-	}
+	};
 
 	handleConfirmReceipt = async (receipt: Receipt) => {
-		await this.setConfirmedPurchase(receipt)
-		this.setState({
-			confirmedPurchase: false
-		}, () => console.log(this.state.receipt)
+		await this.setConfirmedPurchase(receipt);
+		this.setState(
+			{
+				confirmedPurchase: false
+			},
+			() => console.log(this.state.receipt)
 		);
 	};
 
@@ -73,7 +79,9 @@ class MainView extends React.Component<Props, State> {
 					)}
 				/>
 				<Route path="/register">
-					{this.state.confirmedPurchase ? <Redirect to="/receipt" /> :
+					{this.state.confirmedPurchase ? (
+						<Redirect to="/receipt" />
+					) : (
 						<ProductContext.Consumer>
 							{value => (
 								<Register
@@ -83,7 +91,7 @@ class MainView extends React.Component<Props, State> {
 								/>
 							)}
 						</ProductContext.Consumer>
-					}
+					)}
 				</Route>
 				<Route path="/receipt">
 					<ReceiptView receipt={this.state.receipt} />

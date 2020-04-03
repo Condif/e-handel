@@ -98,8 +98,8 @@ export default function Register(props: Props) {
             error: false
         },
     });
-
     const [useAltValues, setUseAltValues] = React.useState(false)
+
 
     useEffect(() => {
         props.setRegisterValue(true)
@@ -225,6 +225,8 @@ export default function Register(props: Props) {
                                 {value => (
                                     <div className={classes.totalWrapper}>
                                         <CheckoutTotal
+                                            useAlternate={useAltValues}
+                                            orderInputs={inputValues}
                                             itemTotal={value.itemTotal}
                                             delivery={deliveryOption}
                                             payment={paymentOption}

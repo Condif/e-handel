@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import {
 	createStyles,
-	makeStyles,
+	makeStyles, 
 	Grid,
 	Typography,
 	Button,
@@ -192,6 +192,7 @@ export default function CheckoutTotal(props: Props) {
 
 			delivery: props.delivery,
 			payment: props.payment,
+			subPayment: props.subPayment,
 
 			cart: props.cart
 		});
@@ -199,7 +200,7 @@ export default function CheckoutTotal(props: Props) {
 
 	return (
 		<>
-			<Grid container xs={12}>
+			<Grid container>
 				<Grid item xs={12} className={classes.progressBar}>
 					{checkErrorsInInfo(props) ? (
 						<div className={classes.errorMsg}>

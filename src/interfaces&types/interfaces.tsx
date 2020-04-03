@@ -38,6 +38,7 @@ export interface Receipt {
 
 	delivery: DeliveryOption;
 	payment: PaymentOption;
+	subPayment: PaymentOption;
 
 	cart: { product: Product; amount: number }[];
 }

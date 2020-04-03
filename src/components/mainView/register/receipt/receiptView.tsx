@@ -8,8 +8,9 @@ import {
 } from "@material-ui/core";
 import ProductFactory from "../../../productFactory/productFactory";
 import { Receipt } from "../../../../interfaces&types/interfaces";
-import GetDeliveryDate from "../deliveryOptions/deliveryAPI";
+import GetDeliveryDate, { baseDelivery } from "../deliveryOptions/deliveryAPI";
 import { Redirect } from "react-router";
+import { basePayment } from "../paymentOptions/paymentAPI";
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -42,10 +43,23 @@ const ReceiptView = (props: Props) => {
 	const month = date.getDay() < 9 ? "0" + date.getDay() : date.getDay();
 	const year = date.getFullYear();
 
+	const calculateTotal = (props: Props) => {
+		if (props.receipt != null) {
+			let total = props.receipt.cost
+			if (typeof props.receipt.delivery.price === 'number') {
+				total += props.receipt.delivery.price
+			}
+			if (props.receipt.subPayment != basePayment && typeof props.receipt.subPayment.price === 'number') {
+				total += props.receipt.subPayment.price
+			}
+			return total
+		}
+	}
+
 	return (
 		<Container maxWidth="md" className={classes.container}>
-			{props.receipt ? 
-				<Grid container xs={12}>
+			{props.receipt ? (
+				<Grid container>
 					<Grid item>
 						<Typography variant="h3">Reciept</Typography>
 					</Grid>
@@ -54,8 +68,6 @@ const ReceiptView = (props: Props) => {
 							<Grid
 								container
 								spacing={2}
-								xs={12}
-								md={6}
 								justify="space-evenly"
 								style={{ background: "#0001" }}>
 								<Grid item>
@@ -83,7 +95,7 @@ const ReceiptView = (props: Props) => {
 							<Grid
 								container
 								spacing={2}
-								xs={12}
+								// xs={12}
 								justify="space-between"
 								style={{ marginTop: "1rem" }}>
 								<Grid item>
@@ -131,17 +143,17 @@ const ReceiptView = (props: Props) => {
 
 									{/*- - - - KLARNA - - - -*/}
 									{props.receipt.payment.name === "klarna" &&
-									props.receipt.payment.options ? (
-										<Typography variant="subtitle2">
-											{props.receipt.payment.options}
-										</Typography>
-									) : null}
+										props.receipt.payment.options ? (
+											<Typography variant="subtitle2">
+												{props.receipt.payment.options}
+											</Typography>
+										) : null}
 
 									{/*- - - - SWISH - - - -*/}
 									{props.receipt.payment.name === "swish" ? (
 										<Typography variant="subtitle2">
 											{props.receipt.altMobileNumber !=
-											props.receipt.mobileNumber
+												props.receipt.mobileNumber
 												? props.receipt.altMobileNumber
 												: props.receipt.mobileNumber}
 										</Typography>
@@ -161,10 +173,10 @@ const ReceiptView = (props: Props) => {
 												props.receipt.altLastName}
 										</Typography>
 									) : (
-										<Typography variant="subtitle2">
-											{props.receipt.firstName + " " + props.receipt.lastName}
-										</Typography>
-									)}
+											<Typography variant="subtitle2">
+												{props.receipt.firstName + " " + props.receipt.lastName}
+											</Typography>
+										)}
 
 									<Typography variant="subtitle2">
 										{props.receipt.delivery.name}
@@ -178,59 +190,60 @@ const ReceiptView = (props: Props) => {
 									<Typography variant="subtitle2">
 										{props.receipt.delivery.price}:-
 									</Typography>
-								)}
-
-								<Typography variant="subtitle2">
-									{props.receipt.delivery.name}
-								</Typography>
-								<Typography variant="subtitle2">
-									{'On: ' + GetDeliveryDate(props.receipt.delivery.deliveryTime).slice(-10)}
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.delivery.price}:-
-								</Typography>
+								</Grid>
 							</Grid>
-						</Grid>
-						<Grid container spacing={2} xs={12}>
-							<Typography variant="body1" style={{ marginTop: "2rem" }}>
-								item list
+							<Grid container spacing={2}>
+								<Typography variant="body1" style={{ marginTop: "2rem" }}>
+									item list
 							</Typography>
-							<div className={classes.list} role="presentation">
-								{props.receipt.cart.map(item => (
-									<ProductFactory
-										key={item.product.serial}
-										product={item.product}
-										amount={item.amount}
-										productShape="receipt"
-									/>
-								))}
-							</div>
+								<div className={classes.list} role="presentation">
+									{props.receipt.cart.map(item => (
+										<ProductFactory
+											key={item.product.serial}
+											product={item.product}
+											amount={item.amount}
+											productShape="receipt"
+										/>
+									))}
+								</div>
+							</Grid>
+							<Grid
+								container
+								spacing={2}
+								style={{ marginLeft: "auto", padding: "1rem" }}>
+								<Grid item container justify="space-between">
+									<Typography>subtotal:</Typography>
+									<Typography>{(props.receipt.cost * 0.8).toFixed(2)}:-</Typography>
+								</Grid>
+								<Grid item container justify="space-between">
+									<Typography>VAT(25%): </Typography>
+									<Typography>{(props.receipt.cost * 0.2).toFixed(2)}:-</Typography>
+								</Grid>
+								{(typeof props.receipt.delivery.price === 'number') ?
+									<Grid item container justify="space-between">
+										<Typography>Shipping: </Typography>
+										<Typography>{(props.receipt.delivery.price).toFixed(2)}:-</Typography>
+									</Grid>
+									: null
+								}
+								{(props.receipt.subPayment != basePayment && typeof props.receipt.subPayment.price === 'number') ?
+									<Grid item container justify="space-between">
+										<Typography>Payment fee: </Typography>
+										<Typography>{(props.receipt.subPayment.price).toFixed(2)}:-</Typography>
+									</Grid>
+									: null
+								}
+								<Grid item container justify="space-between">
+									<Typography>TOTAL: </Typography>
+									<Typography>
+										{`${calculateTotal(props)}:-`}
+									</Typography>
+								</Grid>
+							</Grid>
 						</Grid>
-						<Grid
-							container
-							spacing={2}
-							xs={12}
-							sm={5}
-							style={{ marginLeft: "auto", padding: "1rem" }}>
-							<Grid item container justify="space-between">
-								<Typography>subtotal:</Typography>
-								<Typography>{(props.receipt.cost * 0.8).toFixed(2)}:-</Typography>
-							</Grid>
-							<Grid item container justify="space-between">
-								<Typography>VAT(25%): </Typography>
-								<Typography>{(props.receipt.cost * 0.2).toFixed(2)}:-</Typography>
-							</Grid>
-							<Grid item container justify="space-between">
-								<Typography>TOTAL: </Typography>
-								<Typography>
-									{(props.receipt.cost).toFixed(2)}:-
-								</Typography>
-							</Grid>
-						</Grid>
-					</Grid>
-				</Paper>
-			</Grid>
-			: <Redirect to="/" />
+					</Paper>
+				</Grid>)
+				: <Redirect to="/" />
 			}
 		</Container>
 	);

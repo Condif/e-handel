@@ -1,11 +1,16 @@
 import React from "react";
+
+import clsx from "clsx";
+
 import {
 	createStyles,
 	makeStyles, 
 	Grid,
 	Typography,
 	Button,
-	Divider
+	Divider,
+	CircularProgress,
+	Theme
 } from "@material-ui/core";
 import { DeliveryOption, baseDelivery } from "./deliveryOptions/deliveryAPI";
 import { PaymentOption, basePayment } from "./paymentOptions/paymentAPI";
@@ -26,7 +31,7 @@ interface Props {
 	confirmReceipt: (receipt: Receipt) => void;
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		totalWrapper: {
 			width: "100%",
@@ -48,6 +53,28 @@ const useStyles = makeStyles(() =>
 			"& .MuiSvgIcon-fontSizeSmall": {
 				margin: "0 .3rem .3rem 0"
 			}
+		},
+		buttonSuccess: {
+			backgroundColor: `green[500]`,
+			"&:hover": {
+				backgroundColor: `green[700]`
+			}
+		},
+		buttonProgress: {
+			color: `green[500]`,
+			position: "absolute",
+			top: "50%",
+			left: "50%",
+			marginTop: -12,
+			marginLeft: -12
+		},
+		root: {
+			display: "flex",
+			alignItems: "center"
+		},
+		wrapper: {
+			margin: theme.spacing(1),
+			position: "relative"
 		}
 	})
 );
@@ -120,6 +147,55 @@ const calculateTotal = (props: Props) => {
 
 export default function CheckoutTotal(props: Props) {
 	const classes = useStyles();
+
+	const [loading, setLoading] = React.useState(false);
+	const [success, setSuccess] = React.useState(false);
+	const timer: any = React.useRef<number>();
+
+	const buttonClassname = clsx({
+		[classes.buttonSuccess]: success
+	});
+
+	React.useEffect(() => {
+		return () => {
+			clearTimeout(timer.current);
+		};
+	}, []);
+
+	const handleConfirmClick = (props: Props) => {
+		if (!loading) {
+			setSuccess(false);
+			setLoading(true);
+			timer.current = setTimeout(() => {
+				setSuccess(true);
+				setLoading(false);
+			}, 3000);
+		}
+
+		props.confirmReceipt({
+			alternate: props.useAlternate,
+
+			firstName: props.orderInputs.firstName.value,
+			lastName: props.orderInputs.lastName.value,
+			mobileNumber: props.orderInputs.mobileNumber.value,
+
+			altFirstName: props.orderInputs.altFirstName.value,
+			altLastName: props.orderInputs.altLastName.value,
+			altMobileNumber: props.orderInputs.altMobileNumber.value,
+
+			address: props.orderInputs.address.value,
+			postal: props.orderInputs.postal.value,
+			city: props.orderInputs.city.value,
+			cardNumber: props.orderInputs.cardNumber.value,
+
+			cost: props.itemTotal.totalValue,
+
+			delivery: props.delivery,
+			payment: props.payment,
+
+			cart: props.cart
+		});
+	};
 
 	return (
 		<>
@@ -202,38 +278,22 @@ export default function CheckoutTotal(props: Props) {
 					checkPayment(props) &&
 					!checkErrorsInInfo(props) &&
 					!checkErrorsInPay(props) ? (
+						<div className={classes.wrapper}>
 							<Button
 								variant="contained"
 								color="primary"
-								style={{ padding: ".5rem 2rem", margin: "3rem" }}
-								onClick={() =>
-									props.confirmReceipt({
-										alternate: props.useAlternate,
-
-										firstName: props.orderInputs.firstName.value,
-										lastName: props.orderInputs.lastName.value,
-										mobileNumber: props.orderInputs.mobileNumber.value,
-
-										altFirstName: props.orderInputs.altFirstName.value,
-										altLastName: props.orderInputs.altLastName.value,
-										altMobileNumber: props.orderInputs.altMobileNumber.value,
-
-										address: props.orderInputs.address.value,
-										postal: props.orderInputs.postal.value,
-										city: props.orderInputs.city.value,
-										cardNumber: props.orderInputs.cardNumber.value,
-
-										cost: props.itemTotal.totalValue,
-
-										delivery: props.delivery,
-										payment: props.payment,
-										subPayment: props.subPayment,
-
-										cart: props.cart
-									})
-								}>
+								className={buttonClassname}
+								disabled={loading}
+								onClick={() => handleConfirmClick(props)}>
 								confirm
 							</Button>
+							{loading && (
+								<CircularProgress
+									size={24}
+									className={classes.buttonProgress}
+								/>
+							)}
+						</div>
 					) : (
 						<Button
 							disabled
@@ -248,4 +308,3 @@ export default function CheckoutTotal(props: Props) {
 		</>
 	);
 }
-

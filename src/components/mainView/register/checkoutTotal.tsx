@@ -90,6 +90,16 @@ const checkPayment = (props: Props) => {
 	}
 }
 
+const calculateTotal = (props: Props) => {
+	if (typeof props.delivery.price != 'string') {
+		if (props.payment.name === 'Klarna' && typeof props.subPayment.price != 'string') {
+			return (props.subPayment.price + props.itemTotal.totalValue + props.delivery.price).toFixed(2)
+		} else {
+			return (props.itemTotal.totalValue + props.delivery.price).toFixed(2)
+		}
+	}
+}
+
 export default function CheckoutTotal(props: Props) {
 	const classes = useStyles();
 
@@ -134,15 +144,22 @@ export default function CheckoutTotal(props: Props) {
 					<Typography variant="body1">
 						{`excl. VAT: ${(props.itemTotal.totalValue * 0.8).toFixed(2)}:-`}
 					</Typography>
+					<Typography variant="body1">
+						{`VAT: +${(props.itemTotal.totalValue * 0.2).toFixed(2)}:-`}
+					</Typography>
 					{(typeof props.delivery.price === "number") ?
 						< Typography variant="body1">
 							{`Shipping: +${(props.delivery.price).toFixed(2)}:-`}
 						</Typography>
 						: null
 					}
-					<Typography variant="body1">
-						{`VAT: +${(props.itemTotal.totalValue * 0.2).toFixed(2)}:-`}
-					</Typography>
+					{(props.payment.name === "Klarna" && typeof props.subPayment.price != 'string') ?
+						< Typography variant="body1">
+							{`Payment fee: +${(props.subPayment.price).toFixed(2)}:-`}
+						</Typography>
+						: null
+					}
+
 				</Grid>
 				<Grid
 					item
@@ -155,7 +172,7 @@ export default function CheckoutTotal(props: Props) {
 					<Typography variant="h6" align="center">
 						{`Total: ${
 							typeof props.delivery.price === "number"
-								? (props.itemTotal.totalValue + props.delivery.price).toFixed(2)
+								? calculateTotal(props)
 								: "Not completed"
 							}`}
 					</Typography>

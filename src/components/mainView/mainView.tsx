@@ -35,20 +35,20 @@ class MainView extends React.Component<Props, State> {
 		});
 	}
 
-	setConfirmedPurchase = async () => {
+	setConfirmedPurchase = async (receipt: Receipt) => {
 		const result = await this.mockAPICall();
 
 		if (typeof result === 'boolean') {
 			this.setState({
+				receipt: receipt,
 				confirmedPurchase: result
 			})
 		}
 	}
 
 	handleConfirmReceipt = async (receipt: Receipt) => {
-		await this.setConfirmedPurchase()
+		await this.setConfirmedPurchase(receipt)
 		this.setState({
-			receipt: receipt,
 			confirmedPurchase: false
 		}, () => console.log(this.state.receipt)
 		);
@@ -85,7 +85,6 @@ class MainView extends React.Component<Props, State> {
 						</ProductContext.Consumer>
 					}
 				</Route>
-
 				<Route path="/receipt">
 					<ReceiptView receipt={this.state.receipt} />
 				</Route>

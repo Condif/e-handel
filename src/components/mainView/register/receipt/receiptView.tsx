@@ -9,6 +9,7 @@ import {
 import ProductFactory from "../../../productFactory/productFactory";
 import { Receipt } from "../../../../interfaces&types/interfaces";
 import GetDeliveryDate from "../deliveryOptions/deliveryAPI";
+import { Redirect } from "react-router";
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -215,10 +216,7 @@ const ReceiptView = (props: Props) => {
 					</Grid>
 				</Paper>
 			</Grid>
-			: 
-			<Typography>
-				invalid
-			</Typography>
+			: <Redirect to="/" />
 			}
 		</Container>
 	);

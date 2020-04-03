@@ -1,8 +1,8 @@
 {
   "name": "e-handel",
-  
+  "home-page": "https://Condif.github.io/e-handel/public",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
@@ -22,7 +22,6 @@
     "typeface-roboto": "0.0.75",
     "typescript": "^3.8.3"
   },
-  "home-page": "https://condif.github.io/e-handel/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -44,125 +44,139 @@ const ReceiptView = (props: Props) => {
 
 	return (
 		<Container maxWidth="md" className={classes.container}>
-			{props.receipt ? 
-			
-			<Grid container xs={12}>
-				<Grid item>
-					<Typography variant="h3">Reciept</Typography>
-				</Grid>
-				<Paper className={classes.paper}>
-					<Grid container spacing={0} alignItems="center" justify="center">
-						<Grid
-							container
-							spacing={2}
-							xs={12}
-							md={6}
-							justify="space-evenly"
-							style={{ background: "#0001" }}>
-							<Grid item>
-								<Typography
-									variant="subtitle1"
-									style={{ fontWeight: "bolder" }}>
-									invoice nr
-								</Typography>
-								<Typography variant="subtitle1">
-									{Math.floor(Math.random() * 100000)}
-								</Typography>
-							</Grid>
-							<Grid item>
-								<Typography
-									variant="subtitle1"
-									style={{ fontWeight: "bolder" }}>
-									date of issue
-								</Typography>
-								<Typography variant="subtitle1">
-									{day}-{month}-{year}
-								</Typography>
-							</Grid>
-						</Grid>
-
-						<Grid
-							container
-							spacing={2}
-							xs={12}
-							justify="space-between"
-							style={{ marginTop: "1rem" }}>
-							<Grid item>
-								<Typography
-									variant="subtitle1"
-									style={{ fontWeight: "bolder" }}>
-									billed to
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.firstName + " " + props.receipt.lastName}
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.mobileNumber}
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.address}
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.postal + " " + props.receipt.city}
-								</Typography>
+			{props.receipt ? (
+				<Grid container xs={12}>
+					<Grid item>
+						<Typography variant="h3">Reciept</Typography>
+					</Grid>
+					<Paper className={classes.paper}>
+						<Grid container spacing={0} alignItems="center" justify="center">
+							<Grid
+								container
+								spacing={2}
+								xs={12}
+								md={6}
+								justify="space-evenly"
+								style={{ background: "#0001" }}>
+								<Grid item>
+									<Typography
+										variant="subtitle1"
+										style={{ fontWeight: "bolder" }}>
+										invoice nr
+									</Typography>
+									<Typography variant="subtitle1">
+										{Math.floor(Math.random() * 100000)}
+									</Typography>
+								</Grid>
+								<Grid item>
+									<Typography
+										variant="subtitle1"
+										style={{ fontWeight: "bolder" }}>
+										date of issue
+									</Typography>
+									<Typography variant="subtitle1">
+										{day}-{month}-{year}
+									</Typography>
+								</Grid>
 							</Grid>
 
-							<Grid item>
-								<Typography
-									variant="subtitle1"
-									style={{ fontWeight: "bolder" }}>
-									payment info
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.payment.name}
-								</Typography>
+							<Grid
+								container
+								spacing={2}
+								xs={12}
+								justify="space-between"
+								style={{ marginTop: "1rem" }}>
+								<Grid item>
+									<Typography
+										variant="subtitle1"
+										style={{ fontWeight: "bolder" }}>
+										billed to
+									</Typography>
+									<Typography variant="subtitle2">
+										{props.receipt.firstName + " " + props.receipt.lastName}
+									</Typography>
+									<Typography variant="subtitle2">
+										{props.receipt.mobileNumber}
+									</Typography>
+									<Typography variant="subtitle2">
+										{props.receipt.address}
+									</Typography>
+									<Typography variant="subtitle2">
+										{props.receipt.postal + " " + props.receipt.city}
+									</Typography>
+								</Grid>
 
-								{/*- - - - CARD - - - -*/}
-								{props.receipt.payment.name === "card" ? (
-									<>
+								<Grid item>
+									<Typography
+										variant="subtitle1"
+										style={{ fontWeight: "bolder" }}>
+										payment info
+									</Typography>
+									<Typography variant="subtitle2">
+										{props.receipt.payment.name}
+									</Typography>
+
+									{/*- - - - CARD - - - -*/}
+									{props.receipt.payment.name === "card" ? (
+										<>
+											<Typography variant="subtitle2">
+												{props.receipt.firstName + " " + props.receipt.lastName}
+											</Typography>
+
+											<Typography variant="subtitle2">
+												XXXX-XXXX-XXXX-{props.receipt.cardNumber.slice(-4)}
+											</Typography>
+										</>
+									) : null}
+
+									{/*- - - - KLARNA - - - -*/}
+									{props.receipt.payment.name === "klarna" &&
+									props.receipt.payment.options ? (
+										<Typography variant="subtitle2">
+											{props.receipt.payment.options}
+										</Typography>
+									) : null}
+
+									{/*- - - - SWISH - - - -*/}
+									{props.receipt.payment.name === "swish" ? (
+										<Typography variant="subtitle2">
+											{props.receipt.altMobileNumber !=
+											props.receipt.mobileNumber
+												? props.receipt.altMobileNumber
+												: props.receipt.mobileNumber}
+										</Typography>
+									) : null}
+								</Grid>
+								<Grid item>
+									<Typography
+										variant="subtitle1"
+										style={{ fontWeight: "bolder" }}>
+										delivery info
+									</Typography>
+
+									{props.receipt.alternate ? (
+										<Typography variant="subtitle2">
+											{props.receipt.altFirstName +
+												" " +
+												props.receipt.altLastName}
+										</Typography>
+									) : (
 										<Typography variant="subtitle2">
 											{props.receipt.firstName + " " + props.receipt.lastName}
 										</Typography>
+									)}
 
-										<Typography variant="subtitle2">
-											XXXX-XXXX-XXXX-{props.receipt.cardNumber.slice(-4)}
-										</Typography>
-									</>
-								) : null}
-
-								{/*- - - - KLARNA - - - -*/}
-								{props.receipt.payment.name === "klarna" &&
-								props.receipt.payment.options ? (
 									<Typography variant="subtitle2">
-										{props.receipt.payment.options}
+										{props.receipt.delivery.name}
 									</Typography>
-								) : null}
-
-								{/*- - - - SWISH - - - -*/}
-								{props.receipt.payment.name === "swish" ? (
 									<Typography variant="subtitle2">
-										{props.receipt.altMobileNumber != props.receipt.mobileNumber
-											? props.receipt.altMobileNumber
-											: props.receipt.mobileNumber}
+										{"On: " +
+											GetDeliveryDate(
+												props.receipt.delivery.deliveryTime
+											).slice(-10)}
 									</Typography>
-								) : null}
-							</Grid>
-							<Grid item>
-								<Typography
-									variant="subtitle1"
-									style={{ fontWeight: "bolder" }}>
-									delivery info
-								</Typography>
-
-								{props.receipt.alternate ? (
 									<Typography variant="subtitle2">
-										{props.receipt.altFirstName +
-											" " +
-											props.receipt.altLastName}
-									</Typography>
-								) : (
-									<Typography variant="subtitle2">
-										{props.receipt.firstName + " " + props.receipt.lastName}
+										{props.receipt.delivery.price}:-
 									</Typography>
 								)}
 

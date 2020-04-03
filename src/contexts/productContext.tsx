@@ -4,8 +4,8 @@ import { Product, NewProduct } from "../interfaces&types/interfaces";
 import { ProductList } from "../components/productsAPI/productsAPI";
 
 export const ProductContext = React.createContext<State>({
-	products: ProductList,
-	cart: [],
+	products: JSON.parse((window as any).localStorage.products || "[]"),
+	cart: JSON.parse((window as any).localStorage.cart || "[]"),
 
 	deleteItem: () => {},
 	itemTotal: { totalValue: 0, itemAmount: 0 },
@@ -58,18 +58,21 @@ export class ProductProvider extends React.Component<Props, State> {
 			addToCounter: this.AddToCounter
 		};
 	}
+
 	// - - - - CART
 	addToCart = (product: Product) => {
 		let existingProduct: { product: Product; amount: number } | undefined;
+
 		this.state.cart.forEach(item => {
 			if (item.product.serial === product.serial) {
 				existingProduct = item;
-			}
+			} 
 		});
 		if (existingProduct) {
 			const updatedCart = this.state.cart;
 			const updatedItem = existingProduct;
 			const updatedAmount = updatedItem.amount + 1;
+
 			updatedCart.splice(this.state.cart.indexOf(updatedItem), 1, {
 				product: updatedItem.product,
 				amount: updatedAmount
@@ -153,11 +156,16 @@ export class ProductProvider extends React.Component<Props, State> {
 
 	componentDidMount() {
 		this.setCartTotal();
+		this.setState({
+			products: JSON.parse((window as any).localStorage.products || "[]"),
+			cart: JSON.parse((window as any).localStorage.cart || "[]")
+		});
+
 		if ((window as any).localStorage.products === "[]") {
 			this.setState({
 				products: ProductList
 			});
-		}	
+		}
 	}
 
 	componentDidUpdate() {

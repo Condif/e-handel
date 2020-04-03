@@ -13,24 +13,36 @@ interface Props {
 	setRegisterValue: (value: boolean) => void;
 }
 interface State {
-	products: Product[];
+	validReceipt: boolean;
+	receiptInformation: Receipt | false;
 }
 const product: Product[] = [];
 class MainView extends React.Component<Props, State> {
+	constructor(props: Props) {
+		super(props);
+
+		this.state = {
+			validReceipt: false,
+			receiptInformation: false
+		};
+	}
 	render() {
 		const template: Receipt = {
+			alternate: true,
+
 			firstName: "filip",
 			altFirstName: "christian",
 			lastName: "sunnemar",
 			altLastName: "ahgren",
+
 			mobileNumber: "0303-52559",
 			altMobileNumber: "031-666420",
+
 			address: "Dennadär Gatan 42",
 			postal: "445 90",
 			city: "Borås",
 			cardNumber: "1111-1111-1111-1337",
-			CVC: "112",
-			expiry: "04-24",
+
 			cost: {
 				subtotal: 1000,
 				vat: 250
@@ -46,13 +58,10 @@ class MainView extends React.Component<Props, State> {
 
 			payment: {
 				type: "pay",
-				name: "paypal",
+				name: "card",
 				desc: "Pay by invoice after purchase",
 				price: "fee",
-				options: {
-					value: "KLA14",
-					label: "14 day invoice"
-				}
+				options: false
 			},
 
 			cart: [

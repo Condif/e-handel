@@ -1,11 +1,9 @@
 import React from "react";
 import {
 	Grid,
-	Box,
 	Container,
 	Typography,
 	makeStyles,
-	Divider,
 	Paper
 } from "@material-ui/core";
 import ProductFactory from "../../../productFactory/productFactory";
@@ -89,37 +87,22 @@ const ReceiptView = (props: Props) => {
 								<Typography
 									variant="subtitle1"
 									style={{ fontWeight: "bolder" }}>
-									billed to:
+									billed to
 								</Typography>
 								<Typography variant="subtitle2">
 									{props.receipt.firstName + " " + props.receipt.lastName}
 								</Typography>
 								<Typography variant="subtitle2">
+									{props.receipt.mobileNumber}
+								</Typography>
+								<Typography variant="subtitle2">
 									{props.receipt.address}
 								</Typography>
 								<Typography variant="subtitle2">
-									{props.receipt.postal}
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.city}
+									{props.receipt.postal + " " + props.receipt.city}
 								</Typography>
 							</Grid>
-							<Grid item>
-								<Typography
-									variant="subtitle1"
-									style={{ fontWeight: "bolder" }}>
-									delivery info
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.delivery.name}
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.delivery.deliveryTime}
-								</Typography>
-								<Typography variant="subtitle2">
-									{props.receipt.delivery.price}:-
-								</Typography>
-							</Grid>
+
 							<Grid item>
 								<Typography
 									variant="subtitle1"
@@ -129,26 +112,65 @@ const ReceiptView = (props: Props) => {
 								<Typography variant="subtitle2">
 									{props.receipt.payment.name}
 								</Typography>
+
+								{/*- - - - CARD - - - -*/}
 								{props.receipt.payment.name === "card" ? (
 									<>
 										<Typography variant="subtitle2">
-											{props.receipt.altFirstName != props.receipt.firstName
-												? props.receipt.altFirstName + " "
-												: props.receipt.firstName + " "}
-											{props.receipt.altLastName != props.receipt.lastName
-												? props.receipt.altLastName
-												: props.receipt.lastName}
+											{props.receipt.firstName + " " + props.receipt.lastName}
 										</Typography>
-										<Typography variant="subtitle1">
-											{props.receipt.cardNumber}
+
+										<Typography variant="subtitle2">
+											XXXX-XXXX-XXXX-{props.receipt.cardNumber.slice(-4)}
 										</Typography>
 									</>
 								) : null}
-								{props.receipt.payment.name === "klarna" ? (
+
+								{/*- - - - KLARNA - - - -*/}
+								{props.receipt.payment.name === "klarna" &&
+								props.receipt.payment.options ? (
 									<Typography variant="subtitle2">
-										{props.receipt.payment.options.label}
+										{props.receipt.payment.options}
 									</Typography>
 								) : null}
+
+								{/*- - - - SWISH - - - -*/}
+								{props.receipt.payment.name === "swish" ? (
+									<Typography variant="subtitle2">
+										{props.receipt.altMobileNumber != props.receipt.mobileNumber
+											? props.receipt.altMobileNumber
+											: props.receipt.mobileNumber}
+									</Typography>
+								) : null}
+							</Grid>
+							<Grid item>
+								<Typography
+									variant="subtitle1"
+									style={{ fontWeight: "bolder" }}>
+									delivery info
+								</Typography>
+
+								{props.receipt.alternate ? (
+									<Typography variant="subtitle2">
+										{props.receipt.altFirstName +
+											" " +
+											props.receipt.altLastName}
+									</Typography>
+								) : (
+									<Typography variant="subtitle2">
+										{props.receipt.firstName + " " + props.receipt.lastName}
+									</Typography>
+								)}
+
+								<Typography variant="subtitle2">
+									{props.receipt.delivery.name}
+								</Typography>
+								<Typography variant="subtitle2">
+									{props.receipt.delivery.deliveryTime}
+								</Typography>
+								<Typography variant="subtitle2">
+									{props.receipt.delivery.price}:-
+								</Typography>
 							</Grid>
 						</Grid>
 						<Grid container spacing={2} xs={12}>

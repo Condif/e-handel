@@ -18,12 +18,29 @@ export interface NewProduct {
 	price: number;
 }
 
-export interface Receipt extends RegisterInputValues {
+export interface Receipt {
+	alternate: boolean;
+
+	firstName: string;
+	lastName: string;
+	mobileNumber: string;
+
+	altFirstName?: string;
+	altLastName?: string;
+	altMobileNumber?: string;
+
+	address: string;
+	postal: string;
+	city: string;
+	cardNumber: string;
+
 	cost: {
 		subtotal: number;
 		vat: number;
 	};
+
 	delivery: DeliveryOption;
 	payment: PaymentOption;
+
 	cart: { product: Product; amount: number }[];
 }

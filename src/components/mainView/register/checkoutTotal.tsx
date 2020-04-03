@@ -227,6 +227,7 @@ export default function CheckoutTotal(props: Props) {
 
 										delivery: props.delivery,
 										payment: props.payment,
+										subPayment: props.subPayment,
 
 										cart: props.cart
 									})

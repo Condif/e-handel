@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     list: {
         width: "100%",
-        // padding: "1rem",
         height: '100%',
     },
     title: {

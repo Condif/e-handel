@@ -43,15 +43,138 @@ export default function Register(props: Props) {
     const classes = useStyles();
     const [deliveryOption, setDeliveryOption] = useState(baseDelivery)
     const [paymentOption, setPaymentOption] = useState(basePayment)
+    const [subPayment, setSubPayment] = useState(basePayment)
+    const [inputValues, setInputValues] = React.useState({
+        firstName: {
+            value: '',
+            error: false
+        },
+        altFirstName: {
+            value: '',
+            error: false
+        },
+        lastName: {
+            value: '',
+            error: false
+        },
+        altLastName: {
+            value: '',
+            error: false
+        },
+        mobileNumber: {
+            value: '',
+            error: false
+        },
+        altMobileNumber: {
+            value: '',
+            error: false
+        },
+        address: {
+            value: '',
+            error: false
+        },
+        postal: {
+            value: '',
+            error: false
+        },
+        city: {
+            value: '',
+            error: false
+        },
+        cardNumber: {
+            value: '',
+            error: false
+        },
+        CVC: {
+            value: '',
+            error: false
+        },
+        cardMonth: {
+            value: '',
+            error: false
+        },
+        cardYear: {
+            value: '',
+            error: false
+        },
+    });
+    const [useAltValues, setUseAltValues] = React.useState(false)
+
 
     useEffect(() => {
         props.setRegisterValue(true)
     });
 
+    const handleAlternateInput = () => {
+        setUseAltValues(!useAltValues)
+    }
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => {
+        if (event.target.value.length < 1) {
+            setInputToState(event.target.value, id, true)
+        } else {
+            if (id === 'firstName' ||
+                id === 'altFirstName' ||
+                id === 'lastName' ||
+                id === 'altLastName' ||
+                id === 'city') {
+                if (validateInputs(event.target.value, true)) {
+                    setInputToState(event.target.value, id, true)
+                } else {
+                    setInputToState(event.target.value, id, false)
+                }
+            } else if (id === 'mobileNumber' ||
+                id === 'altMobileNumber' ||
+                id === 'cardNumber' ||
+                id === 'postal' ||
+                id === 'CVC' ||
+                id === 'cardMonth' ||
+                id === 'cardYear') {
+                if (validateInputs(event.target.value, false)) {
+                    setInputToState(event.target.value, id, true)
+                } else {
+                    setInputToState(event.target.value, id, false)
+                }
+            } else {
+                setInputToState(event.target.value, id, true)
+            }
+        }
+    };
+
+    const setInputToState = (input: string, id: string, valid: boolean) => {
+        setInputValues({
+            ...inputValues, [id]: {
+                value: input,
+                error: !valid
+            }
+        });
+    }
+
+    const validateInputs = (value: string, letter: boolean): boolean => {
+        console.log(letter);
+        
+        if (letter) {
+            
+            if (value.match(/^[A-ZÅÄÖa-zåäö]+$/)) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            
+            if (value.match(/^\d+$/)) {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+
     const handleOptionItemClick = (
         identifier: DeliveryOption | PaymentOption
     ) => {
-        (identifier.type === 'del') ? setDeliveryOption(identifier) : setPaymentOption(identifier)   
+        (identifier.type === 'del') ? setDeliveryOption(identifier) : 
+        (identifier.type === 'pay') ? setPaymentOption(identifier) : setSubPayment(identifier)
     };
 
     return (
@@ -68,22 +191,31 @@ export default function Register(props: Props) {
                     </Grid>
                     <Grid item xs={12} sm={12} md={7}>
                         <Paper className={classes.paper}>
-                            <CustomerInformation />
+                            <CustomerInformation
+                                alternate={useAltValues}
+                                useAlternate={handleAlternateInput}
+                                values={inputValues}
+                                handleInputChange={handleInputChange}
+                            />
                         </Paper>
                     </Grid>
                     <Grid item xs={12} sm={12} md={5}>
                         <Paper className={classes.paper}>
-                            <DeliveryOptions 
+                            <DeliveryOptions
                                 selectedDelivery={deliveryOption}
-                                setSelectedDelivery={handleOptionItemClick} 
+                                setSelectedDelivery={handleOptionItemClick}
                             />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             <PaymentOptions
+                                alternate={useAltValues}
+                                values={inputValues}
+                                handleInputChange={handleInputChange}
                                 selectedPayment={paymentOption}
-                                setSelectedPayment={handleOptionItemClick} 
+                                selectedPayOpt={subPayment}
+                                setSelectedPayment={handleOptionItemClick}
                             />
                         </Paper>
                     </Grid>
@@ -92,10 +224,13 @@ export default function Register(props: Props) {
                             <ProductContext.Consumer>
                                 {value => (
                                     <div className={classes.totalWrapper}>
-                                        <CheckoutTotal 
-                                            itemTotal={value.itemTotal} 
+                                        <CheckoutTotal
+                                            useAlternate={useAltValues}
+                                            orderInputs={inputValues}
+                                            itemTotal={value.itemTotal}
                                             delivery={deliveryOption}
                                             payment={paymentOption}
+                                            subPayment={subPayment}
                                         />
                                     </div>
                                 )}

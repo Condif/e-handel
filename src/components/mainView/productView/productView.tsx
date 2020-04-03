@@ -22,18 +22,24 @@ interface Props extends RouteChildrenProps<{ serial: string }> {
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		wrapper: {
-			minHeight: "100vh",
-			height: "100%",
-
+			height: "90%",
+			
 			display: "flex",
 			alignItems: "center",
 			padding: theme.spacing(1)
 		},
 		root: {
+			height: "100%",
 			flexGrow: 1,
-			paddingBottom: "4rem"
+			paddingBottom: "4rem",
+			display: "flex",
+			justifyContent:"center",
+			alignItems: "center",
 		},
 		paper: {
+			display: "flex",
+			justifyContent:"center",
+			alignItems: "center",
 			height: "100%",
 			padding: theme.spacing(2),
 			color: theme.palette.text.secondary

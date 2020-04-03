@@ -1,12 +1,20 @@
 import React from 'react'
 import { PaymentTypes, PaymentOption } from '../paymentAPI'
-import { Container, makeStyles, Theme, Typography, TextField, MenuItem, FormControl, Grid } from '@material-ui/core'
+import { Container, makeStyles, Theme, Typography, TextField, MenuItem, FormControl, Grid, InputLabel } from '@material-ui/core'
 import StoreRoundedIcon from '@material-ui/icons/StoreRounded';
 import Swishlogo from '../../../../../assets/swish.png'
 import PayPallogo from '../../../../../assets/paypal.png'
+import { RegisterInputValues } from '../../registerAPI';
+import RegisterListItem from '../../registerListItem/registerListItem';
+import { DeliveryOption } from '../../deliveryOptions/deliveryAPI';
 
 interface Props {
+    selectedPayOpt: PaymentOption | DeliveryOption
+    alternate: boolean
     identifier: PaymentOption
+    values: RegisterInputValues
+    setSelectedPayment: (value: DeliveryOption | PaymentOption) => void
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => void
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -65,15 +73,22 @@ const blankPage = (classes: Record<"blankTitle" | "noSelection", string>) => {
     )
 }
 
-const generateCardInputs = (classes: any) => {
+const generateCardInputs = (classes: any, props: Props) => {
     return (
         <Grid container spacing={4} className={classes.cardWrapper}>
             <Grid item xs={12} sm={12} md={6}>
                 <FormControl fullWidth>
                     <TextField
                         size="small"
+                        error={(!props.alternate) ? props.values.firstName.error : props.values.altFirstName.error}
                         required
+                        value={(!props.alternate) ? props.values.firstName.value : props.values.altFirstName.value}
+                        onChange={(event) => props.handleInputChange(event, `${(!props.alternate) ? "firstName" : "altFirstName"}`)}
                         label="First name"
+                        helperText={(!props.alternate) ? (props.values.firstName.error) ? "Enter letters" : null : (props.values.altFirstName.error) ? "Enter letters" : null}
+                        inputProps={{
+                            maxlength: 20
+                        }}
                     />
                 </FormControl>
             </Grid>
@@ -81,8 +96,15 @@ const generateCardInputs = (classes: any) => {
                 <FormControl fullWidth>
                     <TextField
                         size="small"
+                        error={(!props.alternate) ? props.values.lastName.error : props.values.altLastName.error}
                         required
+                        value={(!props.alternate) ? props.values.lastName.value : props.values.altLastName.value}
+                        onChange={(event) => props.handleInputChange(event, `${(!props.alternate) ? "lastName" : "altLastName"}`)}
                         label="Last name"
+                        helperText={(!props.alternate) ? (props.values.lastName.error) ? "Enter letters" : null : (props.values.altLastName.error) ? "Enter letters" : null}
+                        inputProps={{
+                            maxlength: 20
+                        }}
                     />
                 </FormControl>
             </Grid>
@@ -90,47 +112,78 @@ const generateCardInputs = (classes: any) => {
                 <FormControl fullWidth>
                     <TextField
                         size="small"
-                        type="number"
+                        error={props.values.cardNumber.error}
                         required
+                        value={props.values.cardNumber.value}
+                        onChange={(event) => props.handleInputChange(event, 'cardNumber')}
                         label="Card number"
+                        helperText={(props.values.cardNumber.error) ? "Enter numbers" : null}
+                        inputProps={{
+                            maxlength: 16
+                        }}
                     />
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={12} md={4}>
                 <FormControl fullWidth>
                     <TextField
                         size="small"
-                        type="number"
+                        error={props.values.CVC.error}
                         required
                         label="CVC/CVV"
+                        value={props.values.CVC.value}
+                        onChange={(event) => props.handleInputChange(event, 'CVC')}
                         helperText="The last three digits on signature strip"
+                        inputProps={{
+                            maxlength: 3
+                        }}
                     />
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-                <FormControl fullWidth>
+            <Grid item xs={12} sm={12} md={4} style={{ marginTop: '1rem', padding: '1rem' }}>
+                <InputLabel style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <p style={{ marginRight: '.5rem' }}>Expiry:</p>
                     <TextField
                         size="small"
-                        type="number"
+                        error={props.values.cardMonth.error}
                         required
-                        label="Expiry date"
+                        value={props.values.cardMonth.value}
+                        onChange={(event) => props.handleInputChange(event, 'cardMonth')}
+                        helperText="month"
+                        inputProps={{
+                            maxlength: 2
+                        }}
                     />
-                </FormControl>
+                    <p style={{ margin: '0 .3rem .5rem .3rem', fontSize: '.8rem' }}>/</p>
+                    <TextField
+                        size="small"
+                        error={props.values.cardYear.error}
+                        required
+                        value={props.values.cardYear.value}
+                        onChange={(event) => props.handleInputChange(event, 'cardYear')}
+                        helperText="year"
+                        inputProps={{
+                            maxlength: 2
+                        }}
+                    />
+                </InputLabel>
             </Grid>
         </Grid>
     )
 }
 
-const generateSwishInput = (classes: any) => {
+const generateSwishInput = (classes: any, props: Props) => {
     return (
         <div className={classes.formWrapper}>
             <FormControl fullWidth className={classes.centeredContent}>
                 <img src={Swishlogo} className={classes.logoWrapper} alt="swish_logo" />
                 <TextField
                     size="small"
+                    error={(!props.alternate) ? props.values.mobileNumber.error : props.values.altMobileNumber.error}
                     required
+                    value={(!props.alternate) ? props.values.mobileNumber.value : props.values.altMobileNumber.value}
+                    onChange={(event) => props.handleInputChange(event, `${(!props.alternate) ? "mobileNumber" : "altMobileNumber"}`)}
                     label="Your mobile number"
-                    type="number"
                 />
             </FormControl>
         </div>
@@ -153,43 +206,34 @@ const generatePaypalInput = (classes: any) => {
 }
 
 const generatePurchaseOptions = (classes: any, props: Props, type: string, handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
-    console.log(props.identifier);
-
     return (
         <Container className={classes.wrapper}>
             <Typography variant="h5" className={classes.blankTitle}>
                 {props.identifier.name}
             </Typography>
             {(props.identifier.name === 'Card')
-                ? generateCardInputs(classes)
+                ? generateCardInputs(classes, props)
                 : props.identifier.name === 'Swish'
-                    ? generateSwishInput(classes)
+                    ? generateSwishInput(classes, props)
                     : props.identifier.name === 'Paypal'
                         ? generatePaypalInput(classes)
-                        : null
+                        : generateKlarnaInput(props)
             }
         </Container>
     )
 }
 
-const generateOptionalDropDown = (props: Props, type: string, handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
+const generateKlarnaInput = (props: Props) => {
     return (
         (props.identifier.options) ?
-            <FormControl fullWidth>
-                <TextField
-                    select
-                    label={`${props.identifier.name} type:`}
-                    value={type}
-                    onChange={handleChange}
-                    helperText={`Please select type`}
-                >
-                    {props.identifier.options.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
-            </FormControl>
+            props.identifier.options.map(option => (
+                <RegisterListItem
+                    key={option.name}
+                    selectedIndex={props.selectedPayOpt}
+                    identifier={option}
+                    handleListItemClick={props.setSelectedPayment}
+                />
+            ))
             : null
     )
 }
@@ -198,7 +242,6 @@ export default function ChosenPayment(props: Props) {
     const classes = useStyles();
     const [type, setType] = React.useState('VISA');
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('change');
 
         setType(event.target.value);
     };

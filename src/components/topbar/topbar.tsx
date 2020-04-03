@@ -62,7 +62,7 @@ function Topbar(props: Props) {
 						position="static"
 						style={{
 							height: "4rem",
-							background:"#34a864"
+							background: "#34a864"
 						}}>
 						<Toolbar
 							style={{
@@ -96,21 +96,16 @@ function Topbar(props: Props) {
 								<img src={logo} alt="logo" className={classes.logo} />
 							</Link>
 
-							<ProductContext.Consumer>
-								{value => (
-									<IconButton onClick={event => props.toggleDrawer("right", true)}
-										style={{
-											width: "4rem",
-											color: "#333"
-										}}
-										edge="start"
-										aria-label="menu">
-										<StyledBadge badgeContent={value.itemTotal.itemAmount} color="secondary" >
-											<ShoppingCartIcon/>
-										</StyledBadge>
-									</IconButton>
-								)}
-							</ProductContext.Consumer>
+							<IconButton
+								style={{
+									width: "4rem",
+									color: "#333"
+								}}
+								edge="start"
+								aria-label="menu"
+								onClick={event => props.toggleDrawer("right", true)}>
+								<ShoppingCartIcon />
+							</IconButton>
 						</Toolbar>
 					</AppBar>
 				</div>

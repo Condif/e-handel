@@ -3,6 +3,7 @@ import { ProductContext } from "../productContext";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CancelIcon from "@material-ui/icons/Cancel";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -14,11 +15,11 @@ import {
 	Modal,
 	Paper,
 	Typography,
-	Grid
+	Grid,
+	IconButton
 } from "@material-ui/core";
 import AdminInput from "../../components/adminControlls/adminInput";
 import { NewProduct } from "../../interfaces&types/interfaces";
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 interface Props {
 	product?: any;
@@ -57,7 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: "center"
 		},
 		modalContent: {
-			
 			position: "relative",
 			width: "50%",
 			height: "60%",
@@ -76,23 +76,21 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function twoOnclick(props: Props, addToCart: any) {
-	if(props.handleClick) {
-		props.handleClick()
+	if (props.handleClick) {
+		props.handleClick();
 	}
-	addToCart(props.product)
-	
+	addToCart(props.product);
 }
 
 function handleTwoOnclick(props: Props, addToCart: any) {
-	
 	//If productsite render alert on there otherwise render it in layout/add item to cart in both cases.
-	if(props.twoOnclickAlert){
-		props.twoOnclickAlert()
+	if (props.twoOnclickAlert) {
+		props.twoOnclickAlert();
 	}
-	if(props.handleClick) {
-		props.handleClick()
+	if (props.handleClick) {
+		props.handleClick();
 	}
-	addToCart(props.product)
+	addToCart(props.product);
 }
 
 function ContextButton(props: Props) {
@@ -118,7 +116,6 @@ function ContextButton(props: Props) {
 		setOpen(false);
 	};
 
-
 	switch (props.shape) {
 		case "addToCart":
 			return (
@@ -131,17 +128,16 @@ function ContextButton(props: Props) {
 					</ProductContext.Consumer>
 			);
 		case "productSiteAddToCart":
-		return (
-			<ProductContext.Consumer>
-					
+			return (
+				<ProductContext.Consumer>
 					{value => (
 						
 						<Button color="primary" variant="contained" onClick={() => handleTwoOnclick(props, value.addToCart)}>
 							add to cart &nbsp;<AddShoppingCartIcon/>
 						</Button>
 					)}
-			</ProductContext.Consumer>
-		)
+				</ProductContext.Consumer>
+			);
 		case "addToCounter":
 			return (
 				<ProductContext.Consumer>
@@ -242,7 +238,7 @@ function ContextButton(props: Props) {
 														mode="edit"
 														name={input}
 														placeHolder={props.product}
-														
+
 														hook={editItem}
 														setHook={setEditItem}
 													/>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 
 import { Product } from "../../interfaces&types/interfaces";
@@ -20,9 +20,11 @@ import {
 	Theme,
 	createStyles,
 	Modal,
+	Divider
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import CancelIcon from "@material-ui/icons/Cancel";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import { AdminContext } from "../../contexts/admin";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -69,11 +71,17 @@ const useStyles = makeStyles((theme: Theme) =>
 		margin: {
 			margin: theme.spacing(1)
 		},
+		imgWrapper: {
+			background: "green",
+
+			height: "100%",
+			width: "100%"
+		},
 		img: {
-			margin: "auto",
-			display: "block",
-			maxWidth: "100%",
-			maxHeight: "100%"
+			height: "100%",
+			width: "100%"
+
+			// objectFit: "fill"
 		},
 		imgCart: {
 			height: "5rem",
@@ -81,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			objectFit: "cover"
 		},
 		addToCart: {
-			padding: "20% 2rem"
+			margin: "3rem auto"
 		},
 		addToCartButton: {
 			width: "80%"
@@ -96,15 +104,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		modalContent: {
 			position: "relative",
 
-			width: "50%",
+			width: "65%",
 			minWidth: "19rem",
-			height: "60%",
+			height: "80%",
 			minHeight: "35rem",
 
 			margin: "5rem",
 			padding: "2rem",
 
-			overflow: "scroll"
+			overflow: "auto"
 		},
 		closeBtn: {
 			position: "absolute",
@@ -125,11 +133,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			left: "6rem"
 		},
 		secondary: {
-			fontSize: '.8rem',
-			color: '#404040'
+			fontSize: ".8rem",
+			color: "#404040"
 		},
 		alert: {
-			width: "2rem",
+			width: "2rem"
 		}
 	})
 );
@@ -142,7 +150,6 @@ interface Props {
 }
 
 export function ProductCard(props: Props) {
-	console.log(props.handleClick);
 	const classes = useStyles();
 
 	// EXPAND
@@ -153,11 +160,9 @@ export function ProductCard(props: Props) {
 
 	// MODAL
 	const [open, setOpen] = React.useState(false);
-
 	const handleOpen = () => {
 		setOpen(true);
 	};
-
 	const handleClose = () => {
 		setOpen(false);
 	};
@@ -185,12 +190,16 @@ export function ProductCard(props: Props) {
 					<InfoIcon />
 				</IconButton>
 
-				<button type="button" onClick={handleOpen}>
-					quickview
-				</button>
+				<IconButton aria-label="addToCard" onClick={handleOpen}>
+					<VisibilityIcon />
+				</IconButton>
 
 				<div style={{ marginLeft: "auto" }}>
-					<ContextButton product={props.product} handleClick={props.handleClick} shape="addToCart" />
+					<ContextButton
+						product={props.product}
+						handleClick={props.handleClick}
+						shape="addToCart"
+					/>
 				</div>
 
 				<AdminContext.Consumer>
@@ -217,7 +226,10 @@ export function ProductCard(props: Props) {
 				<div className={classes.modalWrapper}>
 					<Paper className={classes.modalContent}>
 						<CancelIcon className={classes.closeBtn} onClick={handleClose} />
-						<ProductPage handleClick={props.handleClick} product={props.product} />
+						<ProductPage
+							handleClick={props.handleClick}
+							product={props.product}
+						/>
 					</Paper>
 				</div>
 			</Modal>
@@ -229,26 +241,31 @@ export function ProductPage(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Grid container spacing={4}>
-			<Grid item xs={12} sm={6}>
-				<img className={classes.img} alt="complex" src={props.product.img} />
+		<Grid container spacing={4} style={{ height: "100%" }}>
+			<Grid item xs={12} sm={6} style={{ height: "100%" }}>
+				<div style={imgWrapper(props.product.img)}></div>
 			</Grid>
 
-			<Grid item xs={12} sm={6}>
-				<Grid container spacing={1}>
+			<Grid item xs={12} sm={6} direction='column'>
+				<Grid container spacing={1} >
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>
 						<Typography variant="h5">{props.product.price}:-</Typography>
 						<Typography variant="caption">
 							incl. VAT, plus shipping cost
 						</Typography>
-					</Grid>
-					<Grid item>
+
+						<Divider style={{ margin: "1rem" }} />
+
 						<Typography variant="h6">{props.product.desc}</Typography>
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.addToCart} justify="center">
-					<ContextButton product={props.product} handleClick={props.handleClick} twoOnclickAlert={props.twoOnclickAlert} shape="productSiteAddToCart"></ContextButton>
+					<ContextButton
+						product={props.product}
+						handleClick={props.handleClick}
+						twoOnclickAlert={props.twoOnclickAlert}
+						shape="productSiteAddToCart"></ContextButton>
 				</Grid>
 			</Grid>
 		</Grid>
@@ -273,15 +290,16 @@ export function ProductCart(props: Props) {
 					</Grid>
 					<Grid item xs={9}>
 						<CardContent>
-							<Typography variant="subtitle1">
-								{props.product.name}
-							</Typography>
+							<Typography variant="subtitle1">{props.product.name}</Typography>
 							<Typography className={classes.secondary} variant="subtitle1">
 								{"Price: " + props.product.price}:-
 							</Typography>
 							<div className={classes.amountWrapper}>
 								<Box display="flex">
-									<ContextButton product={props.product} shape="removeFromCounter" />
+									<ContextButton
+										product={props.product}
+										shape="removeFromCounter"
+									/>
 									<Box display="flex" margin="0 0.4rem 0 0.4rem">
 										<Typography variant="subtitle1">{props.amount}</Typography>
 									</Box>
@@ -307,31 +325,43 @@ export function ProductCheckout(props: Props) {
 	const classes = useStyles();
 
 	return (
-		<Card style={{ position: 'relative', marginBottom: '1rem', display: 'flex' }}>
-			<Box component="div" style={{ margin: '.5rem .5rem .3rem .5rem' }}>
+		<Card
+			style={{ position: "relative", marginBottom: "1rem", display: "flex" }}>
+			<Box component="div" style={{ margin: ".5rem .5rem .3rem .5rem" }}>
 				<img
 					className={classes.imgCart}
 					alt="complex"
 					src={props.product.img}
 				/>
 			</Box>
-			<Box component="div" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-				<Typography variant="subtitle1">
-					{props.product.name}
-				</Typography>
+			<Box
+				component="div"
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center"
+				}}>
+				<Typography variant="subtitle1">{props.product.name}</Typography>
 				<Typography className={classes.secondary} variant="subtitle1">
 					{`Amount: ${props.amount}`}
 				</Typography>
-					<Box display={{ xs: 'block', sm: 'none' }}>
-						<Typography variant="subtitle1">
-							{props.amount
-								? `Total: ${props.product.price * props.amount}:-`
-								: null
-							}
-						</Typography>
-					</Box>
+				<Box display={{ xs: "block", sm: "none" }}>
+					<Typography variant="subtitle1">
+						{props.amount
+							? `Total: ${props.product.price * props.amount}:-`
+							: null}
+					</Typography>
+				</Box>
 			</Box>
-			<Box component="div" display={{ xs: 'none', sm: 'block' }} style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)' }}>
+			<Box
+				component="div"
+				display={{ xs: "none", sm: "block" }}
+				style={{
+					position: "absolute",
+					right: "1rem",
+					top: "50%",
+					transform: "translateY(-50%)"
+				}}>
 				<Typography variant="subtitle1">
 					{props.amount
 						? `Total: ${props.product.price * props.amount}:-`
@@ -341,3 +371,13 @@ export function ProductCheckout(props: Props) {
 		</Card>
 	);
 }
+
+const imgWrapper: (imageSrc: string) => CSSProperties = imageSrc => ({
+	background: `url(${imageSrc})`,
+	backgroundSize: "cover",
+	backgroundPosition: "center",
+	backgroundRepeat: "no-repeat",
+
+	height: "100%",
+	width: "100%"
+});

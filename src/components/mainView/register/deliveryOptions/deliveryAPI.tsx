@@ -4,17 +4,14 @@ import RegisterListItem from "../registerListItem/registerListItem";
 
 export interface DeliveryOption extends RegisterAPI {
     type: 'del',
-    // name: string,
-    // desc: string,
     deliveryTime: number,
-    // price: number,
 }
 
 export const baseDelivery: DeliveryOption = {
     type: 'del',
-    name: 'Parcel',
-    desc: 'Deliver to your postal office',
-    deliveryTime: 2,
+    name: '',
+    desc: '',
+    deliveryTime: '',
     price: 'none',
 }
 

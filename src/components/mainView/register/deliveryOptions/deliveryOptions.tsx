@@ -43,10 +43,7 @@ export default function DeliveryOptions(props: Props) {
                             selectedIndex={props.selectedDelivery}
                             identifier={element}
                             handleListItemClick={props.setSelectedDelivery}
-                            // name={element.name}
-                            // desc={element.desc}
                             delTime={GetDeliveryDate(element.deliveryTime)}
-                            // price={element.price}
                         />
                         )}
                 </List>

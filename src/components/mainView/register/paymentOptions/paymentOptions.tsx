@@ -1,12 +1,17 @@
 import React from 'react'
-import { Typography, makeStyles, Theme, Grid } from '@material-ui/core'
+import { Typography, makeStyles, Theme, Grid, FormControlLabel, Switch } from '@material-ui/core'
 import { PaymentTypes, PaymentOption, basePayment } from './paymentAPI';
 import RegisterListItem from '../registerListItem/registerListItem';
 import ChosenPayment from './chosenPayment/chosenPayment';
 import { DeliveryOption } from '../deliveryOptions/deliveryAPI';
+import { RegisterInputValues } from '../registerAPI';
 
 interface Props {
-    selectedPayment: PaymentOption 
+    alternate: boolean
+    values: RegisterInputValues
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => void
+    selectedPayment: PaymentOption
+    selectedPayOpt: PaymentOption
     setSelectedPayment: (value: DeliveryOption | PaymentOption) => void
 }
 
@@ -33,7 +38,7 @@ export default function CardInformation(props: Props) {
             <Grid container spacing={2}>
                 <Grid item md={4} sm={6} xs={12}>
                     {PaymentTypes.map((element: PaymentOption) =>
-                        <RegisterListItem 
+                        <RegisterListItem
                             key={element.name}
                             selectedIndex={props.selectedPayment}
                             identifier={element}
@@ -42,7 +47,14 @@ export default function CardInformation(props: Props) {
                     )}
                 </Grid>
                 <Grid item md={8} sm={6} xs={12}>
-                    <ChosenPayment identifier={props.selectedPayment} />
+                    <ChosenPayment
+                        selectedPayOpt={props.selectedPayOpt}
+                        setSelectedPayment={props.setSelectedPayment}
+                        alternate={props.alternate}
+                        identifier={props.selectedPayment}
+                        values={props.values}
+                        handleInputChange={props.handleInputChange}
+                    />
                 </Grid>
             </Grid>
         </>

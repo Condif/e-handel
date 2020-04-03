@@ -21,7 +21,6 @@ function AdminInput(props: Props) {
 	let placeHolder: any = props.name;
 
 	if (props.mode === "edit") {
-		console.log("in edit mode");
 		switch (props.name) {
 			case "name":
 				placeHolder = props.placeHolder?.name;
@@ -33,38 +32,34 @@ function AdminInput(props: Props) {
 				placeHolder = props.placeHolder?.img;
 				break;
 			case "price":
-				placeHolder = props.placeHolder?.price;
+				placeHolder = props.placeHolder?.price.toString();
 				break;
 		}
 	}
 
 	if (
+		props.mode === "add" &&
 		props.hook.name != undefined &&
 		props.hook.desc != undefined &&
 		props.hook.img != undefined &&
 		props.hook.price != undefined
 	) {
-		props.formHook(true);
+		props?.formHook(true);
 	}
 
 	return (
 		<Grid item sm={12} md={6}>
 			<FormControl fullWidth>
-				{/* <Input
-					id={props.name}
-					onChange={(event: any) =>
-						props.setHook({
-							...props.hook,
-							[`${props.name}`]: event.target.value
-						})
-					}
-					placeholder={placeHolder}
-				/> */}
 				<TextField
 					required
+					type={props.name === "price" ? "number" : "text"}
 					id={props.name}
-					label={"enter " + placeHolder}
-					placeholder={placeHolder}
+					label={
+						props.mode === "edit"
+							? "enter new " + props.name
+							: "enter " + props.name
+					}
+					placeholder={placeHolder ? placeHolder : ""}
 					onChange={(event: any) =>
 						props.setHook({
 							...props.hook,

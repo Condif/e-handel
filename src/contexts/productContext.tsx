@@ -65,12 +65,8 @@ export class ProductProvider extends React.Component<Props, State> {
 
 		this.state.cart.forEach(item => {
 			if (item.product.serial === product.serial) {
-				console.log("1");
-
 				existingProduct = item;
-			} else {
-				console.log("2");
-			}
+			} 
 		});
 		if (existingProduct) {
 			const updatedCart = this.state.cart;

@@ -9,6 +9,7 @@ import {
 import ProductFactory from "../../../productFactory/productFactory";
 import { Receipt } from "../../../../interfaces&types/interfaces";
 import GetDeliveryDate from "../deliveryOptions/deliveryAPI";
+import { Redirect } from "react-router";
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -177,52 +178,60 @@ const ReceiptView = (props: Props) => {
 									<Typography variant="subtitle2">
 										{props.receipt.delivery.price}:-
 									</Typography>
-								</Grid>
-							</Grid>
-							<Grid container spacing={2} xs={12}>
-								<Typography variant="body1" style={{ marginTop: "2rem" }}>
-									item list
+								)}
+
+								<Typography variant="subtitle2">
+									{props.receipt.delivery.name}
 								</Typography>
-								<div className={classes.list} role="presentation">
-									{props.receipt.cart.map(item => (
-										<ProductFactory
-											key={item.product.serial}
-											product={item.product}
-											amount={item.amount}
-											productShape="receipt"
-										/>
-									))}
-								</div>
-							</Grid>
-							<Grid
-								container
-								spacing={2}
-								xs={12}
-								sm={5}
-								style={{ marginLeft: "auto", padding: "1rem" }}>
-								<Grid item container justify="space-between">
-									<Typography>subtotal:</Typography>
-									<Typography>
-										{(props.receipt.cost * 0.8).toFixed(2)}:-
-									</Typography>
-								</Grid>
-								<Grid item container justify="space-between">
-									<Typography>VAT(25%): </Typography>
-									<Typography>
-										{(props.receipt.cost * 0.2).toFixed(2)}:-
-									</Typography>
-								</Grid>
-								<Grid item container justify="space-between">
-									<Typography>TOTAL: </Typography>
-									<Typography>{props.receipt.cost.toFixed(2)}:-</Typography>
-								</Grid>
+								<Typography variant="subtitle2">
+									{'On: ' + GetDeliveryDate(props.receipt.delivery.deliveryTime).slice(-10)}
+								</Typography>
+								<Typography variant="subtitle2">
+									{props.receipt.delivery.price}:-
+								</Typography>
 							</Grid>
 						</Grid>
-					</Paper>
-				</Grid>
-			) : (
-				<Typography>invalid</Typography>
-			)}
+						<Grid container spacing={2} xs={12}>
+							<Typography variant="body1" style={{ marginTop: "2rem" }}>
+								item list
+							</Typography>
+							<div className={classes.list} role="presentation">
+								{props.receipt.cart.map(item => (
+									<ProductFactory
+										key={item.product.serial}
+										product={item.product}
+										amount={item.amount}
+										productShape="receipt"
+									/>
+								))}
+							</div>
+						</Grid>
+						<Grid
+							container
+							spacing={2}
+							xs={12}
+							sm={5}
+							style={{ marginLeft: "auto", padding: "1rem" }}>
+							<Grid item container justify="space-between">
+								<Typography>subtotal:</Typography>
+								<Typography>{(props.receipt.cost * 0.8).toFixed(2)}:-</Typography>
+							</Grid>
+							<Grid item container justify="space-between">
+								<Typography>VAT(25%): </Typography>
+								<Typography>{(props.receipt.cost * 0.2).toFixed(2)}:-</Typography>
+							</Grid>
+							<Grid item container justify="space-between">
+								<Typography>TOTAL: </Typography>
+								<Typography>
+									{(props.receipt.cost).toFixed(2)}:-
+								</Typography>
+							</Grid>
+						</Grid>
+					</Grid>
+				</Paper>
+			</Grid>
+			: <Redirect to="/" />
+			}
 		</Container>
 	);
 };

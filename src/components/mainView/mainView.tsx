@@ -3,7 +3,7 @@ import ProductGrid from "./productGrid/productGrid";
 import ProductView from "./productView/productView";
 import ReceiptView from "./register/receipt/receiptView";
 
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Product, Receipt } from "../../interfaces&types/interfaces";
 import Register from "./register/register";
 import { ProductContext } from "../../contexts/productContext";
@@ -15,24 +15,42 @@ interface Props {
 }
 interface State {
 	receipt: Receipt | null;
+	confirmedPurchase: boolean
 }
 const product: Product[] = [];
 class MainView extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
-
 		this.state = {
-			receipt: null
+			receipt: null,
+			confirmedPurchase: false,
 		};
 	}
 
-	handleConfirmReceipt = (receipt: Receipt) => {
+	mockAPICall = () => {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve(true);
+			}, 3000);
+		});
+	}
 
-		console.log(receipt);
-		
+	setConfirmedPurchase = async (receipt: Receipt) => {
+		const result = await this.mockAPICall();
+
+		if (typeof result === 'boolean') {
+			this.setState({
+				receipt: receipt,
+				confirmedPurchase: result
+			})
+		}
+	}
+
+	handleConfirmReceipt = async (receipt: Receipt) => {
+		await this.setConfirmedPurchase(receipt)
 		this.setState({
-			receipt: receipt
-		},() => console.log(this.state.receipt)
+			confirmedPurchase: false
+		}, () => console.log(this.state.receipt)
 		);
 	};
 
@@ -55,21 +73,21 @@ class MainView extends React.Component<Props, State> {
 					)}
 				/>
 				<Route path="/register">
-					<ProductContext.Consumer>
-						{value => (
-							<Register
-								setRegisterValue={this.props.setRegisterValue}
-								productList={value.cart}
-								confirmReceipt={this.handleConfirmReceipt}
-							/>
-						)}
-					</ProductContext.Consumer>
+					{this.state.confirmedPurchase ? <Redirect to="/receipt" /> :
+						<ProductContext.Consumer>
+							{value => (
+								<Register
+									setRegisterValue={this.props.setRegisterValue}
+									productList={value.cart}
+									confirmReceipt={this.handleConfirmReceipt}
+								/>
+							)}
+						</ProductContext.Consumer>
+					}
 				</Route>
-				
 				<Route path="/receipt">
 					<ReceiptView receipt={this.state.receipt} />
 				</Route>
-
 				<Route>something went wrong</Route>
 			</Switch>
 		);

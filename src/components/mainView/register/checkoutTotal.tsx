@@ -202,7 +202,6 @@ export default function CheckoutTotal(props: Props) {
 					checkPayment(props) &&
 					!checkErrorsInInfo(props) &&
 					!checkErrorsInPay(props) ? (
-						<Link to="/receipt">
 							<Button
 								variant="contained"
 								color="primary"
@@ -234,7 +233,6 @@ export default function CheckoutTotal(props: Props) {
 								}>
 								confirm
 							</Button>
-						</Link>
 					) : (
 						<Button
 							disabled

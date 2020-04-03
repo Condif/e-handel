@@ -1,1 +1,1 @@
-export type Shape = "card" | "cart" | "checkout" | "listitem" | "fullpage"
+export type Shape = "card" | "cart" | "checkout" | "receipt" | "fullpage"

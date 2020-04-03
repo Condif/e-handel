@@ -5,12 +5,13 @@ import {
 	Grid,
 	Typography,
 	Button,
-	Divider
+	Divider,
 } from "@material-ui/core";
 import { DeliveryOption, baseDelivery } from "./deliveryOptions/deliveryAPI";
 import { PaymentOption, basePayment } from "./paymentOptions/paymentAPI";
 import { RegisterInputValues } from "./registerAPI";
 import ErrorIcon from '@material-ui/icons/Error';
+import { Link } from "react-router-dom";
 
 interface Props {
 	useAlternate: boolean
@@ -183,23 +184,32 @@ export default function CheckoutTotal(props: Props) {
 					xs={12}
 					direction="column"
 					alignItems="center"
-					justify="center">
-					<Button
-						disabled={
-							(checkDelivery(props) &&
-								checkPayment(props) &&
-								!checkErrorsInInfo(props) &&
-								!checkErrorsInPay(props))
-								? false
-								: true
-						}
-						variant="contained"
-						color="primary"
-						style={{ padding: ".5rem 2rem", margin: "3rem" }}>
-						confirm
-					</Button>
+					justify="center"
+				>
+					{(checkDelivery(props) &&
+						checkPayment(props) &&
+						!checkErrorsInInfo(props) &&
+						!checkErrorsInPay(props)) ?
+						<Link to="/receipt">
+							<Button
+								variant="contained"
+								color="primary"
+								style={{ padding: ".5rem 2rem", margin: "3rem" }}>
+								confirm
+							</Button>
+						</Link>
+						:
+						<Button
+							disabled
+							variant="contained"
+							color="primary"
+							style={{ padding: ".5rem 2rem", margin: "3rem" }}>
+							confirm
+						</Button>
+
+					}
+				</Grid>
 			</Grid>
-		</Grid>
 		</>
 	);
 }

@@ -13,7 +13,6 @@ import {
 	Collapse,
 	IconButton,
 	Grid,
-	Button,
 	Box,
 	Paper,
 	makeStyles,
@@ -246,8 +245,8 @@ export function ProductPage(props: Props) {
 				<div style={imgWrapper(props.product.img)}></div>
 			</Grid>
 
-			<Grid item xs={12} sm={6} direction='column'>
-				<Grid container spacing={1} >
+			<Grid item xs={12} sm={6} direction="column">
+				<Grid container spacing={1}>
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>
 						<Typography variant="h5">{props.product.price}:-</Typography>
@@ -319,6 +318,60 @@ export function ProductCart(props: Props) {
 				</Grid>
 			</Card>
 		</Box>
+	);
+}
+
+export function ProductReceipt(props: Props) {
+	const classes = useStyles();
+
+	return (
+		<Card
+			style={{ position: "relative", marginBottom: "1rem", display: "flex" }}>
+			<Box component="div" style={{ margin: ".5rem .5rem .3rem .5rem" }}>
+				<img
+					className={classes.imgCart}
+					alt="complex"
+					src={props.product.img}
+				/>
+			</Box>
+			<Box
+				component="div"
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center"
+				}}>
+				<Typography variant="subtitle1">{props.product.name}</Typography>
+				<Typography className={classes.secondary} variant="subtitle1">
+					{`Amount: ${props.amount}`}
+				</Typography>
+				<Typography className={classes.secondary} variant="subtitle1">
+					{`per unit: ${props.product.price}:-`}
+				</Typography>
+				<Box display={{ xs: "block", sm: "none" }}>
+					<Typography variant="subtitle1">
+						{props.amount
+							? `Total: ${props.product.price * props.amount}:-`
+							: null}
+					</Typography>
+				</Box>
+			</Box>
+			<Box
+				component="div"
+				display={{ xs: "none", sm: "block" }}
+				style={{
+					position: "absolute",
+					right: "1rem",
+					top: "50%",
+					transform: "translateY(-50%)"
+				}}>
+				<Typography variant="subtitle1">
+					{props.amount
+						? `Total: ${props.product.price * props.amount}:-`
+						: null}
+				</Typography>
+			</Box>
+		</Card>
 	);
 }
 export function ProductCheckout(props: Props) {

@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import ProductFactory from "../../../productFactory/productFactory";
 import { Receipt } from "../../../../interfaces&types/interfaces";
+import GetDeliveryDate from "../deliveryOptions/deliveryAPI";
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -166,7 +167,7 @@ const ReceiptView = (props: Props) => {
 									{props.receipt.delivery.name}
 								</Typography>
 								<Typography variant="subtitle2">
-									{props.receipt.delivery.deliveryTime}
+									{'On: ' + GetDeliveryDate(props.receipt.delivery.deliveryTime).slice(-10)}
 								</Typography>
 								<Typography variant="subtitle2">
 									{props.receipt.delivery.price}:-

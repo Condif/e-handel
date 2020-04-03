@@ -52,7 +52,7 @@ class MainView extends React.Component<Props, State> {
 				type: "del",
 				name: "Home delivery",
 				desc: "Deliver to your front door",
-				deliveryTime: "2-3 work days",
+				deliveryTime: 2,
 				price: 199
 			},
 

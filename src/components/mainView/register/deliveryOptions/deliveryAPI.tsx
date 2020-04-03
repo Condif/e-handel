@@ -11,7 +11,7 @@ export const baseDelivery: DeliveryOption = {
     type: 'del',
     name: '',
     desc: '',
-    deliveryTime: '',
+    deliveryTime: 0,
     price: 'none',
 }
 

@@ -72,7 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: "60%",
 			marginBottom: "1.2rem",
 			"& > button": {
-				width: "100%"
+				width: "100%",
+				backgroundColor: "#5DB984"
 			},
 			textDecoration: "none"
 		},

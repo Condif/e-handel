@@ -1,3 +1,8 @@
+### FlowerShop
+Flowershop är en e-handelssida som låter dig lägga till varor i en varukorg, manipulera varukorgen, se hur priset uppdateras,
+gå till checkoutsida med validering och användarvänlighetsfunktioner som att du bara behöver skriva in ditt nummer en gång, men kan
+toggla att skriva in ett nytt om du vill. Du kan även utföra ett simulerat köp och få ett kvitto på det du "köpt". Finns även en adminsida där du kan lägga till, ändra och ta bort produkter.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 It was created using the [Material UI](https://material-ui.com/getting-started/installation/) design system.
 

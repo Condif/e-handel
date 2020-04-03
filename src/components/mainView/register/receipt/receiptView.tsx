@@ -200,16 +200,16 @@ const ReceiptView = (props: Props) => {
 							style={{ marginLeft: "auto", padding: "1rem" }}>
 							<Grid item container justify="space-between">
 								<Typography>subtotal:</Typography>
-								<Typography>{props.receipt.cost * 0.8}:-</Typography>
+								<Typography>{(props.receipt.cost * 0.8).toFixed(2)}:-</Typography>
 							</Grid>
 							<Grid item container justify="space-between">
 								<Typography>VAT(25%): </Typography>
-								<Typography>{props.receipt.cost * 0.2}:-</Typography>
+								<Typography>{(props.receipt.cost * 0.2).toFixed(2)}:-</Typography>
 							</Grid>
 							<Grid item container justify="space-between">
 								<Typography>TOTAL: </Typography>
 								<Typography>
-									{props.receipt.cost}:-
+									{(props.receipt.cost).toFixed(2)}:-
 								</Typography>
 							</Grid>
 						</Grid>

@@ -9,6 +9,7 @@ import {
 	Paper
 } from "@material-ui/core";
 import ProductFactory from "../../../productFactory/productFactory";
+import { Receipt } from "../../../../interfaces&types/interfaces";
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -28,69 +29,12 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const ReceiptView = () => {
+interface Props {
+	receipt: Receipt;
+}
+
+const ReceiptView = (props: Props) => {
 	const classes = useStyles();
-
-	const template = {
-		firstName: "filip",
-		altFirstName: "christian",
-		lastName: "sunnemar",
-		altLastName: "ahgren",
-		mobileNumber: "0303-52559",
-		altMobileNumber: "031-666420",
-		address: "Dennadär Gatan 42",
-		postal: "445 90",
-		city: "Borås",
-		cardNumber: "1111-1111-1111-1337",
-		CVC: "112",
-		expiry: "04-24",
-
-		delivery: {
-			type: "del",
-			name: "Home delivery",
-			desc: "Deliver to your front door",
-			deliveryTime: "2-3 work days",
-			price: 199
-		},
-
-		payment: {
-			type: "pay",
-			name: "card",
-			desc: "Pay by invoice after purchase",
-			price: "fee",
-			options: {
-				value: "KLA14",
-				label: "14 day invoice"
-			}
-		},
-
-		cart: [
-			{
-				product: {
-					name: "Small cactus",
-					serial: 2,
-					img:
-						"https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEzMDA0fQ&auto=format&fit=crop&w=709&q=80",
-					price: 49,
-					desc:
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure ea veritatis hic, vero fugit..."
-				},
-				amount: 2
-			},
-			{
-				product: {
-					name: "Hanging plant",
-					serial: 1,
-					img:
-						"https://images.unsplash.com/photo-1485902409384-e367af5b5c92?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80",
-					price: 299,
-					desc:
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure ea veritatis hic, vero fugit..."
-				},
-				amount: 1
-			}
-		]
-	};
 
 	const date = new Date();
 
@@ -148,11 +92,17 @@ const ReceiptView = () => {
 									billed to:
 								</Typography>
 								<Typography variant="subtitle2">
-									{template.firstName + " " + template.lastName}
+									{props.receipt.firstName + " " + props.receipt.lastName}
 								</Typography>
-								<Typography variant="subtitle2">{template.address}</Typography>
-								<Typography variant="subtitle2">{template.postal}</Typography>
-								<Typography variant="subtitle2">{template.city}</Typography>
+								<Typography variant="subtitle2">
+									{props.receipt.address}
+								</Typography>
+								<Typography variant="subtitle2">
+									{props.receipt.postal}
+								</Typography>
+								<Typography variant="subtitle2">
+									{props.receipt.city}
+								</Typography>
 							</Grid>
 							<Grid item>
 								<Typography
@@ -161,13 +111,13 @@ const ReceiptView = () => {
 									delivery info
 								</Typography>
 								<Typography variant="subtitle2">
-									{template.delivery.name}
+									{props.receipt.delivery.name}
 								</Typography>
 								<Typography variant="subtitle2">
-									{template.delivery.deliveryTime}
+									{props.receipt.delivery.deliveryTime}
 								</Typography>
 								<Typography variant="subtitle2">
-									{template.delivery.price}:-
+									{props.receipt.delivery.price}:-
 								</Typography>
 							</Grid>
 							<Grid item>
@@ -177,26 +127,26 @@ const ReceiptView = () => {
 									payment info
 								</Typography>
 								<Typography variant="subtitle2">
-									{template.payment.name}
+									{props.receipt.payment.name}
 								</Typography>
-								{template.payment.name === "card" ? (
+								{props.receipt.payment.name === "card" ? (
 									<>
 										<Typography variant="subtitle2">
-											{template.altFirstName != template.firstName
-												? (template.altFirstName + " ")
-												: (template.firstName + " ")} 
-											{template.altLastName != template.lastName
-												? template.altLastName
-												: template.lastName}
+											{props.receipt.altFirstName != props.receipt.firstName
+												? props.receipt.altFirstName + " "
+												: props.receipt.firstName + " "}
+											{props.receipt.altLastName != props.receipt.lastName
+												? props.receipt.altLastName
+												: props.receipt.lastName}
 										</Typography>
 										<Typography variant="subtitle1">
-											{template.cardNumber}
+											{props.receipt.cardNumber}
 										</Typography>
 									</>
 								) : null}
-								{template.payment.name === "klarna" ? (
+								{props.receipt.payment.name === "klarna" ? (
 									<Typography variant="subtitle2">
-										{template.payment.options.label}
+										{props.receipt.payment.options.label}
 									</Typography>
 								) : null}
 							</Grid>
@@ -206,7 +156,7 @@ const ReceiptView = () => {
 								item list
 							</Typography>
 							<div className={classes.list} role="presentation">
-								{template.cart.map(item => (
+								{props.receipt.cart.map(item => (
 									<ProductFactory
 										key={item.product.serial}
 										product={item.product}
@@ -216,11 +166,25 @@ const ReceiptView = () => {
 								))}
 							</div>
 						</Grid>
-						<Grid container spacing={2} xs={12}>
-							<Grid item>
+						<Grid
+							container
+							spacing={2}
+							xs={12}
+							sm={5}
+							style={{ marginLeft: "auto", padding: "1rem" }}>
+							<Grid item container justify="space-between">
 								<Typography>subtotal:</Typography>
+								<Typography>{props.receipt.cost.subtotal}:-</Typography>
+							</Grid>
+							<Grid item container justify="space-between">
 								<Typography>VAT(25%): </Typography>
+								<Typography>{props.receipt.cost.vat}:-</Typography>
+							</Grid>
+							<Grid item container justify="space-between">
 								<Typography>TOTAL: </Typography>
+								<Typography>
+									{props.receipt.cost.subtotal + props.receipt.cost.vat}:-
+								</Typography>
 							</Grid>
 						</Grid>
 					</Grid>

@@ -2,9 +2,6 @@ import { RegisterAPI } from "../registerAPI"
 
 export interface PaymentOption extends RegisterAPI {
     type: 'pay',
-    // name: string,
-    // desc: string,
-    // price: string | number
     options: any[] | false
 }
 

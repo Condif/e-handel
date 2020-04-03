@@ -321,6 +321,7 @@ export function ProductCart(props: Props) {
 		</Box>
 	);
 }
+
 export function ProductReceipt(props: Props) {
 	const classes = useStyles();
 

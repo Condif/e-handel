@@ -1,8 +1,12 @@
+import { PaymentOption } from "../components/mainView/register/paymentOptions/paymentAPI";
+import { DeliveryOption } from "../components/mainView/register/deliveryOptions/deliveryAPI";
+import { RegisterInputValues } from "../components/mainView/register/registerAPI";
+
 export interface Product {
 	name: string;
-    desc: string;
+	desc: string;
 	img: string;
-	
+
 	price: number;
 	serial?: number;
 }
@@ -12,4 +16,14 @@ export interface NewProduct {
 	desc: string;
 
 	price: number;
+}
+
+export interface Receipt extends RegisterInputValues {
+	cost: {
+		subtotal: number;
+		vat: number;
+	};
+	delivery: DeliveryOption;
+	payment: PaymentOption;
+	cart: { product: Product; amount: number }[];
 }

@@ -15,6 +15,6 @@ export interface RegisterInputValues {
     postal: string,
     city: string,
     cardNumber: string,
-    CVC: string,
-    expiry: string,
+    CVC?: string,
+    expiry?: string,
 }

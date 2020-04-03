@@ -62,7 +62,7 @@ export class ProductProvider extends React.Component<Props, State> {
 	addToCart = (product: Product) => {
 		let existingProduct: { product: Product; amount: number } | undefined;
 		this.state.cart.forEach(item => {
-			if (item.product === product) {
+			if (item.product.serial === product.serial) {
 				existingProduct = item;
 			}
 		});

@@ -115,7 +115,9 @@ class MainView extends React.Component<Props, State> {
 						)}
 					</ProductContext.Consumer>
 				</Route>
-
+				<Route path="/receipt" >
+					<ReceiptView receipt={template} />
+				</Route>
 
 				<Route>something went wrong</Route>
 			</Switch>

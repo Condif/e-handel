@@ -3,6 +3,12 @@ import { Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText } from
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ProductContext } from '../../../../contexts/productContext';
 import ProductFactory from '../../../productFactory/productFactory';
+import { Product } from '../../../../interfaces&types/interfaces';
+import { ProductList } from '../../../productsAPI/productsAPI';
+
+interface Props {
+    productList: { product: Product, amount: number }[]
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -17,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function ItemOverview() {
+export default function ItemOverview(props: Props) {
     const classes = useStyles();
 
     return (
@@ -25,22 +31,18 @@ export default function ItemOverview() {
             <Typography variant="h5" className={classes.title}>
                 Your items
             </Typography>
-            <ProductContext.Consumer>
-                {value => (
-                    <div className={classes.list} role="presentation">
-                        {
-                                value.cart.map(item => (
-                                    <ProductFactory
-                                        key={item.product.serial}
-                                        product={item.product}
-                                        amount={item.amount}
-                                        productShape="checkout"
-                                    />
-                                ))
-                        }
-                    </div>
-                )}
-            </ProductContext.Consumer>
+            <div className={classes.list} role="presentation">
+                {
+                    props.productList.map(item => (
+                        <ProductFactory
+                            key={item.product.serial}
+                            product={item.product}
+                            amount={item.amount}
+                            productShape="checkout"
+                        />
+                    ))
+                }
+            </div>
         </>
     )
 }

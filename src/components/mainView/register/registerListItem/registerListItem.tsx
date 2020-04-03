@@ -48,7 +48,7 @@ export default function RegisterListItem(props: Props) {
             <Collapse in={(selectedIndex === identifier)} timeout="auto" unmountOnExit style={{width: '100%'}}>
                 <List component="div" disablePadding style={{width: '100%'}}>
                     <ListItem selected className={classes.nested}>
-                        <ListItemText primary={`${desc} ${(delTime) ? `within ${delTime}.` : `` }`} />
+                        <ListItemText primary={`${desc}. ${(delTime) ? ` ${delTime}.` : `` }`} />
                     </ListItem>
                 </List>
             </Collapse>

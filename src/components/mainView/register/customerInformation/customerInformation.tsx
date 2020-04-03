@@ -67,7 +67,7 @@ export default function CustomerInformation(props: Props) {
                             onChange={(event) => props.handleInputChange(event, 'firstName')}
                             helperText={(props.values.firstName.error) ? "Enter letters" : null}
                             inputProps={{
-                                maxlength: 20
+                                maxLength: 20
                             }}
                         />
                     </FormControl>
@@ -83,7 +83,7 @@ export default function CustomerInformation(props: Props) {
                             onChange={(event) => props.handleInputChange(event, 'lastName')}
                             helperText={(props.values.lastName.error) ? "Enter letters" : null}
                             inputProps={{
-                                maxlength: 20
+                                maxLength: 20
                             }}
                         />
                     </FormControl>
@@ -99,7 +99,7 @@ export default function CustomerInformation(props: Props) {
                             variant="outlined"
                             helperText={(props.values.mobileNumber.error) ? "Enter numbers" : null}
                             inputProps={{
-                                maxlength: 10
+                                maxLength: 10
                             }}
                         />
                     </FormControl>
@@ -114,7 +114,7 @@ export default function CustomerInformation(props: Props) {
                             value={props.values.address.value}
                             onChange={(event) => props.handleInputChange(event, 'address')}
                             inputProps={{
-                                maxlength: 20
+                                maxLength: 20
                             }}
                         />
                     </FormControl>
@@ -130,7 +130,7 @@ export default function CustomerInformation(props: Props) {
                             onChange={(event) => props.handleInputChange(event, 'postal')}
                             helperText={(props.values.postal.error) ? "Enter numbers" : null}
                             inputProps={{
-                                maxlength: 5
+                                maxLength: 5
                             }}
                         />
                     </FormControl>
@@ -146,7 +146,7 @@ export default function CustomerInformation(props: Props) {
                             onChange={(event) => props.handleInputChange(event, 'city')}
                             helperText={(props.values.city.error) ? "Enter letters" : null}
                             inputProps={{
-                                maxlength: 20
+                                maxLength: 20
                             }}
                         />
                     </FormControl>

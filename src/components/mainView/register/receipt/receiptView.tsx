@@ -59,7 +59,7 @@ const ReceiptView = (props: Props) => {
 	return (
 		<Container maxWidth="md" className={classes.container}>
 			{props.receipt ? (
-				<Grid container xs={12}>
+				<Grid container>
 					<Grid item>
 						<Typography variant="h3">Reciept</Typography>
 					</Grid>
@@ -68,8 +68,6 @@ const ReceiptView = (props: Props) => {
 							<Grid
 								container
 								spacing={2}
-								xs={12}
-								md={6}
 								justify="space-evenly"
 								style={{ background: "#0001" }}>
 								<Grid item>
@@ -97,7 +95,7 @@ const ReceiptView = (props: Props) => {
 							<Grid
 								container
 								spacing={2}
-								xs={12}
+								// xs={12}
 								justify="space-between"
 								style={{ marginTop: "1rem" }}>
 								<Grid item>
@@ -194,7 +192,7 @@ const ReceiptView = (props: Props) => {
 									</Typography>
 								</Grid>
 							</Grid>
-							<Grid container spacing={2} xs={12}>
+							<Grid container spacing={2}>
 								<Typography variant="body1" style={{ marginTop: "2rem" }}>
 									item list
 							</Typography>
@@ -212,8 +210,6 @@ const ReceiptView = (props: Props) => {
 							<Grid
 								container
 								spacing={2}
-								xs={12}
-								sm={5}
 								style={{ marginLeft: "auto", padding: "1rem" }}>
 								<Grid item container justify="space-between">
 									<Typography>subtotal:</Typography>

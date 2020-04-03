@@ -87,7 +87,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         label="First name"
                         helperText={(!props.alternate) ? (props.values.firstName.error) ? "Enter letters" : null : (props.values.altFirstName.error) ? "Enter letters" : null}
                         inputProps={{
-                            maxlength: 20
+                            maxLength: 20
                         }}
                     />
                 </FormControl>
@@ -103,7 +103,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         label="Last name"
                         helperText={(!props.alternate) ? (props.values.lastName.error) ? "Enter letters" : null : (props.values.altLastName.error) ? "Enter letters" : null}
                         inputProps={{
-                            maxlength: 20
+                            maxLength: 20
                         }}
                     />
                 </FormControl>
@@ -119,7 +119,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         label="Card number"
                         helperText={(props.values.cardNumber.error) ? "Enter numbers" : null}
                         inputProps={{
-                            maxlength: 16
+                            maxLength: 16
                         }}
                     />
                 </FormControl>
@@ -135,7 +135,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         onChange={(event) => props.handleInputChange(event, 'CVC')}
                         helperText="The last three digits on signature strip"
                         inputProps={{
-                            maxlength: 3
+                            maxLength: 3
                         }}
                     />
                 </FormControl>
@@ -151,7 +151,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         onChange={(event) => props.handleInputChange(event, 'cardMonth')}
                         helperText="month"
                         inputProps={{
-                            maxlength: 2
+                            maxLength: 2
                         }}
                     />
                     <p style={{ margin: '0 .3rem .5rem .3rem', fontSize: '.8rem' }}>/</p>
@@ -163,7 +163,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         onChange={(event) => props.handleInputChange(event, 'cardYear')}
                         helperText="year"
                         inputProps={{
-                            maxlength: 2
+                            maxLength: 2
                         }}
                     />
                 </InputLabel>

@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface Props {
-	receipt: Receipt;
+	receipt: Receipt | null;
 }
 
 const ReceiptView = (props: Props) => {
@@ -43,6 +43,8 @@ const ReceiptView = (props: Props) => {
 
 	return (
 		<Container maxWidth="md" className={classes.container}>
+			{props.receipt ? 
+			
 			<Grid container xs={12}>
 				<Grid item>
 					<Typography variant="h3">Reciept</Typography>
@@ -197,22 +199,27 @@ const ReceiptView = (props: Props) => {
 							style={{ marginLeft: "auto", padding: "1rem" }}>
 							<Grid item container justify="space-between">
 								<Typography>subtotal:</Typography>
-								<Typography>{props.receipt.cost.subtotal}:-</Typography>
+								<Typography>{props.receipt.cost * 0.8}:-</Typography>
 							</Grid>
 							<Grid item container justify="space-between">
 								<Typography>VAT(25%): </Typography>
-								<Typography>{props.receipt.cost.vat}:-</Typography>
+								<Typography>{props.receipt.cost * 0.2}:-</Typography>
 							</Grid>
 							<Grid item container justify="space-between">
 								<Typography>TOTAL: </Typography>
 								<Typography>
-									{props.receipt.cost.subtotal + props.receipt.cost.vat}:-
+									{props.receipt.cost}:-
 								</Typography>
 							</Grid>
 						</Grid>
 					</Grid>
 				</Paper>
 			</Grid>
+			: 
+			<Typography>
+				invalid
+			</Typography>
+			}
 		</Container>
 	);
 };

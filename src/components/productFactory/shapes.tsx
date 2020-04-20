@@ -247,7 +247,7 @@ export function ProductPage(props: Props) {
 				<div style={imgWrapper(props.product.img)}></div>
 			</Grid>
 
-			<Grid item xs={12} sm={6} direction="column">
+			<Grid item xs={12} sm={6}>
 				<Grid container spacing={1}>
 					<Grid item>
 						<Typography variant="h3">{props.product.name}</Typography>

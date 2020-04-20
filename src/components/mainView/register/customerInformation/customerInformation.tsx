@@ -97,7 +97,7 @@ export default function CustomerInformation(props: Props) {
                             value={props.values.mobileNumber.value}
                             onChange={(event) => props.handleInputChange(event, 'mobileNumber')}
                             variant="outlined"
-                            helperText={(props.values.mobileNumber.error) ? "Enter numbers" : null}
+                            helperText={(props.values.mobileNumber.error) ? "Enter numbers (10)" : null}
                             inputProps={{
                                 maxLength: 10
                             }}
@@ -128,7 +128,7 @@ export default function CustomerInformation(props: Props) {
                             label="Postal code"
                             value={props.values.postal.value}
                             onChange={(event) => props.handleInputChange(event, 'postal')}
-                            helperText={(props.values.postal.error) ? "Enter numbers" : null}
+                            helperText={(props.values.postal.error) ? "Enter numbers (5)" : null}
                             inputProps={{
                                 maxLength: 5
                             }}

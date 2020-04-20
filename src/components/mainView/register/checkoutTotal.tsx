@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import {
 	createStyles,
-	makeStyles, 
+	makeStyles,
 	Grid,
 	Typography,
 	Button,
@@ -28,6 +28,7 @@ interface Props {
 	payment: PaymentOption;
 	subPayment: PaymentOption;
 
+	setError: (orderInputs: RegisterInputValues) => void;
 	confirmReceipt: (receipt: Receipt) => void;
 }
 
@@ -163,40 +164,79 @@ export default function CheckoutTotal(props: Props) {
 	}, []);
 
 	const handleConfirmClick = (props: Props) => {
-		if (!loading) {
-			setSuccess(false);
-			setLoading(true);
-			timer.current = setTimeout(() => {
-				setSuccess(true);
-				setLoading(false);
-			}, 3000);
+		const progress = validateInputFields(props)
+
+		console.log(progress);
+
+		if (progress) {
+			if (!loading) {
+				setSuccess(false);
+				setLoading(true);
+				timer.current = setTimeout(() => {
+					setSuccess(true);
+					setLoading(false);
+				}, 3000);
+			}
+	
+			props.confirmReceipt({
+				alternate: props.useAlternate,
+	
+				firstName: props.orderInputs.firstName.value,
+				lastName: props.orderInputs.lastName.value,
+				mobileNumber: props.orderInputs.mobileNumber.value,
+	
+				altFirstName: props.orderInputs.altFirstName.value,
+				altLastName: props.orderInputs.altLastName.value,
+				altMobileNumber: props.orderInputs.altMobileNumber.value,
+	
+				address: props.orderInputs.address.value,
+				postal: props.orderInputs.postal.value,
+				city: props.orderInputs.city.value,
+				cardNumber: props.orderInputs.cardNumber.value,
+	
+				cost: props.itemTotal.totalValue,
+	
+				delivery: props.delivery,
+				payment: props.payment,
+				subPayment: props.subPayment,
+	
+				cart: props.cart
+			});
 		}
 
-		props.confirmReceipt({
-			alternate: props.useAlternate,
-
-			firstName: props.orderInputs.firstName.value,
-			lastName: props.orderInputs.lastName.value,
-			mobileNumber: props.orderInputs.mobileNumber.value,
-
-			altFirstName: props.orderInputs.altFirstName.value,
-			altLastName: props.orderInputs.altLastName.value,
-			altMobileNumber: props.orderInputs.altMobileNumber.value,
-
-			address: props.orderInputs.address.value,
-			postal: props.orderInputs.postal.value,
-			city: props.orderInputs.city.value,
-			cardNumber: props.orderInputs.cardNumber.value,
-
-			cost: props.itemTotal.totalValue,
-
-			delivery: props.delivery,
-			payment: props.payment,
-			subPayment: props.subPayment,
-
-			cart: props.cart
-		});
 	};
+
+	const validateInputFields = (props: Props) => {
+		let shouldProgress = true
+		const inputArray = Object.entries(props.orderInputs)
+		let updatedList: RegisterInputValues = {...props.orderInputs}
+
+		inputArray.forEach(input => {
+			if (
+				((props.payment.name === "Card") &&
+					((input[0] === 'CVC' && input[1].value.length != 3) ||
+					(input[0] === 'cardNumber' && input[1].value.length != 16) ||
+					((input[0] === 'cardMonth' || input[0] === 'cardYear') && input[1].value.length != 2) ||
+					(props.useAlternate &&
+						(input[0] === 'altFirstName' || input[0] === 'altLastName') && input[1].value.length === 0))) ||
+				((props.payment.name === "Swish" && props.useAlternate) &&
+					(input[0] === 'altMobileNumber' && input[1].value.length != 10)) ||
+				(input[0] === 'firstName' && input[1].value.length === 0) ||
+				(input[0] === 'lastName' && input[1].value.length === 0) ||
+				(input[0] === 'mobileNumber' && input[1].value.length != 10) ||
+				(input[0] === 'address' && input[1].value.length === 0) ||
+				(input[0] === 'postal' && input[1].value.length != 5) ||
+				(input[0] === 'city' && input[1].value.length === 0)
+			) {
+				updatedList[input[0]].error = true
+				shouldProgress = false
+			}
+		})
+		if (!shouldProgress) {
+			props.setError(updatedList)
+		}
+		return shouldProgress
+	}
 
 	return (
 		<>
@@ -246,11 +286,11 @@ export default function CheckoutTotal(props: Props) {
 						</Typography>
 					) : null}
 					{props.payment.name === "Klarna" &&
-					typeof props.subPayment.price != "string" ? (
-						<Typography variant="body1">
-							{`Payment fee: +${props.subPayment.price.toFixed(2)}:-`}
-						</Typography>
-					) : null}
+						typeof props.subPayment.price != "string" ? (
+							<Typography variant="body1">
+								{`Payment fee: +${props.subPayment.price.toFixed(2)}:-`}
+							</Typography>
+						) : null}
 				</Grid>
 				<Grid
 					item
@@ -265,7 +305,7 @@ export default function CheckoutTotal(props: Props) {
 							typeof props.delivery.price === "number"
 								? calculateTotal(props)
 								: "Not completed"
-						}`}
+							}`}
 					</Typography>
 				</Grid>
 				<Grid
@@ -276,34 +316,34 @@ export default function CheckoutTotal(props: Props) {
 					alignItems="center"
 					justify="center">
 					{checkDelivery(props) &&
-					checkPayment(props) &&
-					!checkErrorsInInfo(props) &&
-					!checkErrorsInPay(props) ? (
-						<div className={classes.wrapper}>
+						checkPayment(props) &&
+						!checkErrorsInInfo(props) &&
+						!checkErrorsInPay(props) ? (
+							<div className={classes.wrapper}>
+								<Button
+									variant="contained"
+									color="primary"
+									className={buttonClassname}
+									disabled={loading}
+									onClick={() => handleConfirmClick(props)}>
+									confirm
+							</Button>
+								{loading && (
+									<CircularProgress
+										size={24}
+										className={classes.buttonProgress}
+									/>
+								)}
+							</div>
+						) : (
 							<Button
+								disabled
 								variant="contained"
 								color="primary"
-								className={buttonClassname}
-								disabled={loading}
-								onClick={() => handleConfirmClick(props)}>
+								style={{ padding: ".5rem 2rem", margin: "3rem" }}>
 								confirm
 							</Button>
-							{loading && (
-								<CircularProgress
-									size={24}
-									className={classes.buttonProgress}
-								/>
-							)}
-						</div>
-					) : (
-						<Button
-							disabled
-							variant="contained"
-							color="primary"
-							style={{ padding: ".5rem 2rem", margin: "3rem" }}>
-							confirm
-						</Button>
-					)}
+						)}
 				</Grid>
 			</Grid>
 		</>

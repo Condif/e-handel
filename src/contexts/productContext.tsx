@@ -161,7 +161,9 @@ export class ProductProvider extends React.Component<Props, State> {
 			cart: JSON.parse((window as any).localStorage.cart || "[]")
 		});
 
-		if ((window as any).localStorage.products === "[]") {
+		if (
+			!(window as any).localStorage.products ||
+			(window as any).localStorage.products === "[]") {
 			this.setState({
 				products: ProductList
 			});

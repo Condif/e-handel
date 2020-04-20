@@ -12,6 +12,7 @@ import { DeliveryOption, baseDelivery } from "./deliveryOptions/deliveryAPI";
 import { PaymentOption, basePayment } from "./paymentOptions/paymentAPI";
 import { Product, Receipt } from "../../../interfaces&types/interfaces";
 import { Link } from "react-router-dom";
+import { RegisterInputValues } from "./registerAPI";
 
 interface Props {
 	confirmReceipt: (receipt: Receipt) => void;
@@ -161,8 +162,11 @@ export default function Register(props: Props) {
 		});
 	};
 
+	const setErrorToInput = (orderInputs: RegisterInputValues) => {
+		setInputValues(orderInputs)
+	}
+
 	const validateInputs = (value: string, letter: boolean): boolean => {
-		console.log(letter);
 
 		if (letter) {
 			if (value.match(/^[A-ZÅÄÖa-zåäö]+$/)) {
@@ -246,8 +250,8 @@ export default function Register(props: Props) {
 													delivery={deliveryOption}
 													payment={paymentOption}
                                                     subPayment={subPayment}
-                                                    
-                                                    confirmReceipt={props.confirmReceipt}
+													confirmReceipt={props.confirmReceipt}
+													setError={setErrorToInput}
 												/>
 											</div>
 										)}

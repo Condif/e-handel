@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import ProductFactory from "../../../productFactory/productFactory";
 import { Receipt } from "../../../../interfaces&types/interfaces";
-import GetDeliveryDate, { baseDelivery } from "../deliveryOptions/deliveryAPI";
+import GetDeliveryDate from "../deliveryOptions/deliveryAPI";
 import { Redirect } from "react-router";
 import { basePayment } from "../paymentOptions/paymentAPI";
 
@@ -49,7 +49,7 @@ const ReceiptView = (props: Props) => {
 			if (typeof props.receipt.delivery.price === 'number') {
 				total += props.receipt.delivery.price
 			}
-			if (props.receipt.subPayment != basePayment && typeof props.receipt.subPayment.price === 'number') {
+			if (props.receipt.subPayment !== basePayment && typeof props.receipt.subPayment.price === 'number') {
 				total += props.receipt.subPayment.price
 			}
 			return total
@@ -152,7 +152,7 @@ const ReceiptView = (props: Props) => {
 									{/*- - - - SWISH - - - -*/}
 									{props.receipt.payment.name === "swish" ? (
 										<Typography variant="subtitle2">
-											{props.receipt.altMobileNumber !=
+											{props.receipt.altMobileNumber !==
 												props.receipt.mobileNumber
 												? props.receipt.altMobileNumber
 												: props.receipt.mobileNumber}
@@ -226,7 +226,7 @@ const ReceiptView = (props: Props) => {
 									</Grid>
 									: null
 								}
-								{(props.receipt.subPayment != basePayment && typeof props.receipt.subPayment.price === 'number') ?
+								{(props.receipt.subPayment !== basePayment && typeof props.receipt.subPayment.price === 'number') ?
 									<Grid item container justify="space-between">
 										<Typography>Payment fee: </Typography>
 										<Typography>{(props.receipt.subPayment.price).toFixed(2)}:-</Typography>

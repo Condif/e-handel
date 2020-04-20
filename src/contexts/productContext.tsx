@@ -189,10 +189,10 @@ export class ProductProvider extends React.Component<Props, State> {
 	editItem = (oldItem: Product, updatedItem: NewProduct) => {
 		const updatedProductList = this.state.products;
 		const editedItem: Product = {
-			name: updatedItem.name != "" ? updatedItem.name : oldItem.name,
-			desc: updatedItem.desc != "" ? updatedItem.desc : oldItem.desc,
-			img: updatedItem.img != "" ? updatedItem.img : oldItem.img,
-			price: updatedItem.price != 0 ? updatedItem.price : oldItem.price,
+			name: updatedItem.name !== "" ? updatedItem.name : oldItem.name,
+			desc: updatedItem.desc !== "" ? updatedItem.desc : oldItem.desc,
+			img: updatedItem.img !== "" ? updatedItem.img : oldItem.img,
+			price: updatedItem.price !== 0 ? updatedItem.price : oldItem.price,
 			serial: oldItem.serial
 		};
 

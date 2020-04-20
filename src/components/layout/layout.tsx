@@ -7,11 +7,7 @@ import Topbar from "../topbar/topbar";
 import { ProductContext } from "../../contexts/productContext";
 
 function Layout() {
-	const [register, setRegister] = React.useState(false);
 
-	const setRegisterValue = (value: boolean) => {
-		setRegister(value);
-	};
 	//State for alert
 	const [open, setOpen] = React.useState(false);
 
@@ -61,7 +57,6 @@ function Layout() {
 				{value => (
 					<MainView
 						clearCart={value.clearCart}
-						setRegisterValue={setRegisterValue}
 						handleClose={handleClose}
 						handleClick={handleClick}
 					/>
@@ -71,7 +66,6 @@ function Layout() {
 			<Cart
 				isOpen={drawer}
 				toggleDrawer={toggleDrawer}
-				setRegisterOpen={setRegisterValue}
 			/>
 		</div>
 	);

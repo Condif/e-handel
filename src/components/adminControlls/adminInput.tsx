@@ -39,10 +39,10 @@ function AdminInput(props: Props) {
 
 	if (
 		props.mode === "add" &&
-		props.hook.name != undefined &&
-		props.hook.desc != undefined &&
-		props.hook.img != undefined &&
-		props.hook.price != undefined
+		props.hook.name !== undefined &&
+		props.hook.desc !== undefined &&
+		props.hook.img !== undefined &&
+		props.hook.price !== undefined
 	) {
 		props?.formHook(true);
 	}

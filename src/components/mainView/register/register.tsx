@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Typography, Grid, Paper, Button } from "@material-ui/core";
 import ShoppingCartRoundedIcon from "@material-ui/icons/ShoppingCartRounded";
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,7 +16,6 @@ import { RegisterInputValues } from "./registerAPI";
 
 interface Props {
 	confirmReceipt: (receipt: Receipt) => void;
-	setRegisterValue: (value: boolean) => void;
 	productList: { product: Product; amount: number }[];
 }
 
@@ -105,10 +104,6 @@ export default function Register(props: Props) {
 	});
 	const [useAltValues, setUseAltValues] = React.useState(false);
 
-	useEffect(() => {
-		props.setRegisterValue(true);
-	});
-
 	const handleAlternateInput = () => {
 		setUseAltValues(!useAltValues);
 	};
@@ -195,7 +190,7 @@ export default function Register(props: Props) {
 
 	return (
 		<>
-			{props.productList.length != 0 ? (
+			{props.productList.length !== 0 ? (
 				<Container maxWidth="md" className={classes.wrapper}>
 					<Typography variant="h3" className={classes.title} component="h1">
 						Checkout <ShoppingCartRoundedIcon fontSize="large" />

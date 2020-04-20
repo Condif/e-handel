@@ -165,8 +165,6 @@ export default function CheckoutTotal(props: Props) {
 	const handleConfirmClick = (props: Props) => {
 		const progress = validateInputFields(props)
 
-		console.log(progress);
-
 		if (progress) {
 			if (!loading) {
 				setSuccess(false);

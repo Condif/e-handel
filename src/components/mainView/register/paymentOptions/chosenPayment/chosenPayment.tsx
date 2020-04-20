@@ -1,6 +1,6 @@
 import React from 'react'
-import { PaymentTypes, PaymentOption } from '../paymentAPI'
-import { Container, makeStyles, Theme, Typography, TextField, MenuItem, FormControl, Grid, InputLabel } from '@material-ui/core'
+import { PaymentOption } from '../paymentAPI'
+import { Container, makeStyles, Theme, Typography, TextField, FormControl, Grid, InputLabel } from '@material-ui/core'
 import StoreRoundedIcon from '@material-ui/icons/StoreRounded';
 import Swishlogo from '../../../../../assets/swish.png'
 import PayPallogo from '../../../../../assets/paypal.png'
@@ -117,7 +117,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         value={props.values.cardNumber.value}
                         onChange={(event) => props.handleInputChange(event, 'cardNumber')}
                         label="Card number"
-                        helperText={(props.values.cardNumber.error) ? "Enter numbers" : null}
+                        helperText={(props.values.cardNumber.error) ? "Enter numbers (16)" : null}
                         inputProps={{
                             maxLength: 16
                         }}
@@ -149,7 +149,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         required
                         value={props.values.cardMonth.value}
                         onChange={(event) => props.handleInputChange(event, 'cardMonth')}
-                        helperText="month"
+                        helperText="month (2)"
                         inputProps={{
                             maxLength: 2
                         }}
@@ -161,7 +161,7 @@ const generateCardInputs = (classes: any, props: Props) => {
                         required
                         value={props.values.cardYear.value}
                         onChange={(event) => props.handleInputChange(event, 'cardYear')}
-                        helperText="year"
+                        helperText="year (2)"
                         inputProps={{
                             maxLength: 2
                         }}
@@ -184,6 +184,7 @@ const generateSwishInput = (classes: any, props: Props) => {
                     value={(!props.alternate) ? props.values.mobileNumber.value : props.values.altMobileNumber.value}
                     onChange={(event) => props.handleInputChange(event, `${(!props.alternate) ? "mobileNumber" : "altMobileNumber"}`)}
                     label="Your mobile number"
+                    helperText={(!props.alternate) ? (props.values.mobileNumber.error) ? "Enter numbers (10)" : null : (props.values.altMobileNumber.error) ? "Enter numbers (10)" : null}
                 />
             </FormControl>
         </div>

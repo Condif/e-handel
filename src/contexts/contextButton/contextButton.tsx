@@ -16,7 +16,6 @@ import {
 	Paper,
 	Typography,
 	Grid,
-	IconButton
 } from "@material-ui/core";
 import AdminInput from "../../components/adminControlls/adminInput";
 import { NewProduct } from "../../interfaces&types/interfaces";

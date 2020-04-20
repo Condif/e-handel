@@ -12,7 +12,6 @@ interface Props {
 	clearCart: () => void;
 	handleClick?: () => void;
 	handleClose?: () => void;
-	setRegisterValue: (value: boolean) => void;
 }
 interface State {
 	receipt: Receipt | null;
@@ -85,7 +84,6 @@ class MainView extends React.Component<Props, State> {
 						<ProductContext.Consumer>
 							{value => (
 								<Register
-									setRegisterValue={this.props.setRegisterValue}
 									productList={value.cart}
 									confirmReceipt={this.handleConfirmReceipt}
 								/>

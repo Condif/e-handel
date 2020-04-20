@@ -3,7 +3,6 @@ import {
 	Drawer,
 	makeStyles,
 	Typography,
-	Grid,
 	createStyles,
 	Theme,
 	Button
@@ -105,7 +104,6 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
 	isOpen?: boolean;
 	toggleDrawer: (anchor: string, open: boolean) => void;
-	setRegisterOpen: (value: boolean) => void;
 }
 export default function Cart(props: Props) {
 	const classes = useStyles();
@@ -114,7 +112,7 @@ export default function Cart(props: Props) {
 		<ProductContext.Consumer>
 			{value => (
 				<div className={classes.list} role="presentation">
-					{value.cart.length != 0
+					{value.cart.length !== 0
 						? value.cart.map(item => (
 								<ProductFactory
 									key={item.product.serial}
@@ -131,7 +129,6 @@ export default function Cart(props: Props) {
 
 	const buyButtonClick = () => {
 		props.toggleDrawer("right", false);
-		props.setRegisterOpen(true);
 	};
 
 	const noItems = (classes: any) => {
@@ -150,7 +147,7 @@ export default function Cart(props: Props) {
 			{value => (
 				<div className={classes.totalWrapper}>
 					<TotalDisplay itemTotal={value.itemTotal} />
-					{value.itemTotal.itemAmount != 0 ? (
+					{value.itemTotal.itemAmount !== 0 ? (
 						<Link className={classes.buyButton} to="/register">
 							<Button
 								variant="contained"

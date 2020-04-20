@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Typography, Grid, Paper, Button } from "@material-ui/core";
 import ShoppingCartRoundedIcon from "@material-ui/icons/ShoppingCartRounded";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,10 +12,10 @@ import { DeliveryOption, baseDelivery } from "./deliveryOptions/deliveryAPI";
 import { PaymentOption, basePayment } from "./paymentOptions/paymentAPI";
 import { Product, Receipt } from "../../../interfaces&types/interfaces";
 import { Link } from "react-router-dom";
+import { RegisterInputValues } from "./registerAPI";
 
 interface Props {
 	confirmReceipt: (receipt: Receipt) => void;
-	setRegisterValue: (value: boolean) => void;
 	productList: { product: Product; amount: number }[];
 }
 
@@ -104,10 +104,6 @@ export default function Register(props: Props) {
 	});
 	const [useAltValues, setUseAltValues] = React.useState(false);
 
-	useEffect(() => {
-		props.setRegisterValue(true);
-	});
-
 	const handleAlternateInput = () => {
 		setUseAltValues(!useAltValues);
 	};
@@ -161,8 +157,11 @@ export default function Register(props: Props) {
 		});
 	};
 
+	const setErrorToInput = (orderInputs: RegisterInputValues) => {
+		setInputValues(orderInputs)
+	}
+
 	const validateInputs = (value: string, letter: boolean): boolean => {
-		console.log(letter);
 
 		if (letter) {
 			if (value.match(/^[A-ZÅÄÖa-zåäö]+$/)) {
@@ -191,7 +190,7 @@ export default function Register(props: Props) {
 
 	return (
 		<>
-			{props.productList.length != 0 ? (
+			{props.productList.length !== 0 ? (
 				<Container maxWidth="md" className={classes.wrapper}>
 					<Typography variant="h3" className={classes.title} component="h1">
 						Checkout <ShoppingCartRoundedIcon fontSize="large" />
@@ -246,8 +245,8 @@ export default function Register(props: Props) {
 													delivery={deliveryOption}
 													payment={paymentOption}
                                                     subPayment={subPayment}
-                                                    
-                                                    confirmReceipt={props.confirmReceipt}
+													confirmReceipt={props.confirmReceipt}
+													setError={setErrorToInput}
 												/>
 											</div>
 										)}

@@ -1,10 +1,8 @@
 import React from 'react'
-import { Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { ProductContext } from '../../../../contexts/productContext';
 import ProductFactory from '../../../productFactory/productFactory';
 import { Product } from '../../../../interfaces&types/interfaces';
-import { ProductList } from '../../../productsAPI/productsAPI';
 
 interface Props {
     productList: { product: Product, amount: number }[]

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, List } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import GetDeliveryDate, { DeliveryTypes, DeliveryOption, baseDelivery} from './deliveryAPI'
+import GetDeliveryDate, { DeliveryTypes, DeliveryOption } from './deliveryAPI'
 import RegisterListItem from '../registerListItem/registerListItem';
 import { PaymentOption } from '../paymentOptions/paymentAPI';
 

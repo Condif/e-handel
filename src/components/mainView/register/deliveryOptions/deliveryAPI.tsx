@@ -1,6 +1,4 @@
 import { RegisterAPI } from "../registerAPI"
-import React from 'react'
-import RegisterListItem from "../registerListItem/registerListItem";
 
 export interface DeliveryOption extends RegisterAPI {
     type: 'del',
@@ -58,7 +56,7 @@ export default function GetDeliveryDate(delivery: number) {
     }
 
 
-    if (month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12 && newDate > 31) {
+    if ((month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12) && newDate > 31) {
         newDate -= 31
         newMonth += 1
     } 

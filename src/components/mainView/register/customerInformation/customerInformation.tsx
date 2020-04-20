@@ -61,7 +61,6 @@ export default function CustomerInformation(props: Props) {
                         <TextField
                             required
                             error={props.values.firstName.error}
-                            // id="standard-required"
                             label="First name"
                             value={props.values.firstName.value}
                             onChange={(event) => props.handleInputChange(event, 'firstName')}
@@ -77,7 +76,6 @@ export default function CustomerInformation(props: Props) {
                         <TextField
                             required
                             error={props.values.lastName.error}
-                            id="standard-required"
                             value={props.values.lastName.value}
                             label="Last name"
                             onChange={(event) => props.handleInputChange(event, 'lastName')}
@@ -97,7 +95,7 @@ export default function CustomerInformation(props: Props) {
                             value={props.values.mobileNumber.value}
                             onChange={(event) => props.handleInputChange(event, 'mobileNumber')}
                             variant="outlined"
-                            helperText={(props.values.mobileNumber.error) ? "Enter numbers" : null}
+                            helperText={(props.values.mobileNumber.error) ? "Enter numbers (10)" : null}
                             inputProps={{
                                 maxLength: 10
                             }}
@@ -109,7 +107,6 @@ export default function CustomerInformation(props: Props) {
                         <TextField
                             required
                             error={props.values.address.error}
-                            id="outlined-required"
                             label="Address"
                             value={props.values.address.value}
                             onChange={(event) => props.handleInputChange(event, 'address')}
@@ -124,11 +121,10 @@ export default function CustomerInformation(props: Props) {
                         <TextField
                             required
                             error={props.values.postal.error}
-                            id="outlined-number"
                             label="Postal code"
                             value={props.values.postal.value}
                             onChange={(event) => props.handleInputChange(event, 'postal')}
-                            helperText={(props.values.postal.error) ? "Enter numbers" : null}
+                            helperText={(props.values.postal.error) ? "Enter numbers (5)" : null}
                             inputProps={{
                                 maxLength: 5
                             }}
@@ -140,7 +136,6 @@ export default function CustomerInformation(props: Props) {
                         <TextField
                             required
                             error={props.values.city.error}
-                            id="outlined-required"
                             label="City"
                             value={props.values.city.value}
                             onChange={(event) => props.handleInputChange(event, 'city')}

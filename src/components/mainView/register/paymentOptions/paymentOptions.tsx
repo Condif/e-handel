@@ -1,6 +1,6 @@
 import React from 'react'
-import { Typography, makeStyles, Theme, Grid, FormControlLabel, Switch } from '@material-ui/core'
-import { PaymentTypes, PaymentOption, basePayment } from './paymentAPI';
+import { Typography, makeStyles, Theme, Grid } from '@material-ui/core'
+import { PaymentTypes, PaymentOption } from './paymentAPI';
 import RegisterListItem from '../registerListItem/registerListItem';
 import ChosenPayment from './chosenPayment/chosenPayment';
 import { DeliveryOption } from '../deliveryOptions/deliveryAPI';
